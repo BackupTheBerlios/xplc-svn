@@ -177,7 +177,7 @@ AC_SUBST(with_dlopen)
 AC_SUBST(so_style)
 AC_SUBST(CVS2CL)
 
-AC_CONFIG_FILES([config/config.mk dist/xplc.pc dist/xplc-uninstalled.pc])
+AC_CONFIG_FILES([config/config.mk dist/xplc.pc dist/xplc-uninstalled.pc examples/simple-module/Makefile examples/simple-module-user/Makefile])
 AC_CONFIG_HEADERS([include/autoconf.h])
 
 AC_OUTPUT
