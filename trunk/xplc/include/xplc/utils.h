@@ -24,6 +24,11 @@
 #ifndef __XPLC_UTILS_H__
 #define __XPLC_UTILS_H__
 
+/** \file
+ *
+ * Various utility functions, macros and templates.
+ */
+
 #include <stddef.h>
 #include <xplc/IWeakRef.h>
 #include <xplc/IFactory.h>
