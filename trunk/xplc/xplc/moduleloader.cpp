@@ -58,6 +58,37 @@ UUID_MAP_BEGIN(ModuleLoader)
   UUID_MAP_ENTRY(IModuleLoader)
   UUID_MAP_END
 
+struct ModuleNode {
+  ModuleNode* next;
+  const XPLC_ModuleInfo* info;
+  void* dlh;
+  ModuleNode(const XPLC_ModuleInfo* aInfo, void* aDlh, ModuleNode* aNext):
+    next(aNext), info(aInfo), dlh(aDlh) {
+  }
+  ~ModuleNode() {
+    if(dlh)
+      loaderClose(dlh);
+  }
+};
+
+IObject* getModuleObject(const XPLC_ComponentEntry* components,
+                         const UUID& uuid) {
+  IObject* obj = 0;
+
+  if(components) {
+    const XPLC_ComponentEntry* entry = components;
+
+    while(!obj && entry->uuid != UUID_null) {
+      if(entry->uuid == uuid)
+        obj = entry->getObject();
+
+      ++entry;
+    }
+  }
+    
+  return obj;
+}
+
 ModuleLoader::~ModuleLoader() {
   ModuleNode* next;
   void* dlh;
@@ -66,22 +97,21 @@ ModuleLoader::~ModuleLoader() {
     dlh = modules->dlh;
     next = modules->next;
     delete modules;
-    loaderClose(dlh);
     modules = next;
   }
 }
 
 IObject* ModuleLoader::getObject(const UUID& uuid)
 {
-  ModuleNode* module = modules;
-  IObject* obj = 0;
+  ModuleNode* node = modules;
 
-  while(module) {
-    if(module->module)
-      obj = module->module->getObject(uuid);
+  while(node) {
+    IObject* obj = getModuleObject(node->info->components, uuid);
 
     if(obj)
       return obj;
+
+    node = node->next;
   }
 
   return 0;
@@ -120,13 +150,28 @@ void ModuleLoader::setModuleDirectory(const char* directory)
 		       reinterpret_cast<void**>(&moduleinfo));
     if(err
        || !moduleinfo
-       || moduleinfo->version != XPLC_MODULE_VERSION
-       || !moduleinfo->module) {
+       || moduleinfo->magic != XPLC_MODULE_MAGIC) {
       loaderClose(dlh);
       continue;
     }
 
-    newmodule = new ModuleNode(moduleinfo->module, dlh, modules);
+    switch(moduleinfo->version_major) {
+#ifdef UNSTABLE
+    case -1:
+      /* nothing to do */
+      break;
+#endif
+    default:
+      loaderClose(dlh);
+      continue;
+  };
+
+    if(moduleinfo->loadModule && !moduleinfo->loadModule()) {
+      loaderClose(dlh);
+      continue;
+    }
+
+    newmodule = new ModuleNode(moduleinfo, dlh, modules);
     if(newmodule)
       modules = newmodule;
   }
@@ -187,7 +232,7 @@ void ModuleLoader::setModuleDirectory(const char* directory)
       continue;
     }
 
-    newmodule = new ModuleNode(moduleinfo->module, dlh, modules);
+    newmodule = new ModuleNode(moduleinfo, dlh, modules);
     if(newmodule)
       modules = newmodule;
   }
