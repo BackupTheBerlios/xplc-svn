@@ -22,6 +22,8 @@
 #ifndef __XPLC_PTR_H__
 #define __XPLC_PTR_H__
 
+#include <assert.h>
+#include <xplc/IObject.h>
 
 #ifndef UNSTABLE
 #error "xplc_ptr is experimental!"
@@ -36,6 +38,18 @@ public:
 
 template<class T> already_addrefed dont_addref(T* obj) {
   return already_addrefed(obj);
+}
+
+
+class want_to_keep {
+public:
+  IObject* ptr;
+  want_to_keep(IObject* obj): ptr(obj) {}
+};
+
+
+template<class T> want_to_keep dont_release(T* obj) {
+  return want_to_keep(obj);
 }
 
 
@@ -72,6 +86,18 @@ public:
 
   xplc_ptr(IObject* obj): ptr(0) {
     set(obj);
+    if(obj)
+      obj->release();
+  }
+
+  xplc_ptr(already_addrefed obj): ptr(0) {
+    set(obj.ptr);
+    if(obj.ptr)
+      obj.ptr->release();
+  }
+
+  xplc_ptr(want_to_keep obj): ptr(0) {
+    set(obj.ptr);
   }
 
   ~xplc_ptr() {
@@ -81,13 +107,20 @@ public:
 
   xplc_ptr<T>& operator=(IObject* obj) {
     set(obj);
+    if(obj)
+      obj->release();
     return *this;
   }
 
   xplc_ptr<T>& operator=(already_addrefed obj) {
     set(obj.ptr);
-    if(ptr)
-      ptr->release();
+    if(obj.ptr)
+      obj.ptr->release();
+    return *this;
+  }
+
+  xplc_ptr<T>& operator=(want_to_keep obj) {
+    set(obj.ptr);
     return *this;
   }
 
@@ -103,11 +136,12 @@ public:
     return ptr;
   }
 
-  operator already_addrefed() {
-    if(ptr)
-      ptr->addRef();
+  operator want_to_keep() {
+    return want_to_keep(ptr);
+  }
 
-    return already_addrefed(ptr);
+  operator bool() {
+    return ptr;
   }
 };
 
