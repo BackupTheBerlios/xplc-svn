@@ -34,7 +34,7 @@
 #define UNSTABLE
 #endif
 
-#if defined(HAVE_DLOPEN) || defined(WIN32)
+#if defined(WITH_DLOPEN) || defined(WIN32)
 #define HAVE_DYNAMIC_LOADING
 #endif
 
