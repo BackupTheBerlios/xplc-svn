@@ -31,6 +31,8 @@
  * Verifies the moniker facility
  */
 
+#include <xplc/trace.h>
+
 void test() {
   IServiceManager* servmgr;
   IStaticServiceHandler* handler;
@@ -47,33 +49,42 @@ void test() {
   handler = mutate<IStaticServiceHandler>(obj);
   ASSERT(handler != 0, "static service handler does not have the IStaticServiceHandler interface");
 
-  test = new TestObject;
+  test = new TraceComponent<TestObject>;
   ASSERT(test != 0, "could not create TestObject");
+  test->addRef();
 
   handler->addObject(TestObject_CID, test);
   VERIFY(servmgr->getObject(TestObject_CID) == test, "adding the test object did not work");
-  VERIFY(test->release() == 1, "incorrect refcount on test object");
-
-  VERIFY(handler->release() == 2, "incorrect refcount on static service handler");
+  VERIFY(test->release() == 2, "incorrect refcount on test object");
 
   obj = servmgr->getObject(XPLC::monikers);
   ASSERT(obj != 0, "could not obtain moniker component");
   
   monikers = mutate<IMonikerService>(obj);
   ASSERT(monikers != 0, "moniker service does not have the IMoniker interface");
-
+  monikers->registerObject("moniker", XPLC::monikers);
   monikers->registerObject("testobject", TestObject_CID);
-
-  /* FIXME: should test for resolving sub-monikers. */
 
   obj = monikers->resolve("testobject");
   ASSERT(obj != 0, "resolving the test object returned nothing");
   ASSERT(obj == test, "the testobject moniker resolved to something else than the test object");
-  VERIFY(obj->release() == 1, "refcount is wrong on the test object");
+  VERIFY(obj->release() == 2, "refcount is wrong on the test object");
+
+  obj = monikers->resolve("moniker:testobject");
+  ASSERT(obj != 0, "resolving the test object indirectly returned nothing");
+  ASSERT(obj == test, "the testobject moniker indirectly resolved to something else than the test object");
+  VERIFY(obj->release() == 2, "refcount is wrong on the test object");
+
+  obj = monikers->resolve("moniker:");
+  VERIFY(obj == 0, "resolving an empty sub-moniker returned something");
 
   VERIFY(monikers->release() == 1, "incorrect refcount on moniker service");
 
+  VERIFY(handler->release() == 2, "incorrect refcount on static service handler");
+
   servmgr->shutdown();
   VERIFY(servmgr->release() == 0, "service manager has non-zero refcount after shutdown/release");
+
+  VERIFY(test->release() == 0, "refcount is wrong on the test object");
 }
 

@@ -2,6 +2,7 @@
  *
  * XPLC - Cross-Platform Lightweight Components
  * Copyright (C) 2002, Net Integration Technologies, Inc.
+ * Copyright (C) 2002, Pierre Phaneuf
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public License
@@ -22,6 +23,8 @@
 #include <xplc/xplc.h>
 #include <xplc/utils.h>
 #include "monikers.h"
+
+#define MONIKER_SEPARATOR_CHAR ':'
 
 MonikerService* MonikerService::create() {
   return new GenericComponent<MonikerService>;
@@ -64,30 +67,53 @@ IObject* MonikerService::resolve(const char* aName) {
   MonikerNode* node;
   IServiceManager* servmgr;
   IObject* obj = 0;
+  IMoniker* moniker;
+  char* name = strdup(aName);
+  char* rest = strchr(name, MONIKER_SEPARATOR_CHAR);
 
   node = monikers;
 
+  if(rest) {
+    *rest = 0;
+    ++rest;
+  }
+
   while(node) {
-    if(strcmp(aName, node->name) == 0) {
+    if(strcmp(name, node->name) == 0) {
       servmgr = XPLC::getServiceManager();
-      if(servmgr) {
-        obj = servmgr->getObject(node->uuid);
-        servmgr->release();
+      if(!servmgr)
+        break;
+
+      obj = servmgr->getObject(node->uuid);
+      servmgr->release();
+
+      if(rest) {
+        moniker = mutate<IMoniker>(obj);
+        if(moniker) {
+          obj = moniker->resolve(rest);
+          moniker->release();
+        } else
+          obj = 0;
       }
-      return obj;
+
+      break;
     }
 
     node = node->next;
   }
 
-  /*
-   * No match was found, we return empty-handed.
-   */
-  return 0;
+  free(name);
+
+  return obj;
 }
 
 void MonikerService::registerObject(const char* aName, const UUID& aUuid) {
   MonikerNode* node;
+
+  /*
+   * FIXME: we should do something about registering a name that
+   * contains the separator character.
+   */
 
   node = monikers;
 
@@ -100,7 +126,7 @@ void MonikerService::registerObject(const char* aName, const UUID& aUuid) {
 
   /*
    * FIXME: maybe add a "replace" bool parameter? Or would this
-   * encourage UUID hijacking too much?
+   * encourage moniker hijacking too much?
    */
   if(node)
     return;
