@@ -35,7 +35,7 @@
  */
 
 void test004() {
-#ifdef HAVE_DYNAMIC_LOADING
+#ifdef ENABLE_LOADER
   IServiceManager* servmgr;
   IFactory* loaderfactory;
   IObject* obj;

@@ -21,7 +21,11 @@
 
 .PHONY: tests
 
+ifeq ("$(enable_loader)", "no")
+tests: tests/testmain
+else
 tests: tests/testmain tests/testobj.dll
+endif
 	@echo "Running tests:"
 	@cd tests && ./testmain
 

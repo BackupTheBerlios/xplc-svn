@@ -30,3 +30,9 @@ else
 libxplc.so: SONAME:=libxplc.so.$(PACKAGE_VERSION)-unstable
 endif
 
+ifneq ("$(enable_loader)", "no")
+ifneq ("$(with_dlopen)", "no")
+libxplc.so: LDFLAGS+=-ldl
+endif
+endif
+

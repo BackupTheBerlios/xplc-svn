@@ -28,7 +28,7 @@
 #include <dlfcn.h>
 #endif
 
-#ifdef WITH_DLOPEN
+#if defined(WITH_DLOPEN) && defined(ENABLE_LOADER)
 const char* loaderOpen(const char* aFilename,
 		       void** aHandle) {
   const char* rv = 0;
