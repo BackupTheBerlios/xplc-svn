@@ -1,5 +1,5 @@
 # XPLC - Cross-Platform Lightweight Components
-# Copyright (C) 2000-2002, Pierre Phaneuf
+# Copyright (C) 2000-2003, Pierre Phaneuf
 # Copyright (C) 2002, Net Integration Technologies, Inc.
 #
 # This library is free software; you can redistribute it and/or modify
@@ -24,6 +24,10 @@
 %.o: %.cpp
 	@$(COMPILE.cpp) -M -E $< | sed -e 's|^.*:|$@:|' > $(dir $@).$(notdir $(@:.o=.d))
 	$(COMPILE.cpp) $(OUTPUT_OPTION) $<
+
+%.s: %.cpp
+	@$(COMPILE.cpp) -M -E $< | sed -e 's|^.*:|$@:|' > $(dir $@).$(notdir $(@:.s=.d))
+	$(COMPILE.cpp) $(OUTPUT_OPTION) -S $<
 
 %: %.o
 	$(LINK.cc) $^ $(LOADLIBES) $(LDLIBS) -o $@
