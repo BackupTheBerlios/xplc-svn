@@ -27,10 +27,26 @@ REALCLEAN:=
 
 CXXDEPS:=
 
-CXXFLAGS=-Wall -pedantic -pipe -Iinclude -fno-rtti -fno-exceptions @CXXFLAGS@
+CXXFLAGS=-pipe -Iinclude @CXXFLAGS@
 
-ifeq ("@debug@", "yes")
+ifeq ("@enable_debug@", "yes")
 CXXFLAGS+=-ggdb
+endif
+
+ifneq ("@enable_optimization@", "no")
+CXXFLAGS+=-O2
+endif
+
+ifneq ("@enable_warnings@", "no")
+CXXFLAGS+=-pedantic -Wall -Wold-style-cast -Woverloaded-virtual
+endif
+
+ifneq ("@enable_rtti@", "yes")
+CXXFLAGS+=-fno-rtti
+endif
+
+ifneq ("@enable_exceptions@", "yes")
+CXXFLAGS+=-fno-exceptions
 endif
 
 .PHONY: test
