@@ -1,9 +1,11 @@
 New in 0.1.3
 ------------
 
+ * Added an "uninstall" make target.
  * Added a platform-independent dlopen/LoadLibrary abstraction.
  * Changed the simple dynamic loader so that it does not require a
    different binary interface from modules.
+ * Started laying down a binary interface for modules.
  * Improved testing suite.
 
 New in 0.1.2
