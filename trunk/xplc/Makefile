@@ -28,7 +28,7 @@ include config/version.mk
 -include config/config.mk
 
 DISTCLEAN+=config.cache config.log config.status
-REALCLEAN+=configure
+REALCLEAN+=configure README
 
 include $(wildcard */vars.mk)
 
