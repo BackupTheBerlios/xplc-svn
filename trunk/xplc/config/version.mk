@@ -1,5 +1,4 @@
 # XPLC - Cross-Platform Lightweight Components
-# Copyright (C) 2000, Pierre Phaneuf
 # Copyright (C) 2002, Net Integration Technologies, Inc.
 #
 # This library is free software; you can redistribute it and/or modify
@@ -19,20 +18,14 @@
 #
 # $Id$
 
-.PHONY: default all
+VERSION_MAJOR:=0
+VERSION_MINOR:=1
+VERSION_PATCH:=2
 
-default: all
+VERSION:=$(VERSION_MAJOR).$(VERSION_MINOR).$(VERSION_PATCH)
 
-include config/version.mk
-
--include config/config.mk
-
-DISTCLEAN+=config.cache config.log config.status
-REALCLEAN+=configure
-
-include $(wildcard */vars.mk)
-
-include $(wildcard */rules.mk)
-
-all: $(TARGETS)
+# This number should only be increased when a new version breaks
+# binary compatibility with the previous one. It is used to set
+# the soname of the shared library.
+BINARY_VERSION:=0
 
