@@ -115,7 +115,9 @@ IServiceHandler* ModuleManagerFactory::createModuleManager(const char* directory
   closedir(dir);
 
   return new ModuleManager(modules);
+
 #else
+
   intptr_t dir;
   _finddata_t ent;
   char fname[4096];
@@ -136,8 +138,10 @@ IServiceHandler* ModuleManagerFactory::createModuleManager(const char* directory
 
   dir = _findfirst(pattern, &ent);
 
-  if(!dir)
+  if(!dir) {
+    loader->release();
     return 0;
+  }
 
   do {
     IModule* module;
@@ -156,6 +160,7 @@ IServiceHandler* ModuleManagerFactory::createModuleManager(const char* directory
   loader->release();
 
   _findclose(dir);
+
   return new ModuleManager(modules);
 #endif
 }
