@@ -74,7 +74,10 @@ CXXFLAGS+=-O2
 endif
 
 ifneq ("$(enable_warnings)", "no")
-CXXFLAGS+=-pedantic -Wall -Wold-style-cast -Woverloaded-virtual
+CXXFLAGS+=-pedantic -Wall -Woverloaded-virtual
+ifeq ("$(enable_warnings)", "yes")
+CXXFLAGS+=-Wold-style-cast
+endif
 endif
 
 ifneq ("$(enable_rtti)", "yes")
