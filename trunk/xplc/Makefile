@@ -29,7 +29,7 @@ include config/version.mk
 
 GARBAGES+=$(wildcard libxplc.so.*)
 DISTCLEAN+=config.cache config.log config.status
-REALCLEAN+=configure README
+REALCLEAN+=configure README xplc.spec
 
 include $(wildcard */vars.mk)
 

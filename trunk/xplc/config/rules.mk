@@ -21,15 +21,19 @@
 
 .PHONY: ChangeLog dist dustclean clean distclean realclean installdirs install uninstall
 
-dist: distclean ChangeLog README
+dist: distclean ChangeLog README xplc.spec
 	autoconf
 	autoheader
+	rm -rf autom4te.cache
 
 ChangeLog:
 	rm -f ChangeLog ChangeLog.bak
 	cvs2cl.pl --utc -U config/cvs-users
 
-README: dist/README.in
+README: dist/README.in config/version.mk
+	sed $< -e 's%@VERSION@%$(VERSION)%g' > $@
+
+xplc.spec: dist/xplc.spec.in config/version.mk
 	sed $< -e 's%@VERSION@%$(VERSION)%g' > $@
 
 dustclean:
@@ -48,20 +52,20 @@ realclean: distclean
 	rm -f $(wildcard $(REALCLEAN))
 
 installdirs:
-	mkdir -p $(libdir)
-	mkdir -p $(includedir)/xplc
+	mkdir -p $(DESTDIR)$(libdir)
+	mkdir -p $(DESTDIR)$(includedir)/xplc
 
 install: $(TARGETS) installdirs
-	$(INSTALL_PROGRAM) libxplc.so.$(VERSION) $(libdir)
-	$(INSTALL_DATA) libxplc.a $(libdir)
-	$(INSTALL_DATA) $(wildcard include/xplc/*.h) $(includedir)/xplc
-	ln -s libxplc.so.$(VERSION) $(libdir)/libxplc.so
-	ln -s libxplc.a $(libdir)/libxplc_s.a
+	$(INSTALL_PROGRAM) libxplc.so.$(VERSION) $(DESTDIR)$(libdir)
+	$(INSTALL_DATA) libxplc.a $(DESTDIR)$(libdir)
+	$(INSTALL_DATA) $(wildcard include/xplc/*.h) $(DESTDIR)$(includedir)/xplc
+	ln -s libxplc.so.$(VERSION) $(DESTDIR)$(libdir)/libxplc.so
+	ln -s libxplc.a $(DESTDIR)$(libdir)/libxplc_s.a
 
 uninstall:
-	rm -f $(libdir)/libxplc.so.$(VERSION) $(libdir)/libxplc.so
-	rm -f $(libdir)/libxplc.a $(libdir)/libxplc_s.a
-	rm -rf $(includedir)/xplc
+	rm -f $(DESTDIR)$(libdir)/libxplc.so.$(VERSION) $(DESTDIR)$(libdir)/libxplc.so
+	rm -f $(DESTDIR)$(libdir)/libxplc.a $(DESTDIR)$(libdir)/libxplc_s.a
+	rm -rf $(DESTDIR)$(includedir)/xplc
 
 ifeq ($(filter-out $(SIMPLETARGETS),$(MAKECMDGOALS)),$(MAKECMDGOALS))
 
