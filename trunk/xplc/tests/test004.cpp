@@ -23,7 +23,6 @@
 
 #include "test.h"
 #include <xplc/config.h>
-#include <xplc/xplc.h>
 #include <xplc/utils.h>
 #include <xplc/ISingleModuleLoader.h>
 #include "testobj.h"

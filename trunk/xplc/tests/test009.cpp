@@ -21,7 +21,6 @@
  */
 
 #include <xplc/config.h>
-#include <xplc/xplc.h>
 #include <xplc/utils.h>
 #include <xplc/IModuleLoader.h>
 #include "test.h"

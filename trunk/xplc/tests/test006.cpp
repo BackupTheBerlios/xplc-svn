@@ -21,7 +21,6 @@
  */
 
 #include "test.h"
-#include <xplc/xplc.h>
 #include <xplc/utils.h>
 #include <xplc/IStaticServiceHandler.h>
 #include <xplc/IMonikerService.h>

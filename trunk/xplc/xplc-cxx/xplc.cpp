@@ -1,7 +1,6 @@
 /* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*-
  *
  * XPLC - Cross-Platform Lightweight Components
- * Copyright (C) 2002, Pierre Phaneuf
  * Copyright (C) 2002, Net Integration Technologies, Inc.
  *
  * This library is free software; you can redistribute it and/or
@@ -20,47 +19,24 @@
  * USA
  */
 
-#include <xplc/IFactory.h>
-#include <xplc/core.h>
-#include <xplc/utils.h>
-#include "new.h"
+#include <xplc/xplc.h>
+#include <xplc/ptr.h>
 
-UUID_MAP_BEGIN(NewMoniker)
-  UUID_MAP_ENTRY(IObject)
-  UUID_MAP_ENTRY(IMoniker)
-  UUID_MAP_END
+IObject* XPLC::create(const UUID& cid) {
+  xplc_ptr<IFactory> factory;
 
-NewMoniker* NewMoniker::create() {
-  return new GenericComponent<NewMoniker>;
+  if(!servmgr)
+    return 0;
+
+  factory = servmgr->getObject(cid);
+  if(!factory)
+    return 0;
+
+  return factory->createObject();
 }
 
-NewMoniker::~NewMoniker() {
-}
-
-IObject* NewMoniker::resolve(const char* aName) {
-  IServiceManager* servmgr;
-  IMoniker* monikers;
-  IFactory* factory;
-  IObject* obj = 0;
-
-  servmgr = XPLC_getServiceManager();
-  if(servmgr) {
-    monikers = mutate<IMoniker>(servmgr->getObject(XPLC_monikers));
-
-    if(monikers) {
-      factory = mutate<IFactory>(monikers->resolve(aName));
-
-      if(factory) {
-        obj = factory->createObject();
-        factory->release();
-      }
-
-      monikers->release();
-    }
-
+XPLC::~XPLC() {
+  if(servmgr)
     servmgr->release();
-  }
-
-  return obj;
 }
 

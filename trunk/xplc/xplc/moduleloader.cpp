@@ -46,7 +46,7 @@
 # endif
 #endif
 
-#include <xplc/xplc.h>
+#include <xplc/core.h>
 #include <xplc/module.h>
 #include <xplc/utils.h>
 #include "loader.h"
