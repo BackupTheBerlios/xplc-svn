@@ -30,17 +30,13 @@
  * The interface that a module should provide.
  */
 
-class IModule: public IObject {
+class IModule: public IServiceHandler {
   UNSTABLE_INTERFACE
 public:
-  /**
-   * Returns the object associated with the specified UUID. If the
-   * module doesn't have the object, returns NULL.
-   *
-   * The object returned by IModule::getObject() is already
-   * addRef()'d.
+  /*
+   * FIXME: There will be other methods here, for inspecting a
+   * module.
    */
-  virtual IObject* getObject(const UUID&) = 0;
 };
 
 DEFINE_IID(IModule, {0x772689d4, 0x7932, 0x448a,
