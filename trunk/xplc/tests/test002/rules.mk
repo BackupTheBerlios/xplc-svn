@@ -19,4 +19,5 @@
 # $Id$
 
 tests/test002/test: tests/test002/test.o tests/testmain.o xplc/libxplc_s.a -ldl
+	$(LINK.cc) $^ $(LOADLIBES) $(LDLIBS) -o $@
 
