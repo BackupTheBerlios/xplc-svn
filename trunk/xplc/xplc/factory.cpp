@@ -24,12 +24,11 @@
 #include <xplc/xplc.h>
 #include "factory.h"
 
-const UUID_Info GenericComponent<GenericFactory>::uuids[] = {
-  { &IObject::IID, 0 },
-  { &IFactory::IID, 0 },
-  { &IGenericFactory::IID, 0 },
-  { 0, 0 }
-};
+UUID_MAP_BEGIN(GenericFactory)
+  UUID_MAP_ENTRY(IObject)
+  UUID_MAP_ENTRY(IFactory)
+  UUID_MAP_ENTRY(IGenericFactory)
+  UUID_MAP_END
 
 IObject* GenericFactory::create() {
   return new GenericComponent<GenericFactory>;

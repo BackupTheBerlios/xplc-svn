@@ -31,6 +31,14 @@ struct UUID_Info {
   const ptrdiff_t delta;
 };
 
+#define UUID_MAP_BEGIN(component) const UUID_Info GenericComponent<component>::uuids[] = {
+
+#define UUID_MAP_ENTRY(iface) { &iface::IID, reinterpret_cast<ptrdiff_t>(static_cast<iface*>(reinterpret_cast<ThisComponent*>(1))) - 1 },
+
+#define UUID_MAP_ENTRY_2(iface, iface2) { &iface::IID, reinterpret_cast<ptrdiff_t>(static_cast<iface2*>(reinterpret_cast<ThisComponent*>(1))) - 1 },
+
+#define UUID_MAP_END { 0, 0 } };
+
 /*
  * Mix-in template that contains an implementation of methods a basic
  * component will need to implement.
@@ -38,6 +46,7 @@ struct UUID_Info {
 template<class Component>
 class GenericComponent: public Component {
 private:
+  typedef GenericComponent ThisComponent;
   static const UUID_Info uuids[];
   unsigned int refcount;
 public:

@@ -24,12 +24,11 @@
 #include <xplc/utils.h>
 #include "statichandler.h"
 
-const UUID_Info GenericComponent<StaticServiceHandler>::uuids[] = {
-  { &IObject::IID, 0 },
-  { &IServiceHandler::IID, 0 },
-  { &IStaticServiceHandler::IID, 0 },
-  { 0, 0 }
-};
+UUID_MAP_BEGIN(StaticServiceHandler)
+  UUID_MAP_ENTRY(IObject)
+  UUID_MAP_ENTRY(IServiceHandler)
+  UUID_MAP_ENTRY(IStaticServiceHandler)
+  UUID_MAP_END
 
 StaticServiceHandler* StaticServiceHandler::create() {
   return new GenericComponent<StaticServiceHandler>;

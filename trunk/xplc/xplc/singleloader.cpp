@@ -28,12 +28,11 @@
 #include "loader.h"
 #include "singleloader.h"
 
-const UUID_Info GenericComponent<SingleModuleLoader>::uuids[] = {
-  { &IObject::IID, 0 },
-  { &IServiceHandler::IID, 0 },
-  { &ISingleModuleLoader::IID, 0 },
-  { 0, 0 }
-};
+UUID_MAP_BEGIN(SingleModuleLoader)
+  UUID_MAP_ENTRY(IObject)
+  UUID_MAP_ENTRY(IServiceHandler)
+  UUID_MAP_ENTRY(ISingleModuleLoader)
+  UUID_MAP_END
 
 IObject* SingleModuleLoader::create() {
   return new GenericComponent<SingleModuleLoader>;

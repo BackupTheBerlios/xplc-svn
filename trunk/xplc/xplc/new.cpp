@@ -25,11 +25,10 @@
 #include <xplc/utils.h>
 #include "new.h"
 
-const UUID_Info GenericComponent<NewMoniker>::uuids[] = {
-  { &IObject::IID, 0 },
-  { &IMoniker::IID, 0 },
-  { 0, 0 }
-};
+UUID_MAP_BEGIN(NewMoniker)
+  UUID_MAP_ENTRY(IObject)
+  UUID_MAP_ENTRY(IMoniker)
+  UUID_MAP_END
 
 NewMoniker* NewMoniker::create() {
   return new GenericComponent<NewMoniker>;

@@ -82,23 +82,20 @@ public:
   }
 };
 
-const UUID_Info GenericComponent<Handler1>::uuids[] = {
-  { &IObject::IID, 0 },
-  { &IServiceHandler::IID, 0 },
-  { 0, 0 }
-};
+UUID_MAP_BEGIN(Handler1)
+  UUID_MAP_ENTRY(IObject)
+  UUID_MAP_ENTRY(IServiceHandler)
+  UUID_MAP_END
 
-const UUID_Info GenericComponent<Handler2>::uuids[] = {
-  { &IObject::IID, 0 },
-  { &IServiceHandler::IID, 0 },
-  { 0, 0 }
-};
+UUID_MAP_BEGIN(Handler2)
+  UUID_MAP_ENTRY(IObject)
+  UUID_MAP_ENTRY(IServiceHandler)
+  UUID_MAP_END
 
-const UUID_Info GenericComponent<Handler3>::uuids[] = {
-  { &IObject::IID, 0 },
-  { &IServiceHandler::IID, 0 },
-  { 0, 0 }
-};
+UUID_MAP_BEGIN(Handler3)
+  UUID_MAP_ENTRY(IObject)
+  UUID_MAP_ENTRY(IServiceHandler)
+  UUID_MAP_END
 
 void test001() {
   IServiceManager* serv;

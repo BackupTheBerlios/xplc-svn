@@ -78,12 +78,11 @@ public:
   }
 };
 
-const UUID_Info GenericComponent<MyTestObject>::uuids[] = {
-  { &IObject::IID, 0 },
-  { &IFoo::IID, 0 },
-  { &IBar::IID, 4 },
-  { 0, 0 }
-};
+UUID_MAP_BEGIN(MyTestObject)
+  UUID_MAP_ENTRY_2(IObject, IFoo)
+  UUID_MAP_ENTRY(IFoo)
+  UUID_MAP_ENTRY(IBar)
+  UUID_MAP_END
 
 MyTestObject* MyTestObject::create() {
   return new GenericComponent<MyTestObject>;

@@ -24,11 +24,10 @@
 #include <xplc/utils.h>
 #include "servmgr.h"
 
-const UUID_Info GenericComponent<ServiceManager>::uuids[] = {
-  { &IObject::IID, 0 },
-  { &IServiceManager::IID, 0 },
-  { 0, 0 }
-};
+UUID_MAP_BEGIN(ServiceManager)
+  UUID_MAP_ENTRY(IObject)
+  UUID_MAP_ENTRY(IServiceManager)
+  UUID_MAP_END
 
 static ServiceManager* singleton;
 

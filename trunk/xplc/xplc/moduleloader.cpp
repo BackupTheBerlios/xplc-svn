@@ -50,12 +50,11 @@
 #include "loader.h"
 #include "moduleloader.h"
 
-const UUID_Info GenericComponent<ModuleLoader>::uuids[] = {
-  { &IObject::IID, 0 },
-  { &IServiceHandler::IID, 0 },
-  { &IModuleLoader::IID, 0 },
-  { 0, 0 }
-};
+UUID_MAP_BEGIN(ModuleLoader)
+  UUID_MAP_ENTRY(IObject)
+  UUID_MAP_ENTRY(IServiceHandler)
+  UUID_MAP_ENTRY(IModuleLoader)
+  UUID_MAP_END
 
 IObject* ModuleLoader::create() {
   return new GenericComponent<ModuleLoader>;

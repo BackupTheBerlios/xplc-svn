@@ -26,12 +26,11 @@
 
 #define MONIKER_SEPARATOR_CHAR ':'
 
-const UUID_Info GenericComponent<MonikerService>::uuids[] = {
-  { &IObject::IID, 0 },
-  { &IMoniker::IID, 0 },
-  { &IMonikerService::IID, 0 },
-  { 0, 0 }
-};
+UUID_MAP_BEGIN(MonikerService)
+  UUID_MAP_ENTRY(IObject)
+  UUID_MAP_ENTRY(IMoniker)
+  UUID_MAP_ENTRY(IMonikerService)
+  UUID_MAP_END
 
 MonikerService* MonikerService::create() {
   return new GenericComponent<MonikerService>;
