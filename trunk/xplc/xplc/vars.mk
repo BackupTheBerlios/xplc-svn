@@ -19,15 +19,14 @@
 #
 # $Id$
 
-TARGETS+=libxplc.a libxplc_s.a libxplc.so.$(PACKAGE_VERSION)
-
-CXXDEPS+=$(wildcard xplc/*.cpp)
-
-LIBXPLC_OBJS:=$(patsubst %.cpp,%.o,$(wildcard xplc/*.cpp))
+# This number should only be increased when a new version breaks
+# binary compatibility with the previous one. It is used to set
+# the soname of the shared library.
+libxplc.so: BINARY_VERSION:=0
 
 ifeq ("$(call oddeven,$(VERSION_MINOR))", "even")
-LIBXPLC_SONAME:=libxplc.so.$(BINARY_VERSION)
+libxplc.so: SONAME:=libxplc.so.$(BINARY_VERSION)
 else
-LIBXPLC_SONAME:=libxplc.so.$(PACKAGE_VERSION)-unstable
+libxplc.so: SONAME:=libxplc.so.$(PACKAGE_VERSION)-unstable
 endif
 

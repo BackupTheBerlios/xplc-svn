@@ -32,6 +32,21 @@ DEPFILE = $(notdir $(@:.o=.d))
 %: %.o
 	$(LINK.cc) $^ $(LOADLIBES) $(LDLIBS) -o $@
 
+lib%_s.a: lib%.a
+	ln -sf $^ $@
+
+%.a:
+	$(AR) $(ARFLAGS) $@ $^
+	$(RANLIB) $@
+
+SONAMEFLAGS:=-Wl,-soname,
+
+%.so:
+	$(LINK.cc) -shared $(if $(SONAME),$(SONAMEFLAGS)$(SONAME)) $^ -o $@
+
+%.dll:
+	$(LINK.cc) -shared -o $@ $^
+
 dist: ChangeLog README xplc.spec distclean
 	autoconf
 	autoheader
@@ -51,7 +66,7 @@ dustclean:
 	-rm -f $(shell find . -name 'core' -print) $(shell find . -name '*~' -print) $(shell find . -name '.#*' -print)
 
 clean: dustclean
-	-rm -f $(shell find . -name '*.o' -print) $(wildcard $(GARBAGES) $(DEPFILES) $(TARGETS))
+	-rm -f $(wildcard $(CLEAN))
 
 distclean: clean
 	-rm -f $(wildcard $(DISTCLEAN))
@@ -63,8 +78,8 @@ installdirs:
 	mkdir -p $(DESTDIR)$(libdir)
 	mkdir -p $(DESTDIR)$(includedir)/xplc
 
-install: $(TARGETS) installdirs
-	$(INSTALL_PROGRAM) libxplc.so.$(PACKAGE_VERSION) $(DESTDIR)$(libdir)
+install: default installdirs
+	$(INSTALL_PROGRAM) libxplc.so $(DESTDIR)$(libdir)/libxplc.so.$(PACKAGE_VERSION)
 	$(INSTALL_DATA) libxplc.a $(DESTDIR)$(libdir)
 	$(INSTALL_DATA) $(wildcard include/xplc/*.h) $(DESTDIR)$(includedir)/xplc
 	ln -s libxplc.so.$(PACKAGE_VERSION) $(DESTDIR)$(libdir)/libxplc.so

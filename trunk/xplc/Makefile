@@ -19,19 +19,17 @@
 #
 # $Id$
 
-.PHONY: default all
+.PHONY: default
 
-default: all
+default:
 
 -include config/config.mk
 
-GARBAGES+=$(wildcard libxplc.so.*)
+CLEAN+=$(wildcard libxplc*.a libxplc.so.*)
 DISTCLEAN+=config.cache config.log config.status
 REALCLEAN+=configure README xplc.spec
 
 include $(wildcard */vars.mk)
 
 include $(wildcard */rules.mk)
-
-all: $(TARGETS)
 

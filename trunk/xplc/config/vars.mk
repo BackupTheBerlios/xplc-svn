@@ -21,6 +21,7 @@
 
 DEPFILES:=$(shell find . -name '.*.d')
 
+CLEAN+=$(shell find . -name '*.o' -print) $(DEPFILES)
 DISTCLEAN+=config/config.mk include/xplc/autoconf.h ChangeLog.bak
 REALCLEAN+=ChangeLog include/xplc/autoconf.h.in
 
@@ -32,11 +33,6 @@ oddeven = $(filter even odd,$(foreach d,0 2 4 6 8,$(1:%$d=even)) $(foreach d,1 3
 VERSION_MAJOR:=$(word 1,$(subst ., ,$(PACKAGE_VERSION)))
 VERSION_MINOR:=$(word 2,$(subst ., ,$(PACKAGE_VERSION)))
 VERSION_PATCH:=$(word 3,$(subst ., ,$(PACKAGE_VERSION)))
-
-# This number should only be increased when a new version breaks
-# binary compatibility with the previous one. It is used to set
-# the soname of the shared library.
-BINARY_VERSION:=0
 
 # The 'S' option to 'ar' seems to cause problem on Solaris?
 #ARFLAGS=rcS
@@ -87,9 +83,5 @@ endif
 
 ifneq ("$(enable_exceptions)", "yes")
 CXXFLAGS+=-fno-exceptions
-endif
-
-ifneq ("$(with_dlopen)", "no")
-LIBXPLC_LIBS+=$(with_dlopen)
 endif
 

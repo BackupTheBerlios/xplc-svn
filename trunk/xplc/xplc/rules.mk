@@ -19,13 +19,7 @@
 #
 # $Id$
 
-libxplc.a: $(LIBXPLC_OBJS)
-	$(AR) $(ARFLAGS) $@ $^
-	$(RANLIB) $@
+default: libxplc.a libxplc_s.a libxplc.so
 
-libxplc_s.a: libxplc.a
-	ln -sf $^ $@
-
-libxplc.so.$(PACKAGE_VERSION): $(LIBXPLC_OBJS) $(LIBXPLC_LIBS)
-	$(LINK.cc) -shared -Wl,-soname,$(LIBXPLC_SONAME) $^ -o $@
+libxplc.a libxplc.so: $(patsubst %.cpp,%.o,$(wildcard xplc/*.cpp))
 

@@ -19,7 +19,5 @@
 #
 # $Id$
 
-CXXDEPS+=$(wildcard tests/*.cpp)
-
-GARBAGES+=tests/testmain tests/testobj.dll
+CLEAN+=tests/testmain tests/testobj.dll
 
