@@ -27,6 +27,7 @@
 #include "simpledl.h"
 #include "factory.h"
 #include "monikers.h"
+#include "new.h"
 
 static IServiceManager* servmgr = 0;
 
@@ -35,6 +36,7 @@ IServiceManager* XPLC::getServiceManager() {
   IStaticServiceHandler* handler;
   IGenericFactory* factory;
   IFactory* factoryfactory;
+  IMonikerService* monikers;
 
   if(servmgr) {
     servmgr->addRef();
@@ -76,13 +78,16 @@ IServiceManager* XPLC::getServiceManager() {
     handler->addObject(XPLC::genericFactory, factory);
   }
 
-  obj = MonikerService::create();
-  if(obj)
-    obj->addRef();
-  obj = mutate<IMonikerService>(obj);
-  if(obj) {
-    handler->addObject(XPLC::monikers, obj);
-    obj->release();
+  /* Create moniker service and register monikers. */
+  monikers = MonikerService::create();
+  if(monikers) {
+    monikers->addRef();
+
+    monikers->registerObject("new", XPLC::newMoniker);
+
+    handler->addObject(XPLC::monikers, monikers);
+
+    monikers->release();
   }
 
   /*
@@ -95,6 +100,8 @@ IServiceManager* XPLC::getServiceManager() {
     factory->setFactory(SimpleDynamicLoader::create);
     handler->addObject(XPLC::simpleDynamicLoader, factory);
   }
+
+  handler->addObject(XPLC::newMoniker, NewMoniker::obtain());
 
   return servmgr;
 }

@@ -66,8 +66,8 @@ IObject* NewMoniker::resolve(const char* aName) {
       factory = mutate<IFactory>(monikers->resolve(aName));
 
       if(factory) {
-	obj = factory->createObject();
-	factory->release();
+        obj = factory->createObject();
+        factory->release();
       }
 
       monikers->release();

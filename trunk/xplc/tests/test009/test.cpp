@@ -31,8 +31,6 @@
  * Verifies the "new" moniker
  */
 
-#include <xplc/trace.h>
-
 void test() {
   IServiceManager* servmgr;
   IStaticServiceHandler* handler;
@@ -50,7 +48,7 @@ void test() {
   handler = mutate<IStaticServiceHandler>(obj);
   ASSERT(handler != 0, "static service handler does not have the IStaticServiceHandler interface");
 
-  factory = new TraceComponent<TestObjectFactory>;
+  factory = new TestObjectFactory;
   ASSERT(factory != 0, "could not instantiate test object factory");
   factory->addRef();
 
@@ -68,6 +66,7 @@ void test() {
 
   test = get<ITestInterface>(obj);
   VERIFY(test != 0, "test object does not have ITestInterface");
+  VERIFY(test->release() == 1, "incorrect refcount on test object");
 
   VERIFY(obj->release() == 0, "incorrect refcount on test object");
 

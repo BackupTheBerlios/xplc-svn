@@ -25,9 +25,5 @@ GARBAGES+=$(wildcard tests/test*/test)
 
 TESTS:=$(patsubst %,%/test,$(wildcard tests/test[0-9][0-9][0-9]))
 
-ifneq ("$(DEBUG)", "pp")
-TESTS:=$(filter-out tests/test009/test,$(TESTS))
-endif
-
 include $(wildcard tests/*/vars.mk)
 

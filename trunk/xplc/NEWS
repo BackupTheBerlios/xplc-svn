@@ -2,6 +2,8 @@ New in 0.1.2
 ------------
 
  * Added a moniker interface and resolving service.
+ * Added a "new" moniker that creates an instance from a factory
+   moniker.
  * Changed the "getInterface" and "mutateInterface" templated
    functions name to "get" and "mutate", respectively.
  * Fixed a bug where the static service handler would hold a reference
