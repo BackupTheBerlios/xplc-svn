@@ -38,7 +38,9 @@ public:
   virtual const char* loadModule(const char* filename) = 0;
 };
 
-DEFINE_UUID(ISingleModuleLoader::IID) = {0x0f8eb75a, 0x0b47, 0x494f, {0xb2, 0xa8, 0x7b, 0x2f, 0xb0, 0xef, 0x99, 0xde}};
+DEFINE_UUID(ISingleModuleLoader::IID) = {0x0f8eb75a, 0x0b47, 0x494f,
+                                         {0xb2, 0xa8, 0x7b, 0x2f,
+                                          0xb0, 0xef, 0x99, 0xde}};
 
 /*
  * This is the prototype of the entry point that must be provided by
