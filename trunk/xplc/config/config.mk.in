@@ -30,7 +30,10 @@ CXXDEPS:=
 CXXFLAGS=-pipe -Iinclude @CXXFLAGS@
 
 ifeq ("@enable_debug@", "yes")
-CXXFLAGS+=-ggdb
+DEBUG:=$(shell whoami)
+CXXFLAGS+=-ggdb -DDEBUG_$(DEBUG)
+else
+CXXFLAGS+=-DNDEBUG
 endif
 
 ifneq ("@enable_optimization@", "no")
