@@ -1,3 +1,9 @@
+xplc (0.3.1-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Pierre Phaneuf <pp@ludusdesign.com>  Fri, 12 Dec 2003 15:41:09 -0500
+
 xplc (0.3.0-1) unstable; urgency=low
 
   * Package xplc.
