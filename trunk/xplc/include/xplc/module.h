@@ -24,9 +24,22 @@
 #ifndef __XPLC_MODULE_H__
 #define __XPLC_MODULE_H__
 
-#include <xplc/IModule.h>
-#include <xplc/IServiceManager.h>
+/** \file
+ *
+ * Structures and definitions related to the XPLC module ABI
+ * (Application Binary Interface).
+ */
 
+#include <xplc/IModule.h>
+
+/**
+ * The current XPLC module ABI version.
+ */
+#define XPLC_MODULE_VERSION 0
+
+/**
+ * Defines attributes required for exported symbols.
+ */
 #ifdef WIN32
 #define ENTRYPOINT extern "C" __declspec(dllexport)
 #else
@@ -38,17 +51,21 @@
  */
 struct XPLC_ModuleInfo {
   /**
-   * The XPLC module ABI version that this module conforms to.
+   * The XPLC module ABI version that this module conforms to. This
+   * should always be the first member of the XPLC_ModuleInfo
+   * structure, as the meaning of the following members depend on it.
    */
-  int version;
+  unsigned int version;
   /**
    * A pointer to this module's IModule component.
    */
   IModule* module;
 };
 
+/**
+ * Definition of the XPLC module information structure. This structure
+ * should be initialized appropriately in a loadable XPLC module.
+ */
 ENTRYPOINT const XPLC_ModuleInfo XPLC_Module;
-
-#define XPLC_MODULE_VERSION 0
 
 #endif /* __XPLC_MODULE_H__ */
