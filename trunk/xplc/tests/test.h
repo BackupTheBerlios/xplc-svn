@@ -96,12 +96,12 @@ public:
   virtual IObject* getInterface(const UUID& uuid) {
     ASSERT(!destroyed, "using destroyed test object");
 
-    if(uuid.equals(IID<IObject>::get())) {
+    if(uuid == IID<IObject>::get()) {
       addRef();
       return static_cast<IObject*>(this);
     }
 
-    if(uuid.equals(IID<IWeakRef>::get())) {
+    if(uuid == IID<IWeakRef>::get()) {
       addRef();
       return static_cast<IWeakRef*>(this);
     }
@@ -160,12 +160,12 @@ public:
   virtual IObject* getInterface(const UUID& uuid) {
     ASSERT(!destroyed, "using destroyed test object");
 
-    if(uuid.equals(IID<IObject>::get())) {
+    if(uuid == IID<IObject>::get()) {
       addRef();
       return static_cast<IObject*>(this);
     }
 
-    if(uuid.equals(IID<ITestInterface>::get())) {
+    if(uuid == IID<ITestInterface>::get()) {
       addRef();
       return static_cast<ITestInterface*>(this);
     }
@@ -226,12 +226,12 @@ public:
     return 0;
   }
   virtual IObject* getInterface(const UUID& uuid) {
-    if(uuid.equals(IID<IObject>::get())) {
+    if(uuid == IID<IObject>::get()) {
       addRef();
       return static_cast<IObject*>(this);
     }
 
-    if(uuid.equals(IID<IFactory>::get())) {
+    if(uuid == IID<IFactory>::get()) {
       addRef();
       return static_cast<IFactory*>(this);
     }

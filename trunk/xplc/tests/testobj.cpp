@@ -67,7 +67,7 @@ public:
       component->addRef();
     }
 
-    if(uuid.equals(TestComponent_CID)) {
+    if(uuid == TestComponent_CID) {
       component->addRef();
       return component;
     }

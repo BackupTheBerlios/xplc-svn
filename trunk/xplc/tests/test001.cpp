@@ -42,7 +42,7 @@ public:
     return new GenericComponent<Handler1>;
   }
   virtual IObject* getObject(const UUID& uuid) {
-    if(uuid.equals(obj1)) {
+    if(uuid == obj1) {
       return reinterpret_cast<IObject*>(1);
     }
 
@@ -56,9 +56,9 @@ public:
     return new GenericComponent<Handler2>;
   }
   virtual IObject* getObject(const UUID& uuid) {
-    VERIFY(!uuid.equals(obj1), "request for the first object reached second handler");
+    VERIFY(uuid != obj1, "request for the first object reached second handler");
 
-    if(uuid.equals(obj2)) {
+    if(uuid == obj2) {
       return reinterpret_cast<IObject*>(2);
     }
 
@@ -72,9 +72,9 @@ public:
     return new GenericComponent<Handler3>;
   }
   virtual IObject* getObject(const UUID& uuid) {
-    VERIFY(!uuid.equals(obj1), "request for the first object reached third handler");
-    VERIFY(!uuid.equals(obj2), "request for the second object reached third handler");
-    if(uuid.equals(obj3)) {
+    VERIFY(uuid != obj1, "request for the first object reached third handler");
+    VERIFY(uuid != obj2, "request for the second object reached third handler");
+    if(uuid == obj3) {
       return reinterpret_cast<IObject*>(3);
     }
 
