@@ -41,12 +41,14 @@ CategoryManager::~CategoryManager() {
     delete categories;
 }
 
+/* FIXME: unimplemented... */
 IObject* CategoryManager::getObject(const UUID&) {
   return NULL;
 }
 
 void CategoryManager::registerComponent(const UUID& aCatid,
-                                        const UUID& aUuid) {
+                                        const UUID& aUuid,
+                                        const char* aString) {
   CategoryNode* cat;
   CategoryEntryNode* entry;
 
@@ -67,7 +69,7 @@ void CategoryManager::registerComponent(const UUID& aCatid,
       return;
   }
 
-  entry = new CategoryEntryNode(aUuid, cat->entries);
+  entry = new CategoryEntryNode(aUuid, aString, cat->entries);
   assert(entry);
 
   cat->entries = entry;

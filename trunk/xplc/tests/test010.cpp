@@ -20,6 +20,7 @@
  * USA
  */
 
+#include <string.h>
 #include <xplc/ICategoryManager.h>
 #include <xplc/utils.h>
 #include "test.h"
@@ -64,9 +65,9 @@ void test010() {
   catmgr = mutate<ICategoryManager>(obj);
   ASSERT(catmgr != 0, "category manager does not have expected interface");
 
-  catmgr->registerComponent(myCategory, myComponent1);
-  catmgr->registerComponent(myCategory, myComponent2);
-  catmgr->registerComponent(myCategory, myComponent3);
+  catmgr->registerComponent(myCategory, myComponent1, "myComponent1");
+  catmgr->registerComponent(myCategory, myComponent2, "myComponent2");
+  catmgr->registerComponent(myCategory, myComponent3, 0);
 
   cat = catmgr->getCategory(myCategory);
   ASSERT(cat, "could not obtain the category");
@@ -82,12 +83,19 @@ void test010() {
 
     if(iter->getUuid() == myComponent1) {
       VERIFY(!seen[0], "myComponent1 already seen");
+      VERIFY(iter->getString()
+             && strcmp(iter->getString(), "myComponent1") == 0,
+             "incorrect string for myComponent1");
       seen[0] = true;
     } else if(iter->getUuid() == myComponent2) {
       VERIFY(!seen[1], "myComponent2 already seen");
+      VERIFY(iter->getString()
+             && strcmp(iter->getString(), "myComponent2") == 0,
+             "incorrect string for myComponent2");
       seen[1] = true;
     } else if(iter->getUuid() == myComponent3) {
       VERIFY(!seen[2], "myComponent3 already seen");
+      VERIFY(!iter->getString(), "incorrect string for myComponent3");
       seen[2] = true;
     } else {
       VERIFY(false, "got an unknown component");

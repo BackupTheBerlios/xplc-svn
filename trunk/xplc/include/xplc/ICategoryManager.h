@@ -38,7 +38,8 @@ public:
    * UUIDs.
    */
   virtual void registerComponent(const UUID& category,
-                                 const UUID& component) = 0;
+                                 const UUID& component,
+                                 const char* extrastring) = 0;
   /**
    * Get a category object for the specified category.
    */
