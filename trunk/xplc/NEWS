@@ -1,3 +1,9 @@
+New in 0.3.5
+------------
+
+ * Mostly implemented component categories (missing IFactory
+   behavior).
+
 New in 0.3.4
 ------------
 
