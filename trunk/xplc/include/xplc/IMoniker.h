@@ -28,14 +28,14 @@
 class IMoniker: public IObject {
   UNSTABLE_INTERFACE
 public:
-  DEFINE_IID({0x6c0bb432, 0x7c32, 0x4614,
-    {0xa5, 0xab, 0xb2, 0x5d, 0x92, 0x23, 0xda, 0xa2}});
-
   /*
    * The object returned by IMoniker::resolve() is already
    * addRef()'d.
    */
   virtual IObject* resolve(const char*) = 0;
 };
+
+DEFINE_IID(IMoniker, {0x6c0bb432, 0x7c32, 0x4614,
+  {0xa5, 0xab, 0xb2, 0x5d, 0x92, 0x23, 0xda, 0xa2}});
 
 #endif /* __XPLC_IMONIKER_H__ */

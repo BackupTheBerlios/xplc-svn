@@ -29,13 +29,13 @@
 class IServiceManager: public IServiceHandler {
   UNSTABLE_INTERFACE
 public:
-  DEFINE_IID({0x22bdabd9, 0xa63a, 0x4b5e,
-    {0xb1, 0x61, 0xb6, 0x36, 0x52, 0x27, 0xd7, 0x8e}});
-
   virtual void addHandler(IServiceHandler*) = 0;
   virtual void addFirstHandler(IServiceHandler*) = 0;
   virtual void addLastHandler(IServiceHandler*) = 0;
   virtual void removeHandler(IServiceHandler*) = 0;
 };
+
+DEFINE_IID(IServiceManager, {0x22bdabd9, 0xa63a, 0x4b5e,
+  {0xb1, 0x61, 0xb6, 0x36, 0x52, 0x27, 0xd7, 0x8e}});
 
 #endif /* __XPLC_ISERVICEMANAGER_H__ */

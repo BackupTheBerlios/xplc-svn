@@ -35,12 +35,12 @@
 class IObject {
   UNSTABLE_INTERFACE
 public:
-  DEFINE_IID({0x8ca76e98, 0xb653, 0x43d7,
-    {0xb0, 0x56, 0x8b, 0x9d, 0xde, 0x9a, 0xbe, 0x9d}});
-
   virtual unsigned int addRef() = 0;
   virtual unsigned int release() = 0;
   virtual IObject* getInterface(const UUID&) = 0;
 };
+
+DEFINE_IID(IObject, {0x8ca76e98, 0xb653, 0x43d7,
+  {0xb0, 0x56, 0x8b, 0x9d, 0xde, 0x9a, 0xbe, 0x9d}});
 
 #endif /* __XPLC_IOBJECT_H__ */

@@ -28,14 +28,14 @@
 class IFactory: public IObject {
   UNSTABLE_INTERFACE
 public:
-  DEFINE_IID({0xcd386b27, 0x0ea1, 0x4e1b,
-    {0xba, 0x08, 0xb8, 0x5e, 0xe4, 0xda, 0xad, 0x69}});
-
   /*
    * The object returned by IFactory::createObject() is already
    * addRef()'d.
    */
   virtual IObject* createObject() = 0;
 };
+
+DEFINE_IID(IFactory, {0xcd386b27, 0x0ea1, 0x4e1b,
+  {0xba, 0x08, 0xb8, 0x5e, 0xe4, 0xda, 0xad, 0x69}});
 
 #endif /* __XPLC_IFACTORY_H__ */

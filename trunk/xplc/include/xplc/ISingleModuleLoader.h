@@ -29,9 +29,6 @@
 class ISingleModuleLoader: public IServiceHandler {
   UNSTABLE_INTERFACE
 public:
-  DEFINE_IID({0x0f8eb75a, 0x0b47, 0x494f,
-    {0xb2, 0xa8, 0x7b, 0x2f, 0xb0, 0xef, 0x99, 0xde}});
-
   /*
    * Loading a library while the component already has another library
    * open will result in the first library to be unloaded. Returns
@@ -40,5 +37,8 @@ public:
    */
   virtual const char* loadModule(const char* filename) = 0;
 };
+
+DEFINE_IID(ISingleModuleLoader, {0x0f8eb75a, 0x0b47, 0x494f,
+  {0xb2, 0xa8, 0x7b, 0x2f, 0xb0, 0xef, 0x99, 0xde}});
 
 #endif /* __XPLC_ISINGLEMODULELOADER_H__ */

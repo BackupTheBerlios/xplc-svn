@@ -32,19 +32,21 @@
 
 class IFoo: public IObject {
 public:
-  DEFINE_IID({0xdacffda8, 0x5eb4, 0x4c9b, {0xb5, 0xd4, 0x6d, 0xc5, 0x95, 0x5e, 0x4f, 0x74}});
   virtual unsigned int getFoo() = 0;
   virtual void setFoo(unsigned int) = 0;
 };
 
+DEFINE_IID(IFoo, {0xdacffda8, 0x5eb4, 0x4c9b,
+  {0xb5, 0xd4, 0x6d, 0xc5, 0x95, 0x5e, 0x4f, 0x74}});
 
 class IBar: public IObject {
 public:
-  DEFINE_IID({0xa1520c1d, 0xcf44, 0x4830, {0xa9, 0xb2, 0xb1, 0x80, 0x9b, 0x1e, 0xe7, 0xa2}});
   virtual unsigned int getBar() = 0;
   virtual void setBar(unsigned int) = 0;
 };
 
+DEFINE_IID(IBar, {0xa1520c1d, 0xcf44, 0x4830,
+  {0xa9, 0xb2, 0xb1, 0x80, 0x9b, 0x1e, 0xe7, 0xa2}});
 
 class MyTestObject: public IFoo, public IBar {
 private:
@@ -86,8 +88,6 @@ MyTestObject* MyTestObject::create() {
   return new GenericComponent<MyTestObject>;
 }
 
-#include <stdio.h>
-
 void test005() {
   MyTestObject* test = 0;
   IObject* iobj = 0;
@@ -97,7 +97,7 @@ void test005() {
   test = MyTestObject::create();
   ASSERT(test, "could not instantiate test object");
 
-  iobj = static_cast<IFoo*>(test)->getInterface(IObject::getIID());
+  iobj = static_cast<IFoo*>(test)->getInterface(IID<IObject>::get());
   VERIFY(iobj, "getInterface(IObject::getIID()) failed on test object");
 
   VERIFY(reinterpret_cast<void*>(iobj) == reinterpret_cast<void*>(test), "identity test failed");

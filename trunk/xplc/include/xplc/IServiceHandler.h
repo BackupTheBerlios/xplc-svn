@@ -28,14 +28,14 @@
 class IServiceHandler: public IObject {
   UNSTABLE_INTERFACE
 public:
-  DEFINE_IID({0xe897384f, 0x3ba6, 0x46e3,
-    {0xad, 0x06, 0x53, 0x76, 0x21, 0xa6, 0x0a, 0x03}});
-
   /*
    * The object returned by IServiceHandler::getObject() is
    * already addRef()'d.
    */
   virtual IObject* getObject(const UUID&) = 0;
 };
+
+DEFINE_IID(IServiceHandler, {0xe897384f, 0x3ba6, 0x46e3,
+  {0xad, 0x06, 0x53, 0x76, 0x21, 0xa6, 0x0a, 0x03}});
 
 #endif /* __XPLC_ISERVICEHANDLER_H__ */

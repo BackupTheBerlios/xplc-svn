@@ -28,11 +28,11 @@
 class IStaticServiceHandler: public IServiceHandler {
   UNSTABLE_INTERFACE
 public:
-  DEFINE_IID({0x0a599d64, 0x0684, 0x4c44,
-    {0x8a, 0xbc, 0xab, 0xfd, 0x5d, 0xe0, 0x22, 0x59}});
-
   virtual void addObject(const UUID&, IObject*) = 0;
   virtual void removeObject(const UUID&) = 0;
 };
+
+DEFINE_IID(IStaticServiceHandler, {0x0a599d64, 0x0684, 0x4c44,
+  {0x8a, 0xbc, 0xab, 0xfd, 0x5d, 0xe0, 0x22, 0x59}});
 
 #endif /* __XPLC_ISTATICSERVICEHANDLER_H__ */

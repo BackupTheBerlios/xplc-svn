@@ -27,15 +27,15 @@
 #include <xplc/IFactory.h>
 
 struct UUID_Info {
-  const UUID* const iid;
-  const ptrdiff_t delta;
+  const UUID* iid;
+  ptrdiff_t delta;
 };
 
 #define UUID_MAP_BEGIN(component) const UUID_Info GenericComponent<component>::uuids[] = {
 
-#define UUID_MAP_ENTRY(iface) { &iface::getIID(), reinterpret_cast<ptrdiff_t>(static_cast<iface*>(reinterpret_cast<ThisComponent*>(1))) - 1 },
+#define UUID_MAP_ENTRY(iface) { &iface##_IID, reinterpret_cast<ptrdiff_t>(static_cast<iface*>(reinterpret_cast<ThisComponent*>(1))) - 1 },
 
-#define UUID_MAP_ENTRY_2(iface, iface2) { &iface::getIID(), reinterpret_cast<ptrdiff_t>(static_cast<iface2*>(reinterpret_cast<ThisComponent*>(1))) - 1 },
+#define UUID_MAP_ENTRY_2(iface, iface2) { &iface##_IID, reinterpret_cast<ptrdiff_t>(static_cast<iface2*>(reinterpret_cast<ThisComponent*>(1))) - 1 },
 
 #define UUID_MAP_END { 0, 0 } };
 
@@ -84,7 +84,7 @@ Interface* get(IObject* aObj) {
   if(!aObj)
     return 0;
 
-  return static_cast<Interface*>(aObj->getInterface(Interface::getIID()));
+  return static_cast<Interface*>(aObj->getInterface(IID<Interface>::get()));
 }
 
 /*
@@ -99,7 +99,7 @@ Interface* mutate(IObject* aObj) {
   if(!aObj)
     return 0;
 
-  rv = static_cast<Interface*>(aObj->getInterface(Interface::getIID()));
+  rv = static_cast<Interface*>(aObj->getInterface(IID<Interface>::get()));
 
   aObj->release();
 

@@ -28,14 +28,14 @@
 class IModule: public IObject {
   UNSTABLE_INTERFACE
 public:
-  DEFINE_IID({0x772689d4, 0x7932, 0x448a,
-    {0x80, 0x8a, 0x6e, 0xbf, 0x1c, 0xe9, 0xf9, 0x4b}});
-
   /*
    * The object returned by IModule::getObject() is already
    * addRef()'d.
    */
   virtual IObject* getObject(const UUID&) = 0;
 };
+
+DEFINE_IID(IModule, {0x772689d4, 0x7932, 0x448a,
+  {0x80, 0x8a, 0x6e, 0xbf, 0x1c, 0xe9, 0xf9, 0x4b}});
 
 #endif /* __XPLC_IMODULE_H__ */

@@ -43,6 +43,16 @@ struct UUID {
   char* toString(char* str) const;
 };
 
-#define DEFINE_IID(iid1, iid2, iid3, iid4, iid5, iid6, iid7, iid8, iid9, iid10, iid11) static const UUID& getIID() { static const UUID iid = iid1, iid2, iid3, iid4, iid5, iid6, iid7, iid8, iid9, iid10, iid11; return iid; }
+template<class T>
+struct IID {
+};
+
+#define DEFINE_IID(iface, u1, u2, u3, u4, u5, u6, u7, u8, u9, u10, u11) \
+static const UUID iface##_IID = u1, u2, u3, u4, u5, u6, u7, u8, u9, u10, u11; \
+struct IID<iface> { \
+  static const UUID& get() { \
+    return iface##_IID; \
+  } \
+}
 
 #endif /* __XPLC_UUID_H__ */
