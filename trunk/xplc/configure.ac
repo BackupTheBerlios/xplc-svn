@@ -158,7 +158,6 @@ pc_version=
 libdir_version=
 lib_prefix_version=
 if test "$(echo $PACKAGE_VERSION | awk -F. '{ print $2 % 2}')" -eq 1; then
-    AC_MSG_WARN([Unstable release, the API might change in the next release.])
     enable_unstable=yes
     includedir="$includedir/xplc-${PACKAGE_VERSION}"
     pc_version="-${PACKAGE_VERSION}"
@@ -182,6 +181,10 @@ AC_CONFIG_FILES([config/config.mk dist/xplc.pc dist/xplc-uninstalled.pc examples
 AC_CONFIG_HEADERS([include/autoconf.h])
 
 AC_OUTPUT
+
+if test "$(echo $PACKAGE_VERSION | awk -F. '{ print $2 % 2}')" -eq 1; then
+    AC_MSG_WARN([Unstable release, the API might change in the next release.])
+fi
 
 if test "$enable_loader" = "no"; then
     AC_MSG_WARN([Dynamic loading is disabled.])
