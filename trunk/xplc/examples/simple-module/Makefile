@@ -3,8 +3,7 @@
 
 # the UNSTABLE flag is there because we agree to use interfaces that
 # have not been frozen yet.
-CPPFLAGS+=-DUNSTABLE -I../../include
-LDFLAGS+=-L../..
+CPPFLAGS+=-DUNSTABLE
 
 default: example.so
 
