@@ -22,9 +22,6 @@
 #ifndef __XPLC_UTILS_H__
 #define __XPLC_UTILS_H__
 
-#ifdef DEBUG
-#include <stdio.h>
-#endif
 #include <xplc/IObject.h>
 
 /*
@@ -53,39 +50,6 @@ public:
     return 0;
   }
 };
-
-#ifdef DEBUG
-
-/*
- * Mix-in template that trace constructors, destructors and refcount
- * to stderr.
- */
-template<class Component>
-class TraceComponent: public Component {
-public:
-  TraceComponent() {
-    fprintf(stderr, "%s: instantiated\n", __PRETTY_FUNCTION__);
-  }
-  virtual unsigned int addRef() {
-    unsigned int refcount = Component::addRef();
-
-    fprintf(stderr, "%s = %i\n", __PRETTY_FUNCTION__, refcount);
-
-    return refcount;
-  }
-  virtual unsigned int release() {
-    unsigned int refcount = Component::release();
-
-    fprintf(stderr, "%s = %i\n", __PRETTY_FUNCTION__, refcount);
-
-    return refcount;
-  }
-  virtual ~TraceComponent() {
-    fprintf(stderr, "%s: destroyed\n", __PRETTY_FUNCTION__);
-  }
-};
-
-#endif /* DEBUG */
 
 /*
  * This templated function is a typesafe way to call the getInterface
