@@ -89,7 +89,7 @@ CXXFLAGS+=-fno-exceptions
 endif
 
 ifneq ("$(enable_pic)", "no")
-CXXFLAGS+=-fPIC
+CXXFLAGS+=-fpic
 endif
 
 ifeq ("$(so_style)", "darwin")
