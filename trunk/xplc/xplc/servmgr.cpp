@@ -85,15 +85,6 @@ IServiceManager* XPLC_getServiceManager() {
     return 0;
   }
 
-  obj = GenericFactory::create();
-  if(obj)
-    obj->addRef();
-  factory = mutate<IGenericFactory>(obj);
-  if(factory) {
-    factory->setFactory(GenericFactory::create);
-    handler->addObject(XPLC_genericFactory, factory);
-  }
-
   /* Create moniker service and register monikers. */
   monikers = MonikerService::create();
   if(monikers) {
@@ -113,6 +104,15 @@ IServiceManager* XPLC_getServiceManager() {
     handler->addObject(XPLC_categoryManager, catmgr);
 
     catmgr->release();
+  }
+
+  obj = GenericFactory::create();
+  if(obj)
+    obj->addRef();
+  factory = mutate<IGenericFactory>(obj);
+  if(factory) {
+    factory->setFactory(GenericFactory::create);
+    handler->addObject(XPLC_genericFactory, factory);
   }
 
   /*
