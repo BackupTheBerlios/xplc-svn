@@ -57,7 +57,7 @@ public:
    * Create an XPLC object using an existing service manager
    * reference.
    */
-  XPLC(IServiceManager* _servmgr): servmgr(do_addref(_servmgr)) {}
+  XPLC(IServiceManager* _servmgr): servmgr(do_addRef(_servmgr)) {}
 
   void addModuleDirectory(const char* directory);
 
