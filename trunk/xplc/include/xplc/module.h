@@ -30,6 +30,8 @@
  * (Application Binary Interface).
  */
 
+#include <xplc/IObject.h>
+
 #ifdef UNSTABLE
 #include <limits.h>
 #endif
