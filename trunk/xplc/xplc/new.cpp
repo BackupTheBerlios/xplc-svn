@@ -25,23 +25,17 @@
 #include <xplc/utils.h>
 #include "new.h"
 
-static NewMoniker* singleton = 0;
-
 const UUID_Info GenericComponent<NewMoniker>::uuids[] = {
   { &IObject::IID, 0 },
   { &IMoniker::IID, 0 },
   { 0, 0 }
 };
 
-NewMoniker* NewMoniker::obtain() {
-  if(!singleton)
-    singleton = new GenericComponent<NewMoniker>;
-
-  return singleton;
+NewMoniker* NewMoniker::create() {
+  return new GenericComponent<NewMoniker>;
 }
 
 NewMoniker::~NewMoniker() {
-  singleton = 0;
 }
 
 IObject* NewMoniker::resolve(const char* aName) {

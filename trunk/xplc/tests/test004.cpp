@@ -73,7 +73,5 @@ void test004() {
 
   VERIFY(loader->release() == 0, "single module loader has wrong refcount");
 
-  servmgr->shutdown();
-
-  VERIFY(servmgr->release() == 0, "service manager has non-zero refcount after shutdown/release");
+  VERIFY(servmgr->release() == 0, "service manager has non-zero refcount after release");
 }

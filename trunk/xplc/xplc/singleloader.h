@@ -39,7 +39,6 @@ public:
   static IObject* create();
   /* IServiceHandler */
   virtual IObject* getObject(const UUID&);
-  virtual void shutdown();
   /* ISingleModuleLoader */
   virtual const char* loadModule(const char* filename);
 };

@@ -38,7 +38,6 @@ public:
   }
 
   ~HandlerNode() {
-    handler->shutdown();
     handler->release();
   }
 };

@@ -49,7 +49,6 @@ public:
   static IObject* create();
   /* IServiceHandler */
   virtual IObject* getObject(const UUID&);
-  virtual void shutdown();
   /* IModuleLoader */
   virtual void setModuleDirectory(const char* directory);
 };

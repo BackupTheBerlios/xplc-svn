@@ -34,13 +34,11 @@
 class TestComponent: public ITestComponent {
 public:
   static TestComponent* create();
-  /* IObject */
-  virtual IObject* getInterface(const UUID&);
   /* ITestComponent */
   virtual int getAnswer();
 };
 
-inline TestComponent* TestComponent::create() {
+TestComponent* TestComponent::create() {
   return new GenericComponentInline<TestComponent>;
 }
 

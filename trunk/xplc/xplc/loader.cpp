@@ -33,7 +33,7 @@ const char* loaderOpen(const char* aFilename,
 
   /* clear out dl error */
   static_cast<void>(dlerror());
-  
+
   *aHandle = dlopen(aFilename, RTLD_NOW);
 
   if(!*aHandle)

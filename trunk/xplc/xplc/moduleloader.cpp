@@ -62,7 +62,16 @@ IObject* ModuleLoader::create() {
 }
 
 ModuleLoader::~ModuleLoader() {
-  shutdown();
+  ModuleNode* next;
+  void* dlh;
+
+  while(modules) {
+    dlh = modules->dlh;
+    next = modules->next;
+    delete modules;
+    loaderClose(dlh);
+    modules = next;
+  }
 }
 
 IObject* ModuleLoader::getObject(const UUID& uuid)
@@ -79,18 +88,6 @@ IObject* ModuleLoader::getObject(const UUID& uuid)
   }
 
   return 0;
-}
-
-void ModuleLoader::shutdown()
-{
-  ModuleNode* next;
-
-  while(modules) {
-    loaderClose(modules->dlh);
-    next = modules->next;
-    delete modules;
-    modules = next;
-  }
 }
 
 #if !defined(WIN32)

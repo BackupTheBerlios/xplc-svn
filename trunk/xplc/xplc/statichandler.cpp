@@ -36,7 +36,18 @@ StaticServiceHandler* StaticServiceHandler::create() {
 }
 
 StaticServiceHandler::~StaticServiceHandler() {
-  shutdown();
+  ObjectNode* node;
+  ObjectNode* ptr;
+
+  node = objects;
+
+  while(node) {
+    ptr = node;
+    node = node->next;
+    delete ptr;
+  }
+
+  objects = 0;
 }
 
 IObject* StaticServiceHandler::getObject(const UUID& aUuid) {
@@ -57,21 +68,6 @@ IObject* StaticServiceHandler::getObject(const UUID& aUuid) {
    * No match was found, we return empty-handed.
    */
   return 0;
-}
-
-void StaticServiceHandler::shutdown() {
-  ObjectNode* node;
-  ObjectNode* ptr;
-
-  node = objects;
-
-  while(node) {
-    ptr = node;
-    node = node->next;
-    delete ptr;
-  }
-
-  objects = 0;
 }
 
 void StaticServiceHandler::addObject(const UUID& aUuid, IObject* aObj) {

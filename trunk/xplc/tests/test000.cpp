@@ -36,7 +36,5 @@ void test000() {
 
   ASSERT(serv != 0, "could not obtain service manager");
 
-  serv->shutdown();
-
-  VERIFY(serv->release() == 0, "service manager has non-zero refcount after shutdown/release");
+  VERIFY(serv->release() == 0, "service manager has non-zero refcount after release");
 }

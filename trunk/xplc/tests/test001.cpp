@@ -48,8 +48,6 @@ public:
 
     return 0;
   }
-  virtual void shutdown() {
-  }
 };
 
 class Handler2: public IServiceHandler {
@@ -66,8 +64,6 @@ public:
 
     return 0;
   }
-  virtual void shutdown() {
-  }
 };
 
 class Handler3: public IServiceHandler {
@@ -83,8 +79,6 @@ public:
     }
 
     return 0;
-  }
-  virtual void shutdown() {
   }
 };
 
@@ -157,7 +151,9 @@ void test001() {
   obj = serv->getObject(obj3);
   VERIFY(!obj, "object 3 still returned after removing handler 3");
 
-  serv->shutdown();
+  VERIFY(handler1->release() == 0, "incorrect refcount on handler 1");
+  VERIFY(handler2->release() == 0, "incorrect refcount on handler 2");
+  VERIFY(handler3->release() == 0, "incorrect refcount on handler 3");
 
-  VERIFY(serv->release() == 0, "service manager has non-zero refcount after shutdown/release");
+  VERIFY(serv->release() == 0, "service manager has non-zero refcount after release");
 }

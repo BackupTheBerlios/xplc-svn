@@ -41,7 +41,6 @@ public:
   virtual void addLastHandler(IServiceHandler*);
   virtual void removeHandler(IServiceHandler*);
   virtual IObject* getObject(const UUID&);
-  virtual void shutdown();
 };
 
 #endif /* __XPLC_SERVMGR_H__ */

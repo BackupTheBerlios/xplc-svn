@@ -35,6 +35,7 @@ static ServiceManager* servmgr = 0;
 IServiceManager* XPLC::getServiceManager() {
   IObject* obj;
   IStaticServiceHandler* handler;
+  IStaticServiceHandler* handler2;
   IGenericFactory* factory;
   IFactory* factoryfactory;
   IMonikerService* monikers;
@@ -68,7 +69,14 @@ IServiceManager* XPLC::getServiceManager() {
    * Populate the static service handler.
    */
 
-  handler->addObject(XPLC::staticServiceHandler, handler);
+  handler2 = StaticServiceHandler::create();
+  if(handler2) {
+    handler->addObject(XPLC::staticServiceHandler, handler2);
+    servmgr->addHandler(handler2);
+  } else {
+    servmgr->release();
+    return 0;
+  }
 
   obj = GenericFactory::create();
   if(obj)
@@ -112,7 +120,7 @@ IServiceManager* XPLC::getServiceManager() {
 
   factoryfactory->release();
 
-  handler->addObject(XPLC::newMoniker, NewMoniker::obtain());
+  handler->addObject(XPLC::newMoniker, NewMoniker::create());
 
   return servmgr;
 }

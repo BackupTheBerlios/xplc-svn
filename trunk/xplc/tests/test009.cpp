@@ -50,6 +50,8 @@ void test009() {
   obj = loaderfactory->createObject();
   ASSERT(obj != 0, "could not create module loader component");
 
+  ASSERT(loaderfactory->release() == 1, "factory has wrong refcount");
+
   loader = mutate<IModuleLoader>(obj);
   ASSERT(loader != 0, "module loader does not have expected interface");
 
@@ -65,6 +67,7 @@ void test009() {
 
   VERIFY(test->release() == 1, "test object has wrong refcount");
 
-  servmgr->shutdown();
-  VERIFY(servmgr->release() == 0, "service manager has non-zero refcount after shutdown/release");
+  VERIFY(loader->release() == 0, "incorrect refcount on module loader");
+
+  VERIFY(servmgr->release() == 0, "service manager has non-zero refcount after release");
 }

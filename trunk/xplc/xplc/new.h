@@ -28,7 +28,7 @@ class NewMoniker: public IMoniker {
 protected:
   virtual ~NewMoniker();
 public:
-  static NewMoniker* obtain();
+  static NewMoniker* create();
   /* IMoniker */
   virtual IObject* resolve(const char*);
 };

@@ -37,6 +37,14 @@ void ServiceManager::create(ServiceManager** aReference) {
 }
 
 ServiceManager::~ServiceManager() {
+  HandlerNode* next;
+
+  while(handlers) {
+    next = handlers->next;
+    delete handlers;
+    handlers = next;
+  }
+
   *reference = 0;
 }
 
@@ -149,12 +157,3 @@ IObject* ServiceManager::getObject(const UUID& aUuid) {
   return 0;
 }
 
-void ServiceManager::shutdown() {
-  HandlerNode* next;
-
-  while(handlers) {
-    next = handlers->next;
-    delete handlers;
-    handlers = next;
-  }
-}
