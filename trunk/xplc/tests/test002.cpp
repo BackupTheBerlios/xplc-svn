@@ -76,5 +76,7 @@ void test002() {
   VERIFY(handler->release() == 0, "static service handler has non-zero refcount after release");
 
   VERIFY(test->release() == 0, "test object has non-zero refcount after release");
+
+  delete test;
 }
 
