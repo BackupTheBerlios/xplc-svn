@@ -58,7 +58,7 @@ examples: default
 	$(MAKE) -C $@
 
 .PHONY: $(DIST)
-$(DIST): ChangeLog README xplc.spec configure
+$(DIST): ChangeLog README xplc.spec debian/control configure
 	rm -rf $(DIST)
 	tar cf - . | (mkdir $(DIST) && cd $(DIST) && tar xf -)
 	$(MAKE) -C $(DIST) distclean
@@ -81,6 +81,9 @@ README: dist/README.in configure.ac
 	sed $< -e 's%@VERSION@%$(PACKAGE_VERSION)%g' > $@
 
 xplc.spec: dist/xplc.spec.in configure.ac
+	sed $< -e 's%@VERSION@%$(PACKAGE_VERSION)%g' > $@
+
+debian/control: debian/control.in configure.ac
 	sed $< -e 's%@VERSION@%$(PACKAGE_VERSION)%g' > $@
 
 dustclean:
