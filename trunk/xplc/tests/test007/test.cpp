@@ -31,8 +31,6 @@
  * Verifies the moniker facility
  */
 
-#include <xplc/trace.h>
-
 void test() {
   IServiceManager* servmgr;
   IStaticServiceHandler* handler;
@@ -49,7 +47,7 @@ void test() {
   handler = mutate<IStaticServiceHandler>(obj);
   ASSERT(handler != 0, "static service handler does not have the IStaticServiceHandler interface");
 
-  test = new TraceComponent<TestObject>;
+  test = new TestObject;
   ASSERT(test != 0, "could not create TestObject");
   test->addRef();
 
