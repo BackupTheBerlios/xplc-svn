@@ -65,7 +65,7 @@ AC_PROG_INSTALL
 if test "$with_dlopen" != "no"; then
     AC_SEARCH_LIBS(dlopen, dl, with_dlopen=$ac_cv_search_dlopen, with_dlopen=no)
     test "$with_dlopen" = "none required" && with_dlopen=
-    AC_DEFINE(WITH_DLOPEN, 1, [Define if you want to use dlopen.])
+    test "$with_dlopen" = "no" || AC_DEFINE(WITH_DLOPEN, 1, [Define if you want to use dlopen.])
 fi
 
 AC_HEADER_DIRENT
