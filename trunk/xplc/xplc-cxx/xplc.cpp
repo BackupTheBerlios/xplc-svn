@@ -37,9 +37,17 @@
 #include <xplc/ptr.h>
 
 void XPLC::addModuleDirectory(const char* directory) {
-  xplc_ptr<IModuleManagerFactory> factory(create<IModuleManagerFactory>(XPLC_moduleManagerFactory));
+  xplc_ptr<IModuleManagerFactory> factory(get<IModuleManagerFactory>(XPLC_moduleManagerFactory));
 
-  servmgr->addHandler(factory->createModuleManager(directory));
+  if(!factory)
+    return;
+
+  xplc_ptr<IServiceHandler> modulemgr(factory->createModuleManager(directory));
+
+  if(!modulemgr)
+    return;
+
+  servmgr->addHandler(modulemgr);
 }
 
 IObject* XPLC::create(const UUID& cid) {
