@@ -55,6 +55,7 @@ install: $(TARGETS) installdirs
 	$(INSTALL_PROGRAM) libxplc.so.$(VERSION) $(libdir)
 	$(INSTALL_DATA) libxplc_s.a $(libdir)
 	$(INSTALL_DATA) $(wildcard include/xplc/*.h) $(includedir)/xplc
+	ln -s libxplc.so.$(VERSION) $(libdir)/libxplc.so
 
 ifeq ($(filter-out $(SIMPLETARGETS),$(MAKECMDGOALS)),$(MAKECMDGOALS))
 
