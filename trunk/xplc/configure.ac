@@ -153,12 +153,14 @@ fi
 
 pc_version=
 libdir_version=
+lib_prefix_version=
 if test "$(echo $PACKAGE_VERSION | awk -F. '{ print $2 % 2}')" -eq 1; then
     AC_MSG_WARN([Unstable release, the API might change in the next release.])
     enable_unstable=yes
     includedir="$includedir/xplc-${PACKAGE_VERSION}"
     pc_version="-${PACKAGE_VERSION}"
     libdir_version="/xplc-${PACKAGE_VERSION}"
+    lib_prefix_version="../"
 fi
 
 if test "$enable_unstable" = "yes"; then
@@ -167,6 +169,7 @@ fi
 
 AC_SUBST(pc_version)
 AC_SUBST(libdir_version)
+AC_SUBST(lib_prefix_version)
 AC_SUBST(enable_loader)
 AC_SUBST(with_dlopen)
 AC_SUBST(so_style)

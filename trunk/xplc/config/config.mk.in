@@ -26,6 +26,7 @@ CXX=@CXX@
 CXXFLAGS+=@CXXFLAGS@
 pc_version:=@pc_version@
 libdir_version:=@libdir_version@
+lib_prefix_version:=@lib_prefix_version@
 enable_loader:=@enable_loader@
 with_dlopen:=@with_dlopen@
 so_style:=@so_style@
