@@ -48,7 +48,7 @@ public:
 
 const UUID IBar::IID = {0xa1520c1d, 0xcf44, 0x4830, {0xa9, 0xb2, 0xb1, 0x80, 0x9b, 0x1e, 0xe7, 0xa2}};
 
-class MyTestObject: public IFoo, IBar {
+class MyTestObject: public IFoo, public IBar {
 private:
   bool destroyed;
   unsigned int foo;
