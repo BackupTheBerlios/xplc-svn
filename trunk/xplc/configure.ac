@@ -51,6 +51,10 @@ AC_ARG_ENABLE(exceptions,
               AC_HELP_STRING([--enable-exceptions],
                              [C++ exceptions (compiler)]))
 
+AC_ARG_WITH(dlopen,
+            AC_HELP_STRING([--with-dlopen],
+                           [dlopen]))
+
 AC_CONFIG_SRCDIR([include/xplc/xplc.h])
 
 AC_LANG(C++)
@@ -58,7 +62,10 @@ AC_LANG(C++)
 AC_PROG_CXX
 AC_PROG_INSTALL
 
-AC_CHECK_LIB(dl, dlopen)
+if test "$with_dlopen" != "no"; then
+    AC_SEARCH_LIBS(dlopen, dl, with_dlopen=$ac_cv_search_dlopen, with_dlopen=no)
+    test "$with_dlopen" = "none required" && with_dlopen=
+fi
 
 AC_HEADER_DIRENT
 AC_CHECK_HEADERS(dlfcn.h)
@@ -70,6 +77,7 @@ AC_SUBST(enable_warnings)
 AC_SUBST(enable_unstable)
 AC_SUBST(enable_rtti)
 AC_SUBST(enable_exceptions)
+AC_SUBST(with_dlopen)
 
 AC_CONFIG_FILES([config/config.mk])
 AC_CONFIG_HEADERS([include/xplc/autoconf.h])

@@ -25,7 +25,7 @@ tests: tests/testmain tests/testobj.dll
 	@echo "Running tests:"
 	@cd tests && ./testmain
 
-tests/testmain: tests/testmain.o $(patsubst %.cpp,%.o,$(wildcard tests/test[0-9][0-9][0-9].cpp)) libxplc_s.a $(LIBDL)
+tests/testmain: tests/testmain.o $(patsubst %.cpp,%.o,$(wildcard tests/test[0-9][0-9][0-9].cpp)) libxplc_s.a $(LIBXPLC_LIBS)
 
 tests/testobj.dll: tests/testobj.o
 	$(LINK.cc) -shared -o $@ $^

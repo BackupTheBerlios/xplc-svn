@@ -80,3 +80,7 @@ ifneq ("$(enable_exceptions)", "yes")
 CXXFLAGS+=-fno-exceptions
 endif
 
+ifneq ("$(with_dlopen)", "no")
+LIBXPLC_LIBS+=$(with_dlopen)
+endif
+

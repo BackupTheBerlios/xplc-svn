@@ -26,6 +26,6 @@ libxplc.a: $(LIBXPLC_OBJS)
 libxplc_s.a: libxplc.a
 	ln -sf $^ $@
 
-libxplc.so.$(VERSION): $(LIBXPLC_OBJS) $(LIBDL)
+libxplc.so.$(VERSION): $(LIBXPLC_OBJS) $(LIBXPLC_LIBS)
 	$(LINK.cc) -shared -Wl,-soname,$(LIBXPLC_SONAME) $^ -o $@
 
