@@ -42,6 +42,8 @@ distclean: clean
 realclean: distclean
 	rm -f $(REALCLEAN)
 
+ifeq ($(filter-out $(SIMPLETARGETS),$(MAKECMDGOALS)),$(MAKECMDGOALS))
+
 config/config.mk: config/config.mk.in configure
 	@echo "Please run './configure'."
 	@exit 1
@@ -56,3 +58,4 @@ config/depends.mk: config/config.mk
 
 -include config/depends.mk
 
+endif

@@ -18,8 +18,10 @@
 #
 # $Id$
 
-DISTCLEAN+=config/config.mk ChangeLog.bak
-REALCLEAN+=config/depends.mk ChangeLog
+DISTCLEAN+=config/config.mk ChangeLog.bak config/depends.mk
+REALCLEAN+=ChangeLog
+
+SIMPLETARGETS+=dist ChangeLog clean dustclean realclean distclean
 
 # the 'S' option to 'ar' seems to cause problem on Solaris?
 #ARFLAGS=rcS
