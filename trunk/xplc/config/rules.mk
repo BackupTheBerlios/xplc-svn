@@ -21,6 +21,17 @@
 
 .PHONY: ChangeLog dist dustclean clean distclean realclean installdirs install uninstall
 
+DEPFILE = $(notdir $(@:.o=.d))
+
+%.o: %.cpp
+	$(COMPILE.cpp) -MD $(OUTPUT_OPTION) $<
+	@test -f $(DEPFILE)
+	@sed -e 's|^.*:|$@:|' $(DEPFILE) > $(dir $@).$(DEPFILE)
+	@rm -f $(DEPFILE)
+
+%: %.o
+	$(LINK.o) $^ $(LOADLIBES) $(LDLIBS) -o $@
+
 dist: distclean ChangeLog README xplc.spec
 	autoconf
 	autoheader
@@ -43,7 +54,7 @@ dustclean:
 
 clean: dustclean
 	rm -f $(shell find . -name '*.o' -print)
-	rm -f $(wildcard $(GARBAGES) $(TARGETS))
+	rm -f $(wildcard $(GARBAGES) $(DEPFILES) $(TARGETS))
 
 distclean: clean
 	rm -f $(wildcard $(DISTCLEAN))
@@ -77,11 +88,7 @@ configure: configure.in
 	autoconf
 	autoheader
 
-config/depends.mk: config/config.mk
-	@echo "Building dependencies file ($@)"
-	@$(foreach DEP,$(CXXDEPS),$(COMPILE.cc) -M $(DEP) | sed -e 's|^.*:|$(dir $(DEP))&|' >> $@;)
-
--include config/depends.mk
+-include $(DEPFILES) /dev/null
 
 endif
 

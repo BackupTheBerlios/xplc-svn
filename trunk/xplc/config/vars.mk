@@ -19,8 +19,10 @@
 #
 # $Id$
 
-DISTCLEAN+=config/config.mk ChangeLog.bak config/depends.mk
-REALCLEAN+=ChangeLog
+DEPFILES:=$(shell find . -name '.*.d')
+
+DISTCLEAN+=config/config.mk include/xplc/autoconf.h ChangeLog.bak
+REALCLEAN+=ChangeLog include/xplc/autoconf.h.in
 
 SIMPLETARGETS+=dist ChangeLog clean dustclean realclean distclean
 
