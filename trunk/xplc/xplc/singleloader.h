@@ -1,7 +1,7 @@
 /* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*-
  *
  * XPLC - Cross-Platform Lightweight Components
- * Copyright (C) 2000, Pierre Phaneuf
+ * Copyright (C) 2000-2002, Pierre Phaneuf
  * Copyright (C) 2001, Stéphane Lajoie
  * Copyright (C) 2002, Net Integration Technologies, Inc.
  *
@@ -21,20 +21,20 @@
  * 02111-1307, USA.
  */
 
-#ifndef __XPLC_SIMPLEDL_H__
-#define __XPLC_SIMPLEDL_H__
+#ifndef __XPLC_SINGLELOADER_H__
+#define __XPLC_SINGLELOADER_H__
 
 #include <xplc/IModule.h>
 #include <xplc/ISingleModuleLoader.h>
 
-class SimpleDynamicLoader: public ISingleModuleLoader {
+class SingleModuleLoader: public ISingleModuleLoader {
 private:
   void* dlh;
   IModule* module;
 protected:
-  SimpleDynamicLoader(): dlh(0), module(0) {
+  SingleModuleLoader(): dlh(0), module(0) {
   }
-  virtual ~SimpleDynamicLoader();
+  virtual ~SingleModuleLoader();
 public:
   static IObject* create();
   /* IObject */
@@ -46,4 +46,4 @@ public:
   virtual const char* loadModule(const char* filename);
 };
 
-#endif /* __XPLC_SIMPLEDL_H__ */
+#endif /* __XPLC_SINGLELOADER_H__ */

@@ -1,7 +1,7 @@
 /* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*-
  *
  * XPLC - Cross-Platform Lightweight Components
- * Copyright (C) 2000-2001, Pierre Phaneuf
+ * Copyright (C) 2000-2002, Pierre Phaneuf
  * Copyright (C) 2001, Stéphane Lajoie
  * Copyright (C) 2002, Net Integration Technologies, Inc.
  *
@@ -26,13 +26,13 @@
 #include <xplc/module.h>
 #include <xplc/utils.h>
 #include "loader.h"
-#include "simpledl.h"
+#include "singleloader.h"
 
-IObject* SimpleDynamicLoader::create() {
-  return new GenericComponent<SimpleDynamicLoader>;
+IObject* SingleModuleLoader::create() {
+  return new GenericComponent<SingleModuleLoader>;
 }
 
-IObject* SimpleDynamicLoader::getInterface(const UUID& aUuid) {
+IObject* SingleModuleLoader::getInterface(const UUID& aUuid) {
   if(aUuid.equals(IObject::IID)) {
     addRef();
     return static_cast<IObject*>(this);
@@ -51,7 +51,7 @@ IObject* SimpleDynamicLoader::getInterface(const UUID& aUuid) {
   return 0;
 }
 
-SimpleDynamicLoader::~SimpleDynamicLoader() {
+SingleModuleLoader::~SingleModuleLoader() {
   if(module)
     module->release();
 
@@ -59,19 +59,19 @@ SimpleDynamicLoader::~SimpleDynamicLoader() {
     loaderClose(dlh);
 }
 
-IObject* SimpleDynamicLoader::getObject(const UUID& uuid) {
+IObject* SingleModuleLoader::getObject(const UUID& uuid) {
   if(module)
     return module->getObject(uuid);
   else
     return 0;
 }
 
-void SimpleDynamicLoader::shutdown() {
+void SingleModuleLoader::shutdown() {
   module->release();
   module = 0;
 }
 
-const char* SimpleDynamicLoader::loadModule(const char* filename) {
+const char* SingleModuleLoader::loadModule(const char* filename) {
   const char* err;
   XPLC_GetModuleFunc getmodule = 0;
   IServiceManager* servmgr;

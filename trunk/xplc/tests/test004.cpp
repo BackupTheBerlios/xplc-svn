@@ -30,36 +30,36 @@
 /*
  * test004
  *
- * Verifies the simple dynamic component loader.
+ * Verifies the single module loader.
  */
 
 void test004() {
   IServiceManager* servmgr;
-  IFactory* dynfactory;
+  IFactory* loaderfactory;
   IObject* obj;
-  ISingleModuleLoader* dyn;
+  ISingleModuleLoader* loader;
   ITestComponent* test;
   const char* err;
 
   servmgr = XPLC::getServiceManager();
   ASSERT(servmgr != 0, "could not obtain service manager");
 
-  obj = servmgr->getObject(XPLC::simpleDynamicLoader);
-  ASSERT(obj != 0, "could not obtain simple dynamic loader component");
+  obj = servmgr->getObject(XPLC::singleModuleLoader);
+  ASSERT(obj != 0, "could not obtain single module loader component");
 
-  dynfactory = mutate<IFactory>(obj);
-  ASSERT(dynfactory != 0, "factory does not have expected interface");
+  loaderfactory = mutate<IFactory>(obj);
+  ASSERT(loaderfactory != 0, "factory does not have expected interface");
 
-  obj = dynfactory->createObject();
-  ASSERT(obj != 0, "could not create simple dynamic loader component");
+  obj = loaderfactory->createObject();
+  ASSERT(obj != 0, "could not create single module loader component");
 
-  dyn = mutate<ISingleModuleLoader>(obj);
-  ASSERT(dyn != 0, "simple dynamic loader does not have expected interface");
+  loader = mutate<ISingleModuleLoader>(obj);
+  ASSERT(loader != 0, "single module loader does not have expected interface");
 
-  err = dyn->loadModule("tests/testobj.dll");
+  err = loader->loadModule("./testobj.dll");
   ASSERT(!err, err);
 
-  obj = dyn->getObject(TestComponent_CID);
+  obj = loader->getObject(TestComponent_CID);
   ASSERT(obj != 0, "could not create test object");
 
   test = mutate<ITestComponent>(obj);
