@@ -182,7 +182,7 @@ void ModuleLoader::setModuleDirectory(const char* directory)
     IModule* module;
     ModuleNode* newmodule;
 
-    snprintf(fname, len, "%s/%s", directory, data.name);
+    _snprintf(fname, len, "%s/%s", directory, data.name);
 
     err = loaderOpen(fname, &dlh);
     if(err)
