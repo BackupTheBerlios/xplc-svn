@@ -70,7 +70,7 @@ class WeakRef;
 /**
  * Helper internal structure. Used for implementing IMPLEMENT_IOBJECT.
  */
-struct IObjectImplementationInternal {
+struct IObjectImplInternal {
   /**
    * Holds the reference count.
    */
@@ -81,8 +81,13 @@ struct IObjectImplementationInternal {
    * needed.
    */
   WeakRef* weakref;
-  IObjectImplementationInternal(): refcount(1), weakref(0) {
+  IObjectImplInternal(): refcount(1), weakref(0) {
   }
+  /**
+   * Used to implement IObject::getInterface().
+   */
+  IObject* getInterface(void* self, const UUID& uuid,
+                        const UUID_Info* uuidlist);
 };
 
 /**
@@ -95,7 +100,7 @@ struct IObjectImplementationInternal {
  */
 #define IMPLEMENT_IOBJECT(component) \
 private: \
-  IObjectImplementationInternal xplc_iobject_internal; \
+  IObjectImplInternal xplc_iobject_internal; \
   static const UUID_Info xplc_iobject_uuids[]; \
   typedef component ThisXPLCComponent; \
 public: \
@@ -115,7 +120,7 @@ public: \
     return 0; \
   } \
   virtual IObject* getInterface(const UUID& uuid) { \
-    return XPLC_getInterface_real(this, uuid, xplc_iobject_uuids); \
+    return xplc_iobject_internal.getInterface(this, uuid, xplc_iobject_uuids); \
   } \
   virtual IWeakRef* getWeakRef() { \
     if(!xplc_iobject_internal.weakref) \
@@ -123,13 +128,6 @@ public: \
     xplc_iobject_internal.weakref->addRef(); \
     return xplc_iobject_internal.weakref; \
   }
-
-/**
- * Internal function used by the IMPLEMENT_IOBJECT macro to implement
- * IObject::getInterface().
- */
-IObject* XPLC_getInterface_real(void* self, const UUID& uuid,
-                                const UUID_Info* uuidlist);
 
 /** \class WeakRef
  *

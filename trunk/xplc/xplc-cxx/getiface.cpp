@@ -26,8 +26,9 @@ UUID_MAP_BEGIN(WeakRef)
   UUID_MAP_ENTRY(IWeakRef)
   UUID_MAP_END
 
-IObject* XPLC_getInterface_real(void* self, const UUID& uuid,
-                           const UUID_Info* uuidlist) {
+IObject* IObjectImplInternal::getInterface(void* self,
+                                           const UUID& uuid,
+                                           const UUID_Info* uuidlist) {
   IObject* rv;
 
   while(uuidlist->iid) {
