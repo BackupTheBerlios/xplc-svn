@@ -19,7 +19,10 @@
  * 02111-1307, USA.
  */
 
+#include <xplc/autoconf.h>
+#ifdef HAVE_DLFCN_H
 #include <dlfcn.h>
+#endif
 #include "loader.h"
 
 const char* loaderOpen(const char* aFilename,
