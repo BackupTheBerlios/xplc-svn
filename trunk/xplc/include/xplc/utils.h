@@ -58,7 +58,7 @@ public:
  * not support the interface, a NULL pointer will be returned.
  */
 template<class Interface>
-Interface* getInterface(IObject* aObj) {
+Interface* get(IObject* aObj) {
   if(!aObj)
     return 0;
 
@@ -66,13 +66,13 @@ Interface* getInterface(IObject* aObj) {
 }
 
 /*
- * This templated function is very similar to the getInterface one,
- * except that it automatically releases the inbound reference,
- * without regard whether the getInterface actually yielded something.
+ * This templated function is very similar to the "get" one, except
+ * that it automatically releases the inbound reference, without
+ * regard whether the getInterface actually yielded something.
  */
 
 template<class Interface>
-Interface* mutateInterface(IObject* aObj) {
+Interface* mutate(IObject* aObj) {
   Interface* rv;
 
   if(!aObj)

@@ -70,7 +70,7 @@ IServiceManager* XPLC::getServiceManager() {
   obj = GenericFactory::create();
   if(obj)
     obj->addRef();
-  factory = mutateInterface<IGenericFactory>(obj);
+  factory = mutate<IGenericFactory>(obj);
   if(factory) {
     factory->setFactory(GenericFactory::create);
     handler->addObject(XPLC::genericFactory, factory);
@@ -79,7 +79,7 @@ IServiceManager* XPLC::getServiceManager() {
   obj = MonikerService::create();
   if(obj)
     obj->addRef();
-  obj = mutateInterface<IMonikerService>(obj);
+  obj = mutate<IMonikerService>(obj);
   if(obj) {
     handler->addObject(XPLC::monikers, obj);
     obj->release();
@@ -90,7 +90,7 @@ IServiceManager* XPLC::getServiceManager() {
    */
   factoryfactory = factory;
 
-  factory = mutateInterface<IGenericFactory>(factoryfactory->createObject());
+  factory = mutate<IGenericFactory>(factoryfactory->createObject());
   if(factory) {
     factory->setFactory(SimpleDynamicLoader::create);
     handler->addObject(XPLC::simpleDynamicLoader, factory);

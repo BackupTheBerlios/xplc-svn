@@ -44,7 +44,7 @@ void test() {
   obj = servmgr->getObject(XPLC::staticServiceHandler);
   ASSERT(obj != 0, "could not obtain static service handler");
 
-  handler = mutateInterface<IStaticServiceHandler>(obj);
+  handler = mutate<IStaticServiceHandler>(obj);
   ASSERT(handler != 0, "static service handler does not have the IStaticServiceHandler interface");
 
   test = new TestObject;
@@ -59,7 +59,7 @@ void test() {
   obj = servmgr->getObject(XPLC::monikers);
   ASSERT(obj != 0, "could not obtain moniker component");
   
-  monikers = mutateInterface<IMonikerService>(obj);
+  monikers = mutate<IMonikerService>(obj);
   ASSERT(monikers != 0, "moniker service does not have the IMoniker interface");
 
   monikers->registerObject("testobject", TestObject_CID);
