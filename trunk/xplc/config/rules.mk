@@ -64,6 +64,8 @@ $(DIST): ChangeLog README xplc.spec configure
 	done
 
 dist: default tests $(DIST).tar.gz
+	@echo REMINDER: did you update the version number in configure.ac?
+	@echo The NEWS file? The debian/changelog file?
 
 ChangeLog:
 	rm -f ChangeLog ChangeLog.bak
