@@ -8,6 +8,7 @@ Source: xplc-%{version}.tar.gz
 URL: http://xplc.sourceforge.net/
 Prefix: /usr
 BuildRoot: %{_tmppath}/%{name}-root
+Requires: /sbin/ldconfig
 
 %package devel
 Summary: Cross-platform lightweight component system (development)
@@ -25,18 +26,21 @@ This is the parts of XPLC needed for development.
 
 %prep
 %setup -q
-%configure
 
 %build
+%configure
 make
 
 %install
-rm -rf $RPM_BUILD_ROOT
-mkdir $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 %makeinstall
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
+
+%post -p /sbin/ldconfig
+
+%postun -p /sbin/ldconfig
 
 %files
 %attr(0755,root,root) /usr/lib/libxplc.so.%{version}
@@ -49,7 +53,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(-,root,root) /usr/lib/libxplc.so
 
 %changelog
- * Fri Sep 27 2002  Pierre Phaneuf <pp@ludusdesign.com>
-
-First release.
+* Fri Sep 27 2002  Pierre Phaneuf <pp@ludusdesign.com>
+- Initial RPM release.
 
