@@ -3,7 +3,7 @@
  * XPLC - Cross-Platform Lightweight Components
  * Copyright (C) 2000-2003, Pierre Phaneuf
  * Copyright (C) 2001, Stéphane Lajoie
- * Copyright (C) 2002, Net Integration Technologies, Inc.
+ * Copyright (C) 2002-2004, Net Integration Technologies, Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public License
@@ -89,6 +89,10 @@ struct IObjectImplInternal {
                         const UUID_Info* uuidlist);
 };
 
+#ifndef xplcdelete
+#define xplcdelete delete
+#endif
+
 /**
  * Helper macro to implement the IObject methods automatically. Put
  * this at the beginning of your class, specifiying the class name as
@@ -115,7 +119,7 @@ public: \
       xplc_iobject_internal.weakref->release(); \
       xplc_iobject_internal.weakref->object = 0; \
     } \
-    delete this; \
+    xplcdelete this; \
     return 0; \
   } \
   virtual IObject* getInterface(const UUID& uuid) { \
