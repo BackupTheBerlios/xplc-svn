@@ -22,7 +22,7 @@
 
 #include <stddef.h>
 #include <xplc/utils.h>
-#include <xplc/IModule.h>
+#include <xplc/module.h>
 #include "testobj.h"
 
 /*
@@ -102,10 +102,10 @@ public:
 
 TestModule module;
 
-extern "C"
-#ifdef WIN32
-__declspec(dllexport)
-#endif
-IModule* XPLC_GetModule() {
-  return &module;
+ENTRYPOINT IModule* XPLC_GetModule(IServiceManager*,
+                                   const unsigned int version) {
+  if(version == 0)
+    return &module;
+
+  return 0;
 }

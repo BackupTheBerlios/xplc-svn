@@ -22,6 +22,8 @@
  */
 
 #include <stddef.h>
+#include <xplc/xplc.h>
+#include <xplc/module.h>
 #include <xplc/utils.h>
 #include "loader.h"
 #include "simpledl.h"
@@ -71,7 +73,8 @@ void SimpleDynamicLoader::shutdown() {
 
 const char* SimpleDynamicLoader::loadModule(const char* filename) {
   const char* err;
-  IModule*(*getmodule)() = 0;
+  XPLC_GetModuleFunc getmodule = 0;
+  IServiceManager* servmgr;
 
   if(module) {
     module->release();
@@ -99,12 +102,17 @@ const char* SimpleDynamicLoader::loadModule(const char* filename) {
     return "could not find XPLC_GetModule entry point";
   }
 
-  module = getmodule();
+  servmgr = XPLC::getServiceManager();
+
+  module = getmodule(servmgr, XPLC_MODULE_VERSION);
   if(!module) {
     loaderClose(dlh);
     dlh = 0;
     return "could not obtain module";
   }
+
+  if(servmgr)
+    servmgr->release();
 
   return 0;
 }
