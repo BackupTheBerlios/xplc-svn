@@ -34,4 +34,8 @@
 #define UNSTABLE
 #endif
 
+#if defined(HAVE_DLOPEN) || defined(WIN32)
+#define HAVE_DYNAMIC_LOADING
+#endif
+
 #endif /* __XPLC_CONFIG_H__ */

@@ -23,11 +23,11 @@
 #define __XPLC_LOADER_H__
 
 const char* loaderOpen(const char* aFilename,
-		       void** aHandle);
+                       void** aHandle);
 
 const char* loaderSymbol(void* aHandle,
-			 const char* aSymbol,
-			 void** aPointer);
+                         const char* aSymbol,
+                         void** aPointer);
 
 bool loaderClose(void* aHandle);
 

@@ -20,8 +20,9 @@
  * USA
  */
 
-#include <xplc/IModuleLoader.h>
+#include <xplc/config.h>
 #include <xplc/utils.h>
+#include <xplc/IModuleLoader.h>
 #include "test.h"
 #include "testobj.h"
 
@@ -32,6 +33,7 @@
  */
 
 void test009() {
+#ifdef HAVE_DYNAMIC_LOADING
   IServiceManager* servmgr;
   IObject* obj;
   IFactory* loaderfactory;
@@ -70,4 +72,5 @@ void test009() {
   VERIFY(loader->release() == 0, "incorrect refcount on module loader");
 
   VERIFY(servmgr->release() == 0, "service manager has non-zero refcount after release");
+#endif
 }

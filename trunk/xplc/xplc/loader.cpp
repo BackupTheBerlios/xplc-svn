@@ -26,7 +26,9 @@
 
 #ifdef HAVE_DLFCN_H
 #include <dlfcn.h>
+#endif
 
+#ifdef WITH_DLOPEN
 const char* loaderOpen(const char* aFilename,
 		       void** aHandle) {
   const char* rv = 0;
@@ -57,9 +59,7 @@ bool loaderClose(void* aHandle) {
   return dlclose(aHandle) == 0;
 }
 
-#endif
-
-#ifdef WIN32
+#elseif defined(WIN32)
 #include <windows.h>
 
 const char* getErrorMessage() {
@@ -98,6 +98,25 @@ const char* loaderSymbol(void* aHandle,
 
 bool loaderClose(void* aHandle) {
   return FreeLibrary(static_cast<HMODULE>(aHandle)) != 0;
+}
+
+#else
+
+const char* loaderOpen(const char* aFilename,
+                       void** aHandle) {
+  *aHandle = 0;
+  return "dynamic loading not supported on this platform";
+}
+
+const char* loaderSymbol(void* aHandle,
+                         const char* aSymbol,
+                         void** aPointer) {
+  *aPointer = 0;
+  return "dynamic loading not supported on this platform";
+}
+
+bool loaderClose(void* aHandle) {
+  return false;
 }
 
 #endif

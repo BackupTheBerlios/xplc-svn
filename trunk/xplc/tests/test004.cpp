@@ -22,6 +22,7 @@
  */
 
 #include "test.h"
+#include <xplc/config.h>
 #include <xplc/xplc.h>
 #include <xplc/utils.h>
 #include <xplc/ISingleModuleLoader.h>
@@ -34,6 +35,7 @@
  */
 
 void test004() {
+#ifdef HAVE_DYNAMIC_LOADING
   IServiceManager* servmgr;
   IFactory* loaderfactory;
   IObject* obj;
@@ -74,4 +76,5 @@ void test004() {
   VERIFY(loader->release() == 0, "single module loader has wrong refcount");
 
   VERIFY(servmgr->release() == 0, "service manager has non-zero refcount after release");
+#endif
 }
