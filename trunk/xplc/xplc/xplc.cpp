@@ -47,7 +47,7 @@ IServiceManager* XPLC_getServiceManager() {
   if(!servmgr)
     return 0;
 
-  obj = servmgr->getObject(XPLC::staticServiceHandler);
+  obj = servmgr->getObject(XPLC_staticServiceHandler);
   if(obj) {
     obj->release();
     return servmgr;
@@ -68,7 +68,7 @@ IServiceManager* XPLC_getServiceManager() {
 
   handler2 = StaticServiceHandler::create();
   if(handler2) {
-    handler->addObject(XPLC::staticServiceHandler, handler2);
+    handler->addObject(XPLC_staticServiceHandler, handler2);
     servmgr->addHandler(handler2);
   } else {
     servmgr->release();
@@ -81,7 +81,7 @@ IServiceManager* XPLC_getServiceManager() {
   factory = mutate<IGenericFactory>(obj);
   if(factory) {
     factory->setFactory(GenericFactory::create);
-    handler->addObject(XPLC::genericFactory, factory);
+    handler->addObject(XPLC_genericFactory, factory);
   }
 
   /* Create moniker service and register monikers. */
@@ -89,9 +89,9 @@ IServiceManager* XPLC_getServiceManager() {
   if(monikers) {
     monikers->addRef();
 
-    monikers->registerObject("new", XPLC::newMoniker);
+    monikers->registerObject("new", XPLC_newMoniker);
 
-    handler->addObject(XPLC::monikers, monikers);
+    handler->addObject(XPLC_monikers, monikers);
 
     monikers->release();
   }
@@ -104,20 +104,20 @@ IServiceManager* XPLC_getServiceManager() {
   factory = mutate<IGenericFactory>(factoryfactory->createObject());
   if(factory) {
     factory->setFactory(SingleModuleLoader::create);
-    handler->addObject(XPLC::singleModuleLoader, factory);
+    handler->addObject(XPLC_singleModuleLoader, factory);
     factory->release();
   }
 
   factory = mutate<IGenericFactory>(factoryfactory->createObject());
   if(factory) {
     factory->setFactory(ModuleLoader::create);
-    handler->addObject(XPLC::moduleLoader, factory);
+    handler->addObject(XPLC_moduleLoader, factory);
     factory->release();
   }
 
   factoryfactory->release();
 
-  handler->addObject(XPLC::newMoniker, NewMoniker::create());
+  handler->addObject(XPLC_newMoniker, NewMoniker::create());
 
   return servmgr;
 }

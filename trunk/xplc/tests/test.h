@@ -52,14 +52,12 @@ void test_verify(const char* file,
 
 class ITestInterface: public IObject {
 public:
-  static const UUID IID;
+  DEFINE_IID({0x794e20af, 0x5d35, 0x4d7a,
+    {0x8f, 0x23, 0xf8, 0x53, 0xd7, 0x34, 0xb3, 0xa7}});
+
   virtual unsigned int getRefCount() = 0;
   virtual void setRefCount(unsigned int) = 0;
 };
-
-DEFINE_UUID(ITestInterface::IID) = {0x794e20af, 0x5d35, 0x4d7a,
-                                    {0x8f, 0x23, 0xf8, 0x53,
-                                     0xd7, 0x34, 0xb3, 0xa7}};
 
 class TestObject: public ITestInterface {
 private:
@@ -96,12 +94,12 @@ public:
   virtual IObject* getInterface(const UUID& uuid) {
     ASSERT(!destroyed, "using destroyed test object");
 
-    if(uuid.equals(IObject::IID)) {
+    if(uuid.equals(IObject::getIID())) {
       addRef();
       return static_cast<IObject*>(this);
     }
 
-    if(uuid.equals(ITestInterface::IID)) {
+    if(uuid.equals(ITestInterface::getIID())) {
       addRef();
       return static_cast<ITestInterface*>(this);
     }
@@ -156,12 +154,12 @@ public:
     return 0;
   }
   virtual IObject* getInterface(const UUID& uuid) {
-    if(uuid.equals(IObject::IID)) {
+    if(uuid.equals(IObject::getIID())) {
       addRef();
       return static_cast<IObject*>(this);
     }
 
-    if(uuid.equals(IFactory::IID)) {
+    if(uuid.equals(IFactory::getIID())) {
       addRef();
       return static_cast<IFactory*>(this);
     }

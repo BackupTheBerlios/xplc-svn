@@ -44,7 +44,7 @@ void test009() {
   servmgr = XPLC_getServiceManager();
   ASSERT(servmgr != 0, "could not obtain service manager");
 
-  obj = servmgr->getObject(XPLC::moduleLoader);
+  obj = servmgr->getObject(XPLC_moduleLoader);
   ASSERT(obj != 0, "could not obtain module loader component");
 
   loaderfactory = mutate<IFactory>(obj);

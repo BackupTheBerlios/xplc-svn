@@ -43,7 +43,7 @@ void test008() {
   servmgr = XPLC_getServiceManager();
   ASSERT(servmgr != 0, "could not obtain service manager");
 
-  obj = servmgr->getObject(XPLC::staticServiceHandler);
+  obj = servmgr->getObject(XPLC_staticServiceHandler);
   ASSERT(obj != 0, "could not obtain static service handler");
 
   handler = mutate<IStaticServiceHandler>(obj);
@@ -58,7 +58,7 @@ void test008() {
   VERIFY(factory->release() == 2, "incorrect refcount on test object factory");
   VERIFY(handler->release() == 2, "incorrect refcount on static service handler");
 
-  monikers = mutate<IMonikerService>(servmgr->getObject(XPLC::monikers));
+  monikers = mutate<IMonikerService>(servmgr->getObject(XPLC_monikers));
   ASSERT(monikers != 0, "could not obtain correct moniker service");
 
   monikers->registerObject("testobject", TestObjectFactory_CID);

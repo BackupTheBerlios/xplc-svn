@@ -1,7 +1,7 @@
 /* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*-
  *
  * XPLC - Cross-Platform Lightweight Components
- * Copyright (C) 2000, Pierre Phaneuf
+ * Copyright (C) 2000-2002, Pierre Phaneuf
  * Copyright (C) 2002, Net Integration Technologies, Inc.
  *
  * This library is free software; you can redistribute it and/or
@@ -25,14 +25,13 @@
 
 #include <xplc/IFactory.h>
 
-class IGenericFactory: public IFactory { UNSTABLE_INTERFACE
+class IGenericFactory: public IFactory {
+  UNSTABLE_INTERFACE
 public:
-  static const UUID IID;
+  DEFINE_IID({0x11e2d782, 0x065a, 0x47f8,
+    {0xb4, 0xb3, 0x8e, 0xb4, 0x24, 0x62, 0xc9, 0xff}});
+
   virtual void setFactory(IObject*(*)()) = 0;
 };
-
-DEFINE_UUID(IGenericFactory::IID) = {0x11e2d782, 0x065a, 0x47f8,
-                                     {0xb4, 0xb3, 0x8e, 0xb4,
-                                      0x24, 0x62, 0xc9, 0xff}};
 
 #endif /* __XPLC_IGENERICFACTORY_H__ */
