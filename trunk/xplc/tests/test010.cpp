@@ -2,6 +2,7 @@
  *
  * XPLC - Cross-Platform Lightweight Components
  * Copyright (C) 2003, Pierre Phaneuf
+ * Copyright (C) 2003, Net Integration Technologies, Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public License
@@ -33,6 +34,7 @@ void test010() {
   IServiceManager* servmgr;
   IObject* obj;
   ICategoryManager* catmgr;
+  ICategory* cat;
 
   servmgr = XPLC_getServiceManager();
   ASSERT(servmgr != 0, "could not obtain service manager");
@@ -44,6 +46,11 @@ void test010() {
   ASSERT(catmgr != 0, "category manager does not have expected interface");
 
   /* FIXME: to be done */
+
+#if 0
+  cat = catmgr->getCategory(XPLC_categoryManager);
+  ASSERT(cat != 0, "could not obtain category");
+#endif
 
   VERIFY(catmgr->release() == 1, "category manager has wrong refcount");
 

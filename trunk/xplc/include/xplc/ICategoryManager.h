@@ -1,7 +1,7 @@
 /* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*-
  *
  * XPLC - Cross-Platform Lightweight Components
- * Copyright (C) 2002, Net Integration Technologies, Inc.
+ * Copyright (C) 2002-2003, Net Integration Technologies, Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public License
@@ -23,11 +23,13 @@
 #define __XPLC_ICATEGORYMANAGER_H__
 
 #include <xplc/IServiceHandler.h>
+#include <xplc/ICategory.h>
 
 class ICategoryManager: public IServiceHandler {
   UNSTABLE_INTERFACE
 public:
   virtual void registerComponent(const UUID&, const UUID&) = 0;
+  virtual ICategory* getCategory(const UUID&) = 0;
 };
 
 DEFINE_IID(ICategoryManager, {0xb5f218a5, 0xb50a, 0x4e8c,

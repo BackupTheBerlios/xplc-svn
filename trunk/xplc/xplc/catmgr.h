@@ -31,6 +31,7 @@ public:
   virtual IObject* getObject(const UUID&);
   /* ICategoryManager */
   virtual void registerComponent(const UUID&, const UUID&);
+  virtual ICategory* getCategory(const UUID&);
 };
 
 #endif /* __XPLC_CATMGR_H__ */
