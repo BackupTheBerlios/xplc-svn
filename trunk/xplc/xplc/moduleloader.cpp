@@ -167,7 +167,7 @@ void ModuleLoader::setModuleDirectory(const char* directory)
   IServiceManager* servmgr;
 
   fname = static_cast<char*>(malloc(len));
-  servmgr = XPLC::getServiceManager();
+  servmgr = XPLC_getServiceManager();
 
   bool first = true;
   while(fname && servmgr) {
