@@ -37,6 +37,7 @@ enable_rtti:=@enable_rtti@
 enable_exceptions:=@enable_exceptions@
 enable_loader:=@enable_loader@
 with_dlopen:=@with_dlopen@
+so_style:=@so_style@
 prefix:=@prefix@
 exec_prefix:=@exec_prefix@
 includedir:=@includedir@

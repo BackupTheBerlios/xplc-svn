@@ -88,3 +88,12 @@ ifneq ("$(enable_exceptions)", "yes")
 CXXFLAGS+=-fno-exceptions
 endif
 
+ifeq ("$(so_style)", "darwin")
+SHARED=-bundle
+endif
+
+ifeq ("$(so_style)", "sysv")
+SONAMEOPT=-Wl,-h
+SHARED=-shared $(if $(SONAME),$(SONAMEOPT)$(SONAME))
+endif
+

@@ -35,9 +35,6 @@ lib%_s.a: lib%.a
 	$(AR) $(ARFLAGS) $@ $^
 	$(RANLIB) $@
 
-SONAMEOPT=-Wl,-h
-SHARED=-shared $(if $(SONAME),$(SONAMEOPT)$(SONAME))
-
 %.so:
 	$(LINK.cc) $(SHARED) $^ -o $@
 
