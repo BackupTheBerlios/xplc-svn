@@ -46,7 +46,7 @@ void UUID::fromString(const char* str) {
       break;
     ++str;
 
-    data1 = strtoul(str, &end, 16);
+    data1 = unsigned short(strtoul(str, &end, 16));
     if(end != str + 4)
       break;
     str = end;
@@ -55,7 +55,7 @@ void UUID::fromString(const char* str) {
       break;
     ++str;
 
-    data2 = strtoul(str, &end, 16);
+    data2 = unsigned short(strtoul(str, &end, 16));
     if(end != str + 4)
       break;
     str = end;
@@ -67,13 +67,13 @@ void UUID::fromString(const char* str) {
     tmp[2] = 0;
 
     strncpy(tmp, str, 2);
-    data3[0] = strtoul(tmp, &end, 16);
+    data3[0] = unsigned char(strtoul(tmp, &end, 16));
     if(end != tmp + 2)
       break;
     str += 2;
 
     strncpy(tmp, str, 2);
-    data3[1] = strtoul(tmp, &end, 16);
+    data3[1] = unsigned char(strtoul(tmp, &end, 16));
     if(end != tmp + 2)
       break;
     str += 2;
@@ -84,7 +84,7 @@ void UUID::fromString(const char* str) {
 
     for(int i = 2; i < 8; ++i) {
       strncpy(tmp, str, 2);
-      data3[i] = strtoul(tmp, &end, 16);
+      data3[i] = unsigned char(strtoul(tmp, &end, 16));
       if(end != tmp + 2)
 	break;
       str += 2;

@@ -49,6 +49,7 @@ struct IID {
 
 #define DEFINE_IID(iface, u1, u2, u3, u4, u5, u6, u7, u8, u9, u10, u11) \
 static const UUID iface##_IID = u1, u2, u3, u4, u5, u6, u7, u8, u9, u10, u11; \
+template <> \
 struct IID<iface> { \
   static const UUID& get() { \
     return iface##_IID; \
