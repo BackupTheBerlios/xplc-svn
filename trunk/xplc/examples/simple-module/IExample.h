@@ -71,6 +71,10 @@ public:
  * This is the ultimate identifier for this interface. Changing either
  * the syntax or the semantics of an interface without changing this
  * identifier would be Bad.
+ *
+ * "IID" stands for "Interface ID". This is a normal UUID, there is
+ * nothing different except the name, but it helps to have some
+ * context when discussing or documenting things.
  */
 DEFINE_IID(IExample, {0x86c3a2d0, 0xe19b, 0x49d0,
   {0xb2, 0x84, 0x67, 0xc1, 0x11, 0x4a, 0x9d, 0x79}});

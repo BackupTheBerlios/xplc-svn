@@ -19,21 +19,20 @@
  * USA
  */
 
-#ifndef __EXAMPLE_SIMPLE_H__
-#define __EXAMPLE_SIMPLE_H__
+#ifndef __EXAMPLE_MODULE_H__
+#define __EXAMPLE_MODULE_H__
+
+#include "simple.h"
 
 /*
- * This file should be available to client code.
+ * This is private to the module.
  *
- * This is a "well-known" UUID that is used to get the component. We
- * say "well-known", because the assumption is that client code will
- * already know this, somehow (by including this file, for example).
- *
- * The "CID" suffix stands for "Component ID". This is a normal UUID,
- * there is nothing different except the name, but it helps to have
- * some context when discussing or documenting things.
+ * The content of this file is completely internal to the module, it
+ * is only used to share this prototype between simple.cpp and
+ * module.cpp. Client code using this component do not need this file
+ * at all.
  */
 
-static const UUID SimpleComponent_CID = {0x71c4067f, 0xaaa4, 0x4e6c, {0xa7, 0x07, 0x14, 0x38, 0xeb, 0x04, 0xb0, 0x7d}};
+IObject* getSimpleComponent();
 
-#endif /* __EXAMPLE_SIMPLE_H__ */
+#endif /* __EXAMPLE_MODULE_H__ */
