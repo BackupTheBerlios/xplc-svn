@@ -60,6 +60,16 @@ struct XPLC_ModuleInfo {
    * A pointer to this module's IModule component.
    */
   IModule* module;
+
+  /*
+   * FIXME: My vision for ModuleInfo is for it to have a function
+   * pointer called when loading the module, another when an object is
+   * needed and another when unloading the module (maybe with the
+   * possibility o vetoeing the unload). The only required one would
+   * be the one to obtain objects. The structure could also contain
+   * other information when we get around to it, like pointers to
+   * interface information, for example.
+   */
 };
 
 /**
