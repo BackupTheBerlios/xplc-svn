@@ -1,7 +1,7 @@
 /* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*-
  *
  * XPLC - Cross-Platform Lightweight Components
- * Copyright (C) 2000-2002, Pierre Phaneuf
+ * Copyright (C) 2000-2003, Pierre Phaneuf
  * Copyright (C) 2002, Net Integration Technologies, Inc.
  *
  * This library is free software; you can redistribute it and/or
@@ -35,10 +35,15 @@ public:
   ~XPLC();
 
   IObject* create(const UUID& cid);
-
   template<class Interface>
   Interface* create(const UUID& cid) {
     return mutate<Interface>(create(cid));
+  }
+
+  IObject* create(const char*);
+  template<class Interface>
+  Interface* create(const char* aMoniker) {
+    return mutate<Interface>(create(aMoniker));
   }
 };
 

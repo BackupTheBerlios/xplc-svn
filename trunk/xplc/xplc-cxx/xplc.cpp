@@ -20,6 +20,7 @@
  * USA
  */
 
+#include <xplc/IMoniker.h>
 #include <xplc/xplc.h>
 #include <xplc/ptr.h>
 
@@ -35,6 +36,24 @@ IObject* XPLC::create(const UUID& cid) {
     return 0;
 
   factory = servmgr->getObject(cid);
+  if(!factory)
+    return 0;
+
+  return factory->createObject();
+}
+
+IObject* XPLC::create(const char* aMoniker) {
+  xplc_ptr<IMoniker> moniker;
+  xplc_ptr<IFactory> factory;
+
+  if(!servmgr)
+    return 0;
+
+  moniker = servmgr->getObject(XPLC_monikers);
+  if(!moniker)
+    return 0;
+
+  factory = moniker->resolve(aMoniker);
   if(!factory)
     return 0;
 
