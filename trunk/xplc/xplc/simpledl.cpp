@@ -43,9 +43,9 @@ IObject* SimpleDynamicLoader::getInterface(const UUID& aUuid) {
     return static_cast<IServiceHandler*>(this);
   }
 
-  if(aUuid.equals(ISimpleDynamicLoader::IID)) {
+  if(aUuid.equals(ISingleModuleLoader::IID)) {
     addRef();
-    return static_cast<ISimpleDynamicLoader*>(this);
+    return static_cast<ISingleModuleLoader*>(this);
   }
 
   return 0;

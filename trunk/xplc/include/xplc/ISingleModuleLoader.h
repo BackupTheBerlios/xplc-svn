@@ -21,12 +21,12 @@
  * 02111-1307, USA.
  */
 
-#ifndef __XPLC_ISIMPLEDYNAMICLOADER_H__
-#define __XPLC_ISIMPLEDYNAMICLOADER_H__
+#ifndef __XPLC_ISINGLEMODULELOADER_H__
+#define __XPLC_ISINGLEMODULELOADER_H__
 
 #include <xplc/IServiceHandler.h>
 
-class ISimpleDynamicLoader: public IServiceHandler { UNSTABLE_INTERFACE
+class ISingleModuleLoader: public IServiceHandler { UNSTABLE_INTERFACE
 public:
   static const UUID IID;
   /*
@@ -38,7 +38,7 @@ public:
   virtual const char* loadModule(const char* filename) = 0;
 };
 
-DEFINE_UUID(ISimpleDynamicLoader::IID) = {0x0f8eb75a, 0x0b47, 0x494f, {0xb2, 0xa8, 0x7b, 0x2f, 0xb0, 0xef, 0x99, 0xde}};
+DEFINE_UUID(ISingleModuleLoader::IID) = {0x0f8eb75a, 0x0b47, 0x494f, {0xb2, 0xa8, 0x7b, 0x2f, 0xb0, 0xef, 0x99, 0xde}};
 
 /*
  * This is the prototype of the entry point that must be provided by
@@ -46,6 +46,6 @@ DEFINE_UUID(ISimpleDynamicLoader::IID) = {0x0f8eb75a, 0x0b47, 0x494f, {0xb2, 0xa
  * NON-addRef'd new instance of the component in the module, in a
  * manner similar to the factory function required by IGenericFactory.
  */
-extern "C" IObject* XPLC_SimpleModule();
+//extern "C" IObject* XPLC_SimpleModule();
 
-#endif /* __XPLC_ISIMPLEDYNAMICLOADER_H__ */
+#endif /* __XPLC_ISINGLEMODULELOADER_H__ */

@@ -24,7 +24,7 @@
 #include "../test.h"
 #include <xplc/xplc.h>
 #include <xplc/utils.h>
-#include <xplc/ISimpleDynamicLoader.h>
+#include <xplc/ISingleModuleLoader.h>
 #include "testobj.h"
 
 /*
@@ -37,7 +37,7 @@ void test() {
   IServiceManager* servmgr;
   IFactory* dynfactory;
   IObject* obj;
-  ISimpleDynamicLoader* dyn;
+  ISingleModuleLoader* dyn;
   ITestComponent* test;
   const char* err;
 
@@ -53,7 +53,7 @@ void test() {
   obj = dynfactory->createObject();
   ASSERT(obj != 0, "could not create simple dynamic loader component");
 
-  dyn = mutate<ISimpleDynamicLoader>(obj);
+  dyn = mutate<ISingleModuleLoader>(obj);
   ASSERT(dyn != 0, "simple dynamic loader does not have expected interface");
 
   err = dyn->loadModule("tests/test005/testobj.dll");

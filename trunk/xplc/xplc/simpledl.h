@@ -25,9 +25,9 @@
 #define __XPLC_SIMPLEDL_H__
 
 #include <xplc/IModule.h>
-#include <xplc/ISimpleDynamicLoader.h>
+#include <xplc/ISingleModuleLoader.h>
 
-class SimpleDynamicLoader: public ISimpleDynamicLoader {
+class SimpleDynamicLoader: public ISingleModuleLoader {
 private:
   void* dlh;
   IModule* module;
@@ -42,7 +42,7 @@ public:
   /* IServiceHandler */
   virtual IObject* getObject(const UUID&);
   virtual void shutdown();
-  /* ISimpleDynamicLoader */
+  /* ISingleModuleLoader */
   virtual const char* loadModule(const char* filename);
 };
 
