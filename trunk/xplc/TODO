@@ -9,7 +9,6 @@ this is subject to revision!
  - categories
  - proper module meta-info
  - (proper) dynamic loading on Mac OS X (dlopen-style)
- - Debian package
 
  * 0.7.0
  - IDL compiler

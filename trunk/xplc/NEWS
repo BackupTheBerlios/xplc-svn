@@ -2,6 +2,7 @@ New in 0.3.1
 ------------
 
  * Added categories.
+ * Added a Debian package setup.
  * Restricted exported symbols, made libxplc.so resistant to changes
    in libxplc-cxx.a.
  * Various optimizations to decrease the size of libxplc.so.
