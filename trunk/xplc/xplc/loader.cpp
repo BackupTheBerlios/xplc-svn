@@ -59,7 +59,8 @@ bool loaderClose(void* aHandle) {
   return dlclose(aHandle) == 0;
 }
 
-#elseif defined(WIN32)
+#elif defined(WIN32)
+
 #include <windows.h>
 
 const char* getErrorMessage() {
