@@ -59,12 +59,12 @@ IServiceManager* XPLC_getServiceManager() {
     IMonikerService* monikers;
     IObject* obj;
 
-    singleton = new GenericComponent<ServiceManager>;
+    singleton = new ServiceManager;
 
     if(!singleton)
       return 0;
 
-    handler = new GenericComponent<StaticServiceHandler>;
+    handler = new StaticServiceHandler;
     if(!handler) {
       singleton->release();
       return 0;
@@ -74,7 +74,7 @@ IServiceManager* XPLC_getServiceManager() {
      * Populate the static service handler.
      */
 
-    handler2 = new GenericComponent<StaticServiceHandler>;
+    handler2 = new StaticServiceHandler;
     if(handler2) {
       handler->addObject(XPLC_staticServiceHandler, handler2);
       singleton->addHandler(handler2);
@@ -84,19 +84,19 @@ IServiceManager* XPLC_getServiceManager() {
       return 0;
     }
 
-    obj = new GenericComponent<NewMoniker>;
+    obj = new NewMoniker;
     if(obj) {
       handler->addObject(XPLC_newMoniker, obj);
       obj->release();
     }
 
-    obj = new GenericComponent<CategoryManager>;
+    obj = new CategoryManager;
     if(obj) {
       handler->addObject(XPLC_categoryManager, obj);
       obj->release();
     }
 
-    monikers = new GenericComponent<MonikerService>;
+    monikers = new MonikerService;
     if(monikers) {
       monikers->registerObject("new", XPLC_newMoniker);
       handler->addObject(XPLC_monikers, monikers);
@@ -104,10 +104,10 @@ IServiceManager* XPLC_getServiceManager() {
     }
 
     add_factory(handler, XPLC_singleModuleLoader,
-                GenericComponent<SingleModuleLoader>::create);
+                SingleModuleLoader::create);
 
     add_factory(handler, XPLC_moduleLoader,
-                GenericComponent<ModuleLoader>::create);
+                ModuleLoader::create);
 
     singleton->addHandler(handler);
 

@@ -23,12 +23,13 @@
 #include <xplc/factory.h>
 #include <xplc/utils.h>
 
-UUID_MAP_BEGIN(GenericFactoryBase)
+UUID_MAP_BEGIN(GenericFactory)
   UUID_MAP_ENTRY(IObject)
   UUID_MAP_ENTRY(IFactory)
   UUID_MAP_END
 
-GenericFactory::GenericFactory(FactoryFunc aFactory): factory(aFactory) {
+GenericFactory::GenericFactory(FactoryFunc aFactory):
+  factory(aFactory) {
   assert(factory);
 }
 

@@ -37,7 +37,7 @@ void test002() {
   IObject* obj;
   ITestInterface *itest;
 
-  handler = new GenericComponent<StaticServiceHandler>;
+  handler = new StaticServiceHandler;
   ASSERT(handler != 0, "could not instantiate static service handler");
 
   test = new TestObject;

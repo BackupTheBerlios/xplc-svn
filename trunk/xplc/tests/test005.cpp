@@ -49,6 +49,7 @@ DEFINE_IID(IBar, {0xa1520c1d, 0xcf44, 0x4830,
   {0xa9, 0xb2, 0xb1, 0x80, 0x9b, 0x1e, 0xe7, 0xa2}});
 
 class MyTestObject: public IFoo, public IBar {
+  IMPLEMENT_IOBJECT(MyTestObject);
 private:
   bool destroyed;
   unsigned int foo;
@@ -85,7 +86,7 @@ UUID_MAP_BEGIN(MyTestObject)
   UUID_MAP_END
 
 MyTestObject* MyTestObject::create() {
-  return new GenericComponent<MyTestObject>;
+  return new MyTestObject;
 }
 
 void test005() {

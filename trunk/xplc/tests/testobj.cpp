@@ -32,6 +32,7 @@
  */
 
 class TestComponent: public ITestComponent {
+  IMPLEMENT_IOBJECT(TestComponent);
 public:
   static TestComponent* create();
   /* ITestComponent */
@@ -39,7 +40,7 @@ public:
 };
 
 TestComponent* TestComponent::create() {
-  return new GenericComponent<TestComponent>;
+  return new TestComponent;
 }
 
 int TestComponent::getAnswer() {
@@ -52,6 +53,7 @@ int TestComponent::getAnswer() {
 static IModule* module = 0;
 
 class TestModule: public IModule {
+  IMPLEMENT_IOBJECT(TestModule);
 private:
   TestComponent* component;
 public:
@@ -86,6 +88,6 @@ UUID_MAP_BEGIN(TestModule)
 
 const XPLC_ModuleInfo XPLC_Module = {
   XPLC_MODULE_VERSION,
-  new GenericComponent<TestModule>
+  new TestModule
 };
 
