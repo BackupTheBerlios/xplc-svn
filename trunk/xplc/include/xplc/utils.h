@@ -24,7 +24,8 @@
 #define __XPLC_UTILS_H__
 
 #include <stddef.h>
-#include <xplc/IObject.h>
+#include <xplc/xplc.h>
+#include <xplc/IFactory.h>
 
 struct UUID_Info {
   const UUID* const iid;
@@ -128,7 +129,6 @@ Interface* get(IObject* aObj) {
  * that it automatically releases the inbound reference, without
  * regard whether the getInterface actually yielded something.
  */
-
 template<class Interface>
 Interface* mutate(IObject* aObj) {
   Interface* rv;
@@ -139,6 +139,32 @@ Interface* mutate(IObject* aObj) {
   rv = static_cast<Interface*>(aObj->getInterface(Interface::IID));
 
   aObj->release();
+
+  return rv;
+}
+
+/*
+ * This templated function is a shorthand to get a factory, create an
+ * object a get an interface.
+ */
+template<class Interface>
+Interface* create(const UUID& cid) {
+  IServiceManager* servmgr;
+  IFactory* factory;
+  Interface* rv;
+
+  servmgr = XPLC::getServiceManager();
+  if(!servmgr)
+    return 0;
+
+  factory = mutate<IFactory>(servmgr->getObject(cid));
+  servmgr->release();
+  if(!factory)
+    return 0;
+
+  rv = mutate<Interface>(factory->createObject());
+
+  factory->release();
 
   return rv;
 }
