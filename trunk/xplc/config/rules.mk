@@ -19,7 +19,7 @@
 #
 # $Id$
 
-.PHONY: ChangeLog dist dustclean clean distclean realclean
+.PHONY: ChangeLog dist dustclean clean distclean realclean installdirs install
 
 dist: distclean ChangeLog README
 	autoconf
@@ -46,6 +46,15 @@ distclean: clean
 
 realclean: distclean
 	rm -f $(REALCLEAN)
+
+installdirs:
+	mkdir -p $(libdir)
+	mkdir -p $(includedir)/xplc
+
+install: $(TARGETS) installdirs
+	$(INSTALL_PROGRAM) libxplc.so.$(VERSION) $(libdir)
+	$(INSTALL_DATA) libxplc_s.a $(libdir)
+	$(INSTALL_DATA) $(wildcard include/xplc/*.h) $(includedir)/xplc
 
 ifeq ($(filter-out $(SIMPLETARGETS),$(MAKECMDGOALS)),$(MAKECMDGOALS))
 
