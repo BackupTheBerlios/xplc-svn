@@ -27,30 +27,21 @@
 
 static NewMoniker* singleton = 0;
 
+const UUID_Info GenericComponent<NewMoniker>::uuids[] = {
+  { &IObject::IID, 0 },
+  { &IMoniker::IID, 0 },
+  { 0, 0 }
+};
+
 NewMoniker* NewMoniker::obtain() {
   if(!singleton)
-    singleton = new GenericComponentOld<NewMoniker>;
+    singleton = new GenericComponent<NewMoniker>;
 
   return singleton;
 }
 
 NewMoniker::~NewMoniker() {
   singleton = 0;
-}
-
-IObject* NewMoniker::getInterface(const UUID& uuid) {
-  for(;;) {
-    if(uuid.equals(IObject::IID))
-      break;
-
-    if(uuid.equals(IMoniker::IID))
-      break;
-
-    return 0;
-  }
-
-  addRef();
-  return this;
 }
 
 IObject* NewMoniker::resolve(const char* aName) {

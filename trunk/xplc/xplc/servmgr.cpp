@@ -1,7 +1,7 @@
 /* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*-
  *
  * XPLC - Cross-Platform Lightweight Components
- * Copyright (C) 2000-2001, Pierre Phaneuf
+ * Copyright (C) 2000-2002, Pierre Phaneuf
  * Copyright (C) 2000, Stéphane Lajoie
  * Copyright (C) 2002, Net Integration Technologies, Inc.
  *
@@ -24,29 +24,20 @@
 #include <xplc/utils.h>
 #include "servmgr.h"
 
+const UUID_Info GenericComponent<ServiceManager>::uuids[] = {
+  { &IObject::IID, 0 },
+  { &IServiceManager::IID, 0 },
+  { 0, 0 }
+};
+
 void ServiceManager::create(ServiceManager** aReference) {
-  *aReference = new GenericComponentOld<ServiceManager>;
+  *aReference = new GenericComponent<ServiceManager>;
 
   (*aReference)->reference = aReference;
 }
 
 ServiceManager::~ServiceManager() {
   *reference = 0;
-}
-
-IObject* ServiceManager::getInterface(const UUID& uuid) {
-  for(;;) {
-    if(uuid.equals(IObject::IID))
-      break;
-
-    if(uuid.equals(IServiceManager::IID))
-      break;
-
-    return 0;
-  }
-
-  addRef();
-  return this;
 }
 
 void ServiceManager::addHandler(IServiceHandler* aHandler) {

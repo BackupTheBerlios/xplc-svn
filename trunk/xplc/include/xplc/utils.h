@@ -65,12 +65,18 @@ public:
 IObject* XPLC_getInterface_real(void* self, const UUID& uuid,
                                 const UUID_Info* uuidlist);
 
+/*
+ * Mix-in template that contains an implementation of methods a basic
+ * component will need to implement, but doesn't need any external
+ * symbols.
+ */
 template<class Component>
-class GenericComponentOld: public Component {
+class GenericComponentInline: public Component {
 private:
+  static const UUID_Info uuids[];
   unsigned int refcount;
 public:
-  GenericComponentOld(): refcount(0) {
+  GenericComponentInline(): refcount(0) {
   }
   virtual unsigned int addRef() {
     return ++refcount;
@@ -83,6 +89,22 @@ public:
     refcount = 1;
 
     delete this;
+
+    return 0;
+  }
+  virtual IObject* getInterface(const UUID& uuid) {
+    IObject* rv;
+    const UUID_Info* uuidlist = uuids;
+
+    while(uuidlist->iid) {
+      if(uuidlist->iid->equals(uuid)) {
+        rv = reinterpret_cast<IObject*>
+          (reinterpret_cast<ptrdiff_t>(this) + uuidlist->delta);
+        rv->addRef();
+        return rv;
+      }
+      uuidlist++;
+    }
 
     return 0;
   }

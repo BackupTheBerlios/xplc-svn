@@ -39,7 +39,7 @@ const UUID obj3 = {0xe1eabacb, 0x0795, 0x4c6d, {0x81, 0x8e, 0x7a, 0xab, 0x2c, 0x
 class Handler1: public IServiceHandler {
 public:
   static Handler1* create() {
-    return new GenericComponentOld<Handler1>;
+    return new GenericComponent<Handler1>;
   }
   virtual IObject* getObject(const UUID& uuid) {
     if(uuid.equals(obj1)) {
@@ -50,25 +50,12 @@ public:
   }
   virtual void shutdown() {
   }
-  virtual IObject* getInterface(const UUID& uuid) {
-    if(uuid.equals(IObject::IID)) {
-      addRef();
-      return static_cast<IObject*>(this);
-    }
-
-    if(uuid.equals(IServiceHandler::IID)) {
-      addRef();
-      return static_cast<IServiceHandler*>(this);
-    }
-
-    return 0;
-  }
 };
 
 class Handler2: public IServiceHandler {
 public:
   static Handler2* create() {
-    return new GenericComponentOld<Handler2>;
+    return new GenericComponent<Handler2>;
   }
   virtual IObject* getObject(const UUID& uuid) {
     VERIFY(!uuid.equals(obj1), "request for the first object reached second handler");
@@ -81,25 +68,12 @@ public:
   }
   virtual void shutdown() {
   }
-  virtual IObject* getInterface(const UUID& uuid) {
-    if(uuid.equals(IObject::IID)) {
-      addRef();
-      return static_cast<IObject*>(this);
-    }
-
-    if(uuid.equals(IServiceHandler::IID)) {
-      addRef();
-      return static_cast<IServiceHandler*>(this);
-    }
-
-    return 0;
-  }
 };
 
 class Handler3: public IServiceHandler {
 public:
   static Handler3* create() {
-    return new GenericComponentOld<Handler3>;
+    return new GenericComponent<Handler3>;
   }
   virtual IObject* getObject(const UUID& uuid) {
     VERIFY(!uuid.equals(obj1), "request for the first object reached third handler");
@@ -112,19 +86,24 @@ public:
   }
   virtual void shutdown() {
   }
-  virtual IObject* getInterface(const UUID& uuid) {
-    if(uuid.equals(IObject::IID)) {
-      addRef();
-      return static_cast<IObject*>(this);
-    }
+};
 
-    if(uuid.equals(IServiceHandler::IID)) {
-      addRef();
-      return static_cast<IServiceHandler*>(this);
-    }
+const UUID_Info GenericComponent<Handler1>::uuids[] = {
+  { &IObject::IID, 0 },
+  { &IServiceHandler::IID, 0 },
+  { 0, 0 }
+};
 
-    return 0;
-  }
+const UUID_Info GenericComponent<Handler2>::uuids[] = {
+  { &IObject::IID, 0 },
+  { &IServiceHandler::IID, 0 },
+  { 0, 0 }
+};
+
+const UUID_Info GenericComponent<Handler3>::uuids[] = {
+  { &IObject::IID, 0 },
+  { &IServiceHandler::IID, 0 },
+  { 0, 0 }
 };
 
 void test001() {

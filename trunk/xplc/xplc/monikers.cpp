@@ -26,8 +26,15 @@
 
 #define MONIKER_SEPARATOR_CHAR ':'
 
+const UUID_Info GenericComponent<MonikerService>::uuids[] = {
+  { &IObject::IID, 0 },
+  { &IMoniker::IID, 0 },
+  { &IMonikerService::IID, 0 },
+  { 0, 0 }
+};
+
 MonikerService* MonikerService::create() {
-  return new GenericComponentOld<MonikerService>;
+  return new GenericComponent<MonikerService>;
 }
 
 MonikerService::~MonikerService() {
@@ -43,24 +50,6 @@ MonikerService::~MonikerService() {
   }
 
   monikers = 0;
-}
-
-IObject* MonikerService::getInterface(const UUID& uuid) {
-  for(;;) {
-    if(uuid.equals(IObject::IID))
-      break;
-
-    if(uuid.equals(IMoniker::IID))
-      break;
-
-    if(uuid.equals(IMonikerService::IID))
-      break;
-
-    return 0;
-  }
-
-  addRef();
-  return this;
 }
 
 IObject* MonikerService::resolve(const char* aName) {

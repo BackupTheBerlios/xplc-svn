@@ -1,7 +1,7 @@
 /* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*-
  *
  * XPLC - Cross-Platform Lightweight Components
- * Copyright (C) 2000, Pierre Phaneuf
+ * Copyright (C) 2000-2002, Pierre Phaneuf
  * Copyright (C) 2001, Stéphane Lajoie
  *
  * This library is free software; you can redistribute it and/or
@@ -24,27 +24,15 @@
 #include <xplc/utils.h>
 #include "factory.h"
 
+const UUID_Info GenericComponent<GenericFactory>::uuids[] = {
+  { &IObject::IID, 0 },
+  { &IFactory::IID, 0 },
+  { &IGenericFactory::IID, 0 },
+  { 0, 0 }
+};
+
 IObject* GenericFactory::create() {
-  return new GenericComponentOld<GenericFactory>;
-}
-
-IObject* GenericFactory::getInterface(const UUID& aUuid) {
-  if(aUuid.equals(IObject::IID)) {
-    addRef();
-    return static_cast<IObject*>(this);
-  }
-
-  if(aUuid.equals(IFactory::IID)) {
-    addRef();
-    return static_cast<IFactory*>(this);
-  }
-
-  if(aUuid.equals(IGenericFactory::IID)) {
-    addRef();
-    return static_cast<IGenericFactory*>(this);
-  }
-
-  return 0;
+  return new GenericComponent<GenericFactory>;
 }
 
 IObject* GenericFactory::createObject() {

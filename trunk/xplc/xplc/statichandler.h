@@ -33,8 +33,6 @@ public:
   StaticServiceHandler(): objects(0) {
   }
   virtual ~StaticServiceHandler();
-  /* IObject */
-  virtual IObject* getInterface(const UUID&);
   /* IServiceHandler */
   virtual IObject* getObject(const UUID&);
   virtual void shutdown();

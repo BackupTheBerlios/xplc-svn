@@ -37,8 +37,6 @@ protected:
   virtual ~SingleModuleLoader();
 public:
   static IObject* create();
-  /* IObject */
-  virtual IObject* getInterface(const UUID&);
   /* IServiceHandler */
   virtual IObject* getObject(const UUID&);
   virtual void shutdown();

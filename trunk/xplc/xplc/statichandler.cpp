@@ -24,31 +24,19 @@
 #include <xplc/utils.h>
 #include "statichandler.h"
 
+const UUID_Info GenericComponent<StaticServiceHandler>::uuids[] = {
+  { &IObject::IID, 0 },
+  { &IServiceHandler::IID, 0 },
+  { &IStaticServiceHandler::IID, 0 },
+  { 0, 0 }
+};
+
 StaticServiceHandler* StaticServiceHandler::create() {
-  return new GenericComponentOld<StaticServiceHandler>;
+  return new GenericComponent<StaticServiceHandler>;
 }
 
 StaticServiceHandler::~StaticServiceHandler() {
   shutdown();
-}
-
-IObject* StaticServiceHandler::getInterface(const UUID& uuid) {
-  if(uuid.equals(IObject::IID)) {
-    addRef();
-    return static_cast<IObject*>(this);
-  }
-
-  if(uuid.equals(IServiceHandler::IID)) {
-    addRef();
-    return static_cast<IServiceHandler*>(this);
-  }
-
-  if(uuid.equals(IStaticServiceHandler::IID)) {
-    addRef();
-    return static_cast<IStaticServiceHandler*>(this);
-  }
-
-  return 0;
 }
 
 IObject* StaticServiceHandler::getObject(const UUID& aUuid) {

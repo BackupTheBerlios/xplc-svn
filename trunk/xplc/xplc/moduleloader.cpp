@@ -50,31 +50,19 @@
 #include "loader.h"
 #include "moduleloader.h"
 
+const UUID_Info GenericComponent<ModuleLoader>::uuids[] = {
+  { &IObject::IID, 0 },
+  { &IServiceHandler::IID, 0 },
+  { &IModuleLoader::IID, 0 },
+  { 0, 0 }
+};
+
 IObject* ModuleLoader::create() {
-  return new GenericComponentOld<ModuleLoader>;
+  return new GenericComponent<ModuleLoader>;
 }
 
 ModuleLoader::~ModuleLoader() {
   shutdown();
-}
-
-IObject* ModuleLoader::getInterface(const UUID& aUuid) {
-  if(aUuid.equals(IObject::IID)) {
-    addRef();
-    return static_cast<IObject*>(this);
-  }
-
-  if(aUuid.equals(IServiceHandler::IID)) {
-    addRef();
-    return static_cast<IServiceHandler*>(this);
-  }
-
-  if(aUuid.equals(IModuleLoader::IID)) {
-    addRef();
-    return static_cast<IModuleLoader*>(this);
-  }
-
-  return 0;
 }
 
 IObject* ModuleLoader::getObject(const UUID& uuid)

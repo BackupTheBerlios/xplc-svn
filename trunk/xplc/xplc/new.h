@@ -29,8 +29,6 @@ protected:
   virtual ~NewMoniker();
 public:
   static NewMoniker* obtain();
-  /* IObject */
-  virtual IObject* getInterface(const UUID&);
   /* IMoniker */
   virtual IObject* resolve(const char*);
 };

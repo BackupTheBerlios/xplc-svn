@@ -1,7 +1,7 @@
 /* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*-
  *
  * XPLC - Cross-Platform Lightweight Components
- * Copyright (C) 2000-2001, Pierre Phaneuf
+ * Copyright (C) 2000-2002, Pierre Phaneuf
  * Copyright (C) 2002, Net Integration Technologies, Inc.
  *
  * This library is free software; you can redistribute it and/or
@@ -41,21 +41,7 @@ public:
 };
 
 inline TestComponent* TestComponent::create() {
-  return new GenericComponentOld<TestComponent>;
-}
-
-IObject* TestComponent::getInterface(const UUID& aUuid) {
-  if(aUuid.equals(IObject::IID)) {
-    addRef();
-    return static_cast<IObject*>(this);
-  }
-
-  if(aUuid.equals(ITestComponent::IID)) {
-    addRef();
-    return static_cast<ITestComponent*>(this);
-  }
-
-  return 0;
+  return new GenericComponentInline<TestComponent>;
 }
 
 int TestComponent::getAnswer() {
@@ -77,15 +63,6 @@ public:
     if(component)
       component->release();
   }
-  virtual IObject* getInterface(const UUID& uuid) {
-    if(uuid.equals(IObject::IID))
-      return this;
-
-    if(uuid.equals(IModule::IID))
-      return this;
-
-    return 0;
-  }
   virtual IObject* getObject(const UUID& uuid) {
     if(!component) {
       component = TestComponent::create();
@@ -101,10 +78,22 @@ public:
   }
 };
 
+const UUID_Info GenericComponentInline<TestComponent>::uuids[] = {
+  { &IObject::IID, 0 },
+  { &ITestComponent::IID, 0 },
+  { 0, 0 }
+};
+
+const UUID_Info GenericComponentInline<TestModule>::uuids[] = {
+  { &IObject::IID, 0 },
+  { &IModule::IID, 0 },
+  { 0, 0 }
+};
+
 ENTRYPOINT IModule* XPLC_GetModule(IServiceManager*,
                                    const unsigned int version) {
   if(!module)
-    module = new GenericComponentOld<TestModule>;
+    module = new GenericComponentInline<TestModule>;
 
   if(version == 0 && module) {
     module->addRef();

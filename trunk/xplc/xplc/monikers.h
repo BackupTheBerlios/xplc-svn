@@ -2,6 +2,7 @@
  *
  * XPLC - Cross-Platform Lightweight Components
  * Copyright (C) 2002, Net Integration Technologies, Inc.
+ * Copyright (C) 2002, Pierre Phaneuf
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public License
@@ -35,8 +36,6 @@ protected:
   virtual ~MonikerService();
 public:
   static MonikerService* create();
-  /* IObject */
-  virtual IObject* getInterface(const UUID&);
   /* IMoniker */
   virtual IObject* resolve(const char*);
   /* IMonikerService */

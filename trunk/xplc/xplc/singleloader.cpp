@@ -28,27 +28,15 @@
 #include "loader.h"
 #include "singleloader.h"
 
+const UUID_Info GenericComponent<SingleModuleLoader>::uuids[] = {
+  { &IObject::IID, 0 },
+  { &IServiceHandler::IID, 0 },
+  { &ISingleModuleLoader::IID, 0 },
+  { 0, 0 }
+};
+
 IObject* SingleModuleLoader::create() {
-  return new GenericComponentOld<SingleModuleLoader>;
-}
-
-IObject* SingleModuleLoader::getInterface(const UUID& aUuid) {
-  if(aUuid.equals(IObject::IID)) {
-    addRef();
-    return static_cast<IObject*>(this);
-  }
-
-  if(aUuid.equals(IServiceHandler::IID)) {
-    addRef();
-    return static_cast<IServiceHandler*>(this);
-  }
-
-  if(aUuid.equals(ISingleModuleLoader::IID)) {
-    addRef();
-    return static_cast<ISingleModuleLoader*>(this);
-  }
-
-  return 0;
+  return new GenericComponent<SingleModuleLoader>;
 }
 
 SingleModuleLoader::~SingleModuleLoader() {
