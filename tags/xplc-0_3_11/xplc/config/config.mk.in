@@ -1,0 +1,45 @@
+# @configure_input@
+#
+# XPLC - Cross-Platform Lightweight Components
+# Copyright (C) 2000-2002, Pierre Phaneuf
+# Copyright (C) 2002, Net Integration Technologies, Inc.
+#
+# This library is free software; you can redistribute it and/or modify
+# it under the terms of the GNU Lesser General Public License as
+# published by the Free Software Foundation; either version 2.1 of the
+# License, or (at your option) any later version.
+#
+# This library is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public
+# License along with this library; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
+# USA
+#
+# $Id$
+
+# set variables from the configure script
+CXX=@CXX@
+CXXFLAGS+=@CXXFLAGS@
+pc_version:=@pc_version@
+libdir_version:=@libdir_version@
+lib_prefix_version:=@lib_prefix_version@
+enable_loader:=@enable_loader@
+with_dlopen:=@with_dlopen@
+so_style:=@so_style@
+prefix:=@prefix@
+exec_prefix:=@exec_prefix@
+includedir:=@includedir@
+libdir:=@libdir@
+INSTALL:=@INSTALL@
+INSTALL_PROGRAM:=@INSTALL_PROGRAM@
+INSTALL_DATA:=@INSTALL_DATA@
+PACKAGE_TARNAME:=@PACKAGE_TARNAME@
+PACKAGE_VERSION:=@PACKAGE_VERSION@
+LN_S:=@LN_S@
+LIBS:=@LIBS@
+CVS2CL:=@CVS2CL@
+
