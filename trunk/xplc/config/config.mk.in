@@ -28,75 +28,13 @@ REALCLEAN:=
 
 CXXDEPS:=
 
-CXXFLAGS+=-pipe -Iinclude @CXXFLAGS@
-
-ENABLE_DEBUG:=@enable_debug@
-
-# default behavior is "no"
-ifeq ("$(ENABLE_DEBUG)", "")
-ENABLE_DEBUG:=no
-endif
-
-ifneq ("$(ENABLE_DEBUG)", "no")
-DEBUG:=$(ENABLE_DEBUG)
-endif
-
-ifneq ("@enable_optimization@", "no")
-CXXFLAGS+=-O2
-endif
-
-ifneq ("@enable_warnings@", "no")
-CXXFLAGS+=-pedantic -Wall -Wold-style-cast -Woverloaded-virtual
-endif
-
-ifeq ("@enable_fatal_warnings@", "yes")
-CXXFLAGS+=-Werror
-endif
-
-ifneq ("@enable_rtti@", "yes")
-CXXFLAGS+=-fno-rtti
-endif
-
-ifneq ("@enable_exceptions@", "yes")
-CXXFLAGS+=-fno-exceptions
-endif
-
-ifdef DEBUG
-CXXFLAGS+=-ggdb -DDEBUG
-ifneq ("$(DEBUG)", "yes")
-CXXFLAGS+=-DDEBUG_$(DEBUG)
-endif
-else
-CXXFLAGS+=-DNDEBUG
-endif
-
-prefix:=@prefix@
-exec_prefix:=@exec_prefix@
-
-.PHONY: test
-
-test:
-	@echo "enable_debug = \"@enable_debug@\""
-	@echo "bindir = \"@bindir@\""
-	@echo "datadir = \"@datadir@\""
-	@echo "exec_prefix = \"@exec_prefix@\""
-	@echo "includedir = \"@includedir@\""
-	@echo "infodir = \"@infodir@\""
-	@echo "libdir = \"@libdir@\""
-	@echo "libexecdir = \"@libexecdir@\""
-	@echo "localstatedir = \"@localstatedir@\""
-	@echo "mandir = \"@mandir@\""
-	@echo "oldincludedir = \"@oldincludedir@\""
-	@echo "prefix = \"@prefix@\""
-	@echo "sbindir = \"@sbindir@\""
-	@echo "sharedstatedir = \"@sharedstatedir@\""
-	@echo "srcdir = \"@srcdir@\""
-	@echo "sysconfdir = \"@sysconfdir@\""
-	@echo "top_srcdir = \"@top_srcdir@\""
-	@echo "CFLAGS = \"@CFLAGS@\""
-	@echo "CPPFLAGS = \"@CPPFLAGS@\""
-	@echo "CXXFLAGS = \"@CXXFLAGS@\""
-	@echo "DEFS = \"@DEFS@\""
-	@echo "LDFLAGS = \"@LDFLAGS@\""
-	@echo "LIBS = \"@LIBS@\""
+# set variables from the configure script
+CXX=@CXX@
+CXXFLAGS+=@CXXFLAGS@
+enable_debug:=@enable_debug@
+enable_optimization:=@enable_optimization@
+enable_warnings:=@enable_warnings@
+enable_fatal_warnings:=@enable_fatal_warnings@
+enable_rtti:=@enable_rtti@
+enable_exceptions:=@enable_exceptions@
 
