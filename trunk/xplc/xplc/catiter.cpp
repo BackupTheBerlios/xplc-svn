@@ -1,7 +1,7 @@
 /* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*-
  *
  * XPLC - Cross-Platform Lightweight Components
- * Copyright (C) 2003, Net Integration Technologies, Inc.
+ * Copyright (C) 2004, Net Integration Technologies, Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public License
@@ -19,26 +19,42 @@
  * USA
  */
 
-#ifndef __XPLC_CATEGORY_H__
-#define __XPLC_CATEGORY_H__
+#include <xplc/utils.h>
+#include "catiter.h"
 
-#include <xplc/ICategoryManager.h>
-#include "categorynode.h"
+UUID_MAP_BEGIN(CategoryIterator)
+  UUID_MAP_ENTRY(IObject)
+  UUID_MAP_ENTRY(ICategoryIterator)
+  UUID_MAP_END
 
-class Category: public ICategory {
-  IMPLEMENT_IOBJECT(Category);
-private:
-  ICategoryManager* mgr;
-  CategoryEntryNode* entries;
-public:
-  Category(ICategoryManager*, CategoryEntryNode*);
-#if 0
-  /* IFactory */
-  virtual IObject* createObject();
-#endif
-  /* ICategory */
-  virtual ICategoryIterator* getIterator();
-  virtual ~Category();
-};
+CategoryIterator::CategoryIterator(ICategory* aCategory,
+                                   CategoryEntryNode* aEntries):
+  category(aCategory),
+  current(aEntries) {
+  /*
+   * Prevent the category from dying, which in turn prevents the
+   * category manager from dying (which would free the list).
+   */
+  category->addRef();
+}
 
-#endif /* __XPLC_CATEGORY_H__ */
+const UUID& CategoryIterator::getUuid() {
+  if(current)
+    return current->entry;
+
+  return UUID_null;
+}
+
+void CategoryIterator::next() {
+  if(current)
+    current = current->next;
+}
+
+bool CategoryIterator::done() {
+  return current == 0;
+}
+
+CategoryIterator::~CategoryIterator() {
+  category->release();
+}
+

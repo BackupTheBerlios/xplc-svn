@@ -36,6 +36,9 @@ public:
   virtual const UUID& getUuid() = 0;
   /** Advances to the next category entry. */
   virtual void next() = 0;
+  /** Tests if the iterator is past the last item. The iterator is
+   * invalid when this method returns true. */
+  virtual bool done() = 0;
 };
 
 DEFINE_IID(ICategoryIterator, {0x87e48aae, 0xa1da, 0x4d9c,
