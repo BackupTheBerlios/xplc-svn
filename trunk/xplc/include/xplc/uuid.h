@@ -97,10 +97,13 @@ typedef GUID UUID;
 #endif
 //@}
 
+#if !defined _SYS_GUID_OPERATOR_EQ_ && !defined _NO_SYS_GUID_OPERATOR_EQ_
+#define _SYS_GUID_OPERATOR_EQ_
+
 /**
  * Equality operator for UUIDs.
  */
-inline bool operator==(const UUID& uuid1, const UUID& uuid2) {
+inline int operator==(const UUID& uuid1, const UUID& uuid2) {
     return
       (&uuid1 == &uuid2) ||
       ((static_cast<const unsigned long*>(&uuid1.Data1)[0] == static_cast<const unsigned long*>(&uuid2.Data1)[0]) &&
@@ -112,7 +115,7 @@ inline bool operator==(const UUID& uuid1, const UUID& uuid2) {
 /**
  * Inequality operator for UUIDs.
  */
-inline bool operator!=(const UUID& uuid1, const UUID& uuid2) {
+inline int operator!=(const UUID& uuid1, const UUID& uuid2) {
     return
       (&uuid1 != &uuid2) &&
       ((static_cast<const unsigned long*>(&uuid1.Data1)[0] != static_cast<const unsigned long*>(&uuid2.Data1)[0]) ||
@@ -120,6 +123,8 @@ inline bool operator!=(const UUID& uuid1, const UUID& uuid2) {
        (static_cast<const unsigned long*>(&uuid1.Data1)[2] != static_cast<const unsigned long*>(&uuid2.Data1)[2]) ||
        (static_cast<const unsigned long*>(&uuid1.Data1)[3] != static_cast<const unsigned long*>(&uuid2.Data1)[3]));
 }
+
+#endif
 
 /**
  * Converts a printable C string to a UUID.  The string is of the form
