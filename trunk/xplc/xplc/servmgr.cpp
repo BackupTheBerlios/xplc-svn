@@ -23,8 +23,14 @@
 #include <xplc/utils.h>
 #include "servmgr.h"
 
-ServiceManager* ServiceManager::create() {
-  return new GenericComponent<ServiceManager>;
+void ServiceManager::create(ServiceManager** aReference) {
+  *aReference = new GenericComponent<ServiceManager>;
+
+  (*aReference)->reference = aReference;
+}
+
+ServiceManager::~ServiceManager() {
+  *reference = 0;
 }
 
 IObject* ServiceManager::getInterface(const UUID& uuid) {

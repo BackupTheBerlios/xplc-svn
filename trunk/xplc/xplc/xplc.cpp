@@ -29,7 +29,7 @@
 #include "monikers.h"
 #include "new.h"
 
-static IServiceManager* servmgr = 0;
+static ServiceManager* servmgr = 0;
 
 IServiceManager* XPLC::getServiceManager() {
   IObject* obj;
@@ -47,7 +47,7 @@ IServiceManager* XPLC::getServiceManager() {
    * The basic services have to be created.
    */
 
-  servmgr = ServiceManager::create();
+  ServiceManager::create(&servmgr);
 
   if(servmgr)
     servmgr->addRef();
