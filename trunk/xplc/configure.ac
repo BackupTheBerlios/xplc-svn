@@ -85,7 +85,7 @@ AC_CONFIG_HEADERS([include/xplc/autoconf.h])
 
 AC_OUTPUT
 
-if test "$with_dlopen" == "no"; then
+if test "$with_dlopen" = "no"; then
     AC_MSG_WARN([dynamic loading is disabled.])
 fi
 
