@@ -45,7 +45,8 @@ but could also be send via e-mail to the maintainer.
                           *** IMPORTANT ***
 Before preparing a patch, you should make sure that 'make tests'
 passes all tests. Those tests are made to be as easy to use as
-possible, so please use them.
+possible, so please use them. Using the "--enable-fatal-warnings"
+option of the "configure" script is also recommended.
 
 The simpler way to prepare a patch requires CVS and Internet
 access. Just issue the following command in the root XPLC project
