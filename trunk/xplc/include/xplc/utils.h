@@ -30,6 +30,7 @@
  */
 
 #include <stddef.h>
+#include <xplc/core.h>
 #include <xplc/IWeakRef.h>
 
 /**
