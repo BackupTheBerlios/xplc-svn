@@ -18,9 +18,9 @@
 #
 # $Id$
 
-tests/test005/test: tests/test005/test.o tests/testmain.o xplc/libxplc_s.a -ldl tests/test005/testobj.so
+tests/test005/test: tests/test005/test.o tests/testmain.o xplc/libxplc_s.a -ldl tests/test005/testobj.dll
 	$(LINK.cc) tests/test005/test.o tests/testmain.o xplc/libxplc_s.a -ldl $(LOADLIBES) $(LDLIBS) -o $@
 
-tests/test005/testobj.so: tests/test005/testobj.o
+tests/test005/testobj.dll: tests/test005/testobj.o
 	$(LINK.cc) -shared -o $@ $^
 

@@ -22,6 +22,7 @@
 #ifdef __linux__
 #include <dlfcn.h>
 #endif
+
 #ifdef WIN32
 #define WIN32_LEAN_AND_MEAN
 #define VC_EXTRALEAN
@@ -30,8 +31,6 @@
 
 #include "simpledl.h"
 #include <xplc/utils.h>
-
-#include <string>
 
 IObject* SimpleDynamicLoader::create() {
   return new GenericComponent<SimpleDynamicLoader>;
@@ -69,8 +68,6 @@ IObject* SimpleDynamicLoader::createObject() {
 
 const char* SimpleDynamicLoader::loadModule(const char* filename) {
 #ifdef __GNUC__
-	const std::string file = std::string(filename) + ".so";
-
   const char* err;
 
   /* clear out dl error */
@@ -88,7 +85,7 @@ const char* SimpleDynamicLoader::loadModule(const char* filename) {
    * but if it is too costly, maybe we should just verify that
    * libraries are complete during development?
    */
-  dlh = dlopen(file.c_str(), RTLD_NOW);
+  dlh = dlopen(filename, RTLD_NOW);
   if(!dlh) {
     err = dlerror();
     return err;
@@ -107,10 +104,9 @@ const char* SimpleDynamicLoader::loadModule(const char* filename) {
   return 0;
 #endif
 #ifdef WIN32
-	const std::string file = std::string(filename) + ".dll";
 
 	/*
-	 * TODO: unload previous DLL?
+	 * FIXME: unload previous DLL?
 	 */
 
 	// buffer for possible error message
@@ -120,7 +116,7 @@ const char* SimpleDynamicLoader::loadModule(const char* filename) {
 	 * Load the DLL. This will do a typical DLL search: application dir, current dir,
 	 * windows/system, windows, path.
 	 */
-	HINSTANCE hInstance = LoadLibraryEx(file.c_str(), 0, 0);
+	HINSTANCE hInstance = LoadLibraryEx(filename, 0, 0);
 	if(!hInstance) {
 		if(FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM, 0, GetLastError(), 0, msg, sizeof(msg), 0))
 			return msg;
@@ -146,3 +142,4 @@ const char* SimpleDynamicLoader::loadModule(const char* filename) {
 	return 0;
 #endif
 }
+
