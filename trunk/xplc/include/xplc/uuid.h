@@ -76,10 +76,12 @@
  */
 struct UUID {
   /* FIXME: the sizes of these objects are not the same on all platforms! */
+  //@{
   unsigned int data0;
   unsigned short data1;
   unsigned short data2;
   unsigned char data3[8];
+  //@}
 
   /* FIXME: the remaining of this is C++-specific. */
     
@@ -130,6 +132,9 @@ template<class T>
 struct IID {
 };
 
+/**
+ * Used to define the IID of an interface.
+ */
 #define DEFINE_IID(iface, u1, u2, u3, u4, u5, u6, u7, u8, u9, u10, u11) \
 static const UUID iface##_IID = u1, u2, u3, u4, u5, u6, u7, u8, u9, u10, u11; \
 template <> \

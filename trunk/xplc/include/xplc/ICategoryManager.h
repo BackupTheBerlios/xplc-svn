@@ -25,11 +25,23 @@
 #include <xplc/IServiceHandler.h>
 #include <xplc/ICategory.h>
 
+/** \interface ICategoryManager ICategoryManager.h xplc/ICategoryManager.h
+ *
+ * Let you register categories and obtain information about them.
+ */
+
 class ICategoryManager: public IServiceHandler {
   UNSTABLE_INTERFACE
 public:
+  /**
+   * Register a component with a category. Both are specified by
+   * UUIDs.
+   */
   virtual void registerComponent(const UUID& category,
                                  const UUID& component) = 0;
+  /**
+   * Get a category object for the specified category.
+   */
   virtual ICategory* getCategory(const UUID&) = 0;
 };
 

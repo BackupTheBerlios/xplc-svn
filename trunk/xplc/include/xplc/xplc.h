@@ -53,17 +53,31 @@ public:
    * way to get the service manager.
    */
 
-  /** Object creation helper.  Obtains an object with the provided
-   *  UUID from the service manager, tries to get the IFactory
-   *  interface from the object and calls its createObject() method.
+  /**
+   * Object creation helper.  Obtains an object with the provided UUID
+   * from the service manager, tries to get the IFactory interface
+   * from the object and calls its createObject() method.
    */
   IObject* create(const UUID& cid);
+  /**
+   * Templated variant of XPLC::create() that will do a getInterface()
+   * for you.
+   */
   template<class Interface>
   Interface* create(const UUID& cid) {
     return mutate<Interface>(create(cid));
   }
 
+  /**
+   * Object creation helper that operates from a moniker. Works like
+   * XPLC::create(const UUID&), but finds the object using a moniker
+   * instead.
+   */
   IObject* create(const char*);
+  /**
+   * Templated variant of XPLC::create(const char*) that will do a
+   * getInterface() for you.
+   */
   template<class Interface>
   Interface* create(const char* aMoniker) {
     return mutate<Interface>(create(aMoniker));

@@ -24,9 +24,15 @@
 
 #include <xplc/IObject.h>
 
+/** \interface ICategoryEntry ICategoryEntry.h xplc/ICategoryEntry.h
+ *
+ * Represents a member of a given category.
+ */
+
 class ICategoryEntry: public IObject {
   UNSTABLE_INTERFACE
 public:
+  /** Returns the UUID of the category entry. */
   virtual const UUID& getUuid() = 0;
 };
 

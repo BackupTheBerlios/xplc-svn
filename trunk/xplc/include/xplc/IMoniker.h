@@ -35,13 +35,13 @@
  * guaranteed to be universally unique, so you might (theoretically)
  * not get the object you want.
  * 
- * You can retrieve the standard XPLC moniker service from the service
+ * You can retrieve the standard %XPLC moniker service from the service
  * manager using the XPLC_monikers UUID, which can then be used to
  * resolve monikers and register your own using the IMonikerService
  * interface it provides.
  *
  * Note that XPLC::get() and XPLC::create() are a convenient interface
- * to the XPLC moniker system.
+ * to the %XPLC moniker system.
  */
 class IMoniker: public IObject {
   UNSTABLE_INTERFACE

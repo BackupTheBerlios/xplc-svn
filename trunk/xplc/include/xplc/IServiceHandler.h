@@ -34,7 +34,7 @@
  *
  * Interface to an object which can be used to find other objects,
  * given their UUIDs.  This is the most basic way to find objects in
- * XPLC, no matter where they are.
+ * %XPLC, no matter where they are.
  */
 class IServiceHandler: public IObject {
   UNSTABLE_INTERFACE
@@ -46,6 +46,7 @@ public:
   virtual IObject* getObject(const UUID&) = 0;
 };
 
+/// IServiceHandler's IID
 DEFINE_IID(IServiceHandler, {0xe897384f, 0x3ba6, 0x46e3,
   {0xad, 0x06, 0x53, 0x76, 0x21, 0xa6, 0x0a, 0x03}});
 

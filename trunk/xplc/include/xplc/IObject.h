@@ -26,7 +26,7 @@
 
 /** \file
  *
- * This file contains the XPLC foundation interface.
+ * This file contains the %XPLC foundation interface.
  */
 
 #include <xplc/uuid.h>
@@ -48,9 +48,9 @@ class IWeakRef;
 
 /** \interface IObject IObject.h xplc/IObject.h
  *
- * The basic interface which is included by all other XPLC interfaces
+ * The basic interface which is included by all other %XPLC interfaces
  * and objects.  It provides a standard method to say you're using an
- * object, to say you're done, and to retrieve other XPLC interfaces
+ * object, to say you're done, and to retrieve other %XPLC interfaces
  * from the object.
  * 
  * Usually you will not implement these functions yourself; use
@@ -72,7 +72,7 @@ public:
    * not need to call addRef() on object passed as parameters, unless
    * you intend on keeping them.
    *
-   * addRef() is often called automatically for you in XPLC, but
+   * addRef() is often called automatically for you in %XPLC, but
    * you'll have to call release() by hand sometimes unless you use
    * xplc_ptr.
    */
@@ -84,7 +84,7 @@ public:
    * reference count reaches zero, the object is freed automatically.
    * 
    * You will usually need to manually release() any object given to
-   * you by any other XPLC function, unless you give the object to
+   * you by any other %XPLC function, unless you give the object to
    * someone else who will call release.
    * 
    * If you use xplc_ptr, it will do this for you.
@@ -92,7 +92,7 @@ public:
   virtual unsigned int release() = 0;
     
   /**
-   * Returns the requested XPLC interface. Will return NULL if the
+   * Returns the requested %XPLC interface. Will return NULL if the
    * interface is not supported.  The returned interface has been
    * addRef()ed, so you will need to release() it when done.  Note
    * that the interface returned may be a pointer to the same object
@@ -101,7 +101,7 @@ public:
    * given logical object, so this can be used for comparison by
    * identity.
    * 
-   * You should probably use the convenient XPLC mutate() and get()
+   * You should probably use the convenient mutate() and get()
    * functions instead of this, or use an xplc_ptr, which mutates the
    * object for you.
    */
@@ -119,6 +119,7 @@ public:
   virtual IWeakRef* getWeakRef() = 0;
 };
 
+/// IObject's IID
 DEFINE_IID(IObject, {0x8ca76e98, 0xb653, 0x43d7,
   {0xb0, 0x56, 0x8b, 0x9d, 0xde, 0x9a, 0xbe, 0x9d}});
 

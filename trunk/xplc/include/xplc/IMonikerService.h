@@ -30,7 +30,7 @@
  * An interface for registering objects so they can be retrieved using
  * a moniker.
  * 
- * You can obtain the XPLC standard moniker service by getting the
+ * You can obtain the %XPLC standard moniker service by getting the
  * XPLC_monikers UUID from the service manager.
  */
 class IMonikerService: public IMoniker {

@@ -33,9 +33,9 @@
 
 /** \interface IServiceManager IServiceManager.h xplc/IServiceManager.h
  *
- * The XPLC service manager interface.
+ * The %XPLC service manager interface.
  *
- * To do anything with XPLC, you need to use the service manager. You
+ * To do anything with %XPLC, you need to use the service manager. You
  * can obtain it by calling XPLC_getServiceManager().
  *
  * The service manager knows how to find objects from their UUID. It
@@ -74,6 +74,7 @@ public:
   virtual void removeHandler(IServiceHandler*) = 0;
 };
 
+/// IServiceManager's IID
 DEFINE_IID(IServiceManager, {0x22bdabd9, 0xa63a, 0x4b5e,
   {0xb1, 0x61, 0xb6, 0x36, 0x52, 0x27, 0xd7, 0x8e}});
 
