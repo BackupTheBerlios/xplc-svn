@@ -19,16 +19,16 @@
  * 02111-1307, USA.
  */
 
-#include "../test.h"
+#include "test.h"
 #include <stdio.h>
 
 /*
- * test008
+ * test007
  *
  * Verifies the UUID stringification and parsing.
  */
 
-void test() {
+void test007() {
   const UUID u0 = {0xe87db3a0, 0x109a, 0x4ecb, {0x86, 0x64, 0x66, 0x85,
 						0x45, 0x20, 0xa6, 0xcc}};
   UUID u1;

@@ -1,7 +1,7 @@
 /* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*-
  *
  * XPLC - Cross-Platform Lightweight Components
- * Copyright (C) 2000, Pierre Phaneuf
+ * Copyright (C) 2000-2002, Pierre Phaneuf
  * Copyright (C) 2001, Stéphane Lajoie
  *
  * This library is free software; you can redistribute it and/or
@@ -20,23 +20,44 @@
  * 02111-1307, USA.
  */
 
-#include "../test.h"
+#include "test.h"
 #include <xplc/xplc.h>
+#include <xplc/utils.h>
+#include "../xplc/factory.h"
 
 /*
- * test001
+ * test003
  *
- * Verifies that shutdown properly releases all the involved objects.
+ * Verifies the generic factory.
  */
 
-void test() {
-  IServiceManager* serv;
-
-  serv = XPLC::getServiceManager();
-
-  ASSERT(serv != 0, "could not obtain service manager");
-
-  serv->shutdown();
-
-  VERIFY(serv->release() == 0, "service manager has non-zero refcount after shutdown/release");
+IObject* testfactory() {
+  return new TestObject;
 }
+
+void test003() {
+  IGenericFactory* factory;
+  IObject* obj;
+  ITestInterface* test;
+
+  obj = GenericFactory::create();
+  ASSERT(obj != 0, "could not instantiate generic factory");
+
+  obj->addRef();
+
+  factory = mutate<IGenericFactory>(obj);
+  ASSERT(factory != 0, "factory does not have expected interface");
+
+  factory->setFactory(testfactory);
+
+  obj = factory->createObject();
+  ASSERT(obj != 0, "factory did not create test object");
+
+  test = mutate<ITestInterface>(obj);
+  ASSERT(test != 0, "test object does not have expected interface");
+
+  VERIFY(test->release() == 0, "test object has non-zero refcount after release");
+
+  VERIFY(factory->release() == 0, "factory has non-zero refcount after release");
+}
+

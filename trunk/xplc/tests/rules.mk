@@ -21,9 +21,11 @@
 
 .PHONY: tests
 
-tests: $(TESTS)
+tests: tests/testmain tests/testobj.dll
 	@echo "Running tests:"
-	@for TEST in $(TESTS); do $$TEST; done; true
+	@tests/testmain
 
-include $(wildcard tests/*/rules.mk)
+tests/testmain: tests/testmain.o $(patsubst %.cpp,%.o,$(wildcard tests/test[0-9][0-9][0-9].cpp)) libxplc_s.a $(LIBDL)
 
+tests/testobj.dll: tests/testobj.o
+	$(LINK.cc) -shared -o $@ $^

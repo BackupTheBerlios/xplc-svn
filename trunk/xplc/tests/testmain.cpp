@@ -59,7 +59,15 @@ int main(int argc, char* argv[]) {
   failed = 0;
   prog = argv[0];
 
-  test();
+  test000();
+  test001();
+  test002();
+  test003();
+  test004();
+  test005();
+  test006();
+  test007();
+  test008();
 
   if((failed + passed) == 0) {
     fprintf(stderr, "%s: BAD TEST\n", prog);

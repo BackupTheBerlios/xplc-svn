@@ -20,18 +20,18 @@
  * 02111-1307, USA.
  */
 
-#include "../test.h"
+#include "test.h"
 #include <xplc/IStaticServiceHandler.h>
 #include <xplc/IMonikerService.h>
 #include <xplc/utils.h>
 
 /*
- * test009
+ * test008
  *
  * Verifies the "new" moniker
  */
 
-void test() {
+void test008() {
   IServiceManager* servmgr;
   IStaticServiceHandler* handler;
   IMonikerService* monikers;

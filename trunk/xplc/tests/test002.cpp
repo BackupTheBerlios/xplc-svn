@@ -20,18 +20,18 @@
  * 02111-1307, USA.
  */
 
-#include "../test.h"
+#include "test.h"
 #include <xplc/xplc.h>
 #include <xplc/utils.h>
 #include "../xplc/statichandler.h"
 
 /*
- * test003
+ * test002
  *
  * Verifies the static service handler.
  */
 
-void test() {
+void test002() {
   IStaticServiceHandler* handler;
   TestObject* test;
   IObject* obj;

@@ -20,12 +20,12 @@
  * 02111-1307, USA.
  */
 
-#include "../test.h"
+#include "test.h"
 #include <xplc/xplc.h>
 #include <xplc/utils.h>
 
 /*
- * test002
+ * test001
  *
  * Verifies that the service manager queries handlers properly.
  */
@@ -127,7 +127,7 @@ public:
   }
 };
 
-void test() {
+void test001() {
   IServiceManager* serv;
   IServiceHandler* handler1;
   IServiceHandler* handler2;

@@ -20,15 +20,23 @@
  * 02111-1307, USA.
  */
 
-#include "../test.h"
+#include "test.h"
 #include <xplc/xplc.h>
 
 /*
  * test000
  *
- * Verifies that we can obtain the service manager.
+ * Verifies that shutdown properly releases all the involved objects.
  */
 
-void test() {
-  VERIFY(XPLC::getServiceManager() != 0, "could not obtain service manager");
+void test000() {
+  IServiceManager* serv;
+
+  serv = XPLC::getServiceManager();
+
+  ASSERT(serv != 0, "could not obtain service manager");
+
+  serv->shutdown();
+
+  VERIFY(serv->release() == 0, "service manager has non-zero refcount after shutdown/release");
 }

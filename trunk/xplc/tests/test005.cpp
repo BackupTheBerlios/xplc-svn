@@ -19,13 +19,13 @@
  * 02111-1307, USA.
  */
 
-#include "../test.h"
+#include "test.h"
 #include <xplc/xplc.h>
 #include <xplc/utils.h>
 #include "../xplc/statichandler.h"
 
 /*
- * test006
+ * test005
  *
  * Verifies the generic component template.
  */
@@ -100,7 +100,7 @@ MyTestObject* MyTestObject::create() {
   return new GenericComponent<MyTestObject>;
 }
 
-void test() {
+void test005() {
   MyTestObject* test = 0;
   IObject* iobj = 0;
   IFoo* ifoo = 0;

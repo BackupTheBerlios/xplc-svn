@@ -21,19 +21,19 @@
  * 02111-1307, USA.
  */
 
-#include "../test.h"
+#include "test.h"
 #include <xplc/xplc.h>
 #include <xplc/utils.h>
 #include <xplc/ISingleModuleLoader.h>
 #include "testobj.h"
 
 /*
- * test005
+ * test004
  *
  * Verifies the simple dynamic component loader.
  */
 
-void test() {
+void test004() {
   IServiceManager* servmgr;
   IFactory* dynfactory;
   IObject* obj;
@@ -56,7 +56,7 @@ void test() {
   dyn = mutate<ISingleModuleLoader>(obj);
   ASSERT(dyn != 0, "simple dynamic loader does not have expected interface");
 
-  err = dyn->loadModule("tests/test005/testobj.dll");
+  err = dyn->loadModule("tests/testobj.dll");
   ASSERT(!err, err);
 
   obj = dyn->getObject(TestComponent_CID);

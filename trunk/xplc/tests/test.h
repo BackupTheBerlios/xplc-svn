@@ -26,7 +26,15 @@
 #include <xplc/xplc.h>
 #include <xplc/IFactory.h>
 
-void test();
+void test000();
+void test001();
+void test002();
+void test003();
+void test004();
+void test005();
+void test006();
+void test007();
+void test008();
 
 void test_assert(const char* file,
                  unsigned int line,
