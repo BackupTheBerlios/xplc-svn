@@ -29,10 +29,17 @@
  * instead of "delete" when you know what you are doing.
  */
 
+#include <new>
+
+#ifdef __XPLC_IOBJECT_H__
+#error "<xplc/delete.h> has to be included before <xplc/IObject.h>."
+#endif
+
 #include <xplc/IObject.h>
 
 class CheckIObject {};
 class CheckIObjectOk {};
+class CheckIObjectOkVector {};
 
 template<class T>
 class ConversionIObject
@@ -61,8 +68,14 @@ inline void operator&&(CheckIObjectOk, const T* obj) {
   delete obj;
 }
 
+template<class T>
+inline void operator&&(CheckIObjectOkVector, const T* obj) {
+  delete[] obj;
+}
+
 #undef xplcdelete
 #define xplcdelete CheckIObjectOk() &&
 #define delete CheckIObject() &&
+#define deletev CheckIObjectOkVector() &&
 
 #endif /* __XPLC_DELETE_H__ */

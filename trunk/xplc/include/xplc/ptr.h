@@ -48,7 +48,9 @@ private:
   private:
     virtual unsigned int addRef() = 0;
     virtual unsigned int release() = 0;
+#ifndef __XPLC_DELETE_H__
     void operator delete(void*);
+#endif
   };
 
   xplc_ptr& operator=(const xplc_ptr&);
