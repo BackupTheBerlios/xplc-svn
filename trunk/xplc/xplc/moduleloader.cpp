@@ -2,8 +2,8 @@
  *
  * XPLC - Cross-Platform Lightweight Components
  * Copyright (C) 2002, Net Integration Technologies, Inc.
- * Copyright (C) 2002-2003, Pierre Phaneuf
- * Copyright (C) 2002, Stéphane Lajoie
+ * Copyright (C) 2002-2004, Pierre Phaneuf
+ * Copyright (C) 2002-2004, Stéphane Lajoie
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public License
@@ -44,6 +44,8 @@
 #   include <ndir.h>
 #  endif
 # endif
+#else
+# include <io.h>
 #endif
 
 #include <xplc/core.h>
@@ -117,6 +119,47 @@ IObject* ModuleLoader::getObject(const UUID& uuid)
   return 0;
 }
 
+void ModuleLoader::loadModule(const char* fname)
+{
+  XPLC_ModuleInfo* moduleinfo = 0;
+  ModuleNode* newmodule;
+  void* dlh;
+  const char* err;
+
+  err = loaderOpen(fname, &dlh);
+  if(err)
+    return;
+
+  err = loaderSymbol(dlh, "XPLC_Module",
+                     reinterpret_cast<void**>(&moduleinfo));
+  if(err
+     || !moduleinfo
+     || moduleinfo->magic != XPLC_MODULE_MAGIC) {
+    loaderClose(dlh);
+    return;
+  }
+
+  switch(moduleinfo->version_major) {
+#ifdef UNSTABLE
+  case -1:
+    /* nothing to do */
+    break;
+#endif
+  default:
+    loaderClose(dlh);
+    return;
+  };
+
+  if(moduleinfo->loadModule && !moduleinfo->loadModule()) {
+    loaderClose(dlh);
+    return;
+  }
+
+  newmodule = new ModuleNode(moduleinfo, dlh, modules);
+  if(newmodule)
+    modules = newmodule;
+}
+
 #if !defined(WIN32)
 void ModuleLoader::setModuleDirectory(const char* directory)
 {
@@ -135,45 +178,9 @@ void ModuleLoader::setModuleDirectory(const char* directory)
 
   rewinddir(dir);
   while((ent = readdir(dir)) && fname && servmgr) {
-    const char* err;
-    void* dlh;
-    XPLC_ModuleInfo* moduleinfo = 0;
-    ModuleNode* newmodule;
-
     snprintf(fname, len, "%s/%s", directory, ent->d_name);
 
-    err = loaderOpen(fname, &dlh);
-    if(err)
-      continue;
-
-    err = loaderSymbol(dlh, "XPLC_Module",
-		       reinterpret_cast<void**>(&moduleinfo));
-    if(err
-       || !moduleinfo
-       || moduleinfo->magic != XPLC_MODULE_MAGIC) {
-      loaderClose(dlh);
-      continue;
-    }
-
-    switch(moduleinfo->version_major) {
-#ifdef UNSTABLE
-    case -1:
-      /* nothing to do */
-      break;
-#endif
-    default:
-      loaderClose(dlh);
-      continue;
-  };
-
-    if(moduleinfo->loadModule && !moduleinfo->loadModule()) {
-      loaderClose(dlh);
-      continue;
-    }
-
-    newmodule = new ModuleNode(moduleinfo, dlh, modules);
-    if(newmodule)
-      modules = newmodule;
+    loadModule(fname);
   }
 
   if(servmgr)
@@ -185,7 +192,6 @@ void ModuleLoader::setModuleDirectory(const char* directory)
 }
 
 #elif defined(WIN32)
-#include <io.h>
 
 void ModuleLoader::setModuleDirectory(const char* directory)
 {
@@ -218,23 +224,7 @@ void ModuleLoader::setModuleDirectory(const char* directory)
 
     _snprintf(fname, len, "%s/%s", directory, data.name);
 
-    err = loaderOpen(fname, &dlh);
-    if(err)
-      continue;
-
-    err = loaderSymbol(dlh, "XPLC_Module",
-		       reinterpret_cast<void**>(&moduleinfo));
-    if(err
-       || !moduleinfo
-       || moduleinfo->version != XPLC_MODULE_VERSION
-       || !moduleinfo->module) {
-      loaderClose(dlh);
-      continue;
-    }
-
-    newmodule = new ModuleNode(moduleinfo, dlh, modules);
-    if(newmodule)
-      modules = newmodule;
+    loadModule(fname);
   }
 
   if(servmgr)

@@ -35,6 +35,7 @@ class ModuleLoader: public IModuleLoader {
   IMPLEMENT_IOBJECT(ModuleLoader);
 private:
   ModuleNode* modules;
+  void loadModule(const char*);
 protected:
   ModuleLoader():
     modules(0) {
