@@ -159,10 +159,10 @@ static const UUID UUID_null = {0, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0}};
  * Generate a UUID for your IID using 'uuidgen', then declare your IID
  * using DEFINE_IID(ClassName).  If you need to obtain the UUID corresponding
  * to that interface in the future, call the static function
- * IID<ClassName>::get().
+ * XPLC_IID<ClassName>::get().
  */
 template<class T>
-struct IID {
+struct XPLC_IID {
 };
 
 /**
@@ -171,7 +171,7 @@ struct IID {
 #define DEFINE_IID(iface, u1, u2, u3, u4, u5, u6, u7, u8, u9, u10, u11) \
 static const UUID iface##_IID = u1, u2, u3, u4, u5, u6, u7, u8, u9, u10, u11; \
 template <> \
-struct IID<iface> { \
+struct XPLC_IID<iface> { \
   static const UUID& get() { \
     return iface##_IID; \
   } \
