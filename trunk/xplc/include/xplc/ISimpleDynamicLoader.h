@@ -30,9 +30,9 @@ public:
   static const UUID IID;
   /*
    * Loading a library while the component already has another library
-   * open will result in the first library to be unloaded.
-	 * Returns error message on error, or NULL if the module was loaded
-	 * successfully.
+   * open will result in the first library to be unloaded. Returns
+   * error message on error, or NULL if the module was loaded
+   * successfully.
    */
   virtual const char* loadModule(const char* filename) = 0;
 };
