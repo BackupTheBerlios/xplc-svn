@@ -30,7 +30,7 @@ DEPFILE = $(notdir $(@:.o=.d))
 	@rm -f $(DEPFILE)
 
 %: %.o
-	$(LINK.o) $^ $(LOADLIBES) $(LDLIBS) -o $@
+	$(LINK.cc) $^ $(LOADLIBES) $(LDLIBS) -o $@
 
 dist: distclean ChangeLog README xplc.spec
 	autoconf
