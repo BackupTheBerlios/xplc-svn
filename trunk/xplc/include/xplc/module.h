@@ -33,15 +33,12 @@
 #define ENTRYPOINT extern "C"
 #endif
 
-/*
- * The IModule returned by XPLC_GetModule should be already addRef'd.
- */
+struct XPLC_ModuleInfo {
+  int version;
+  IModule* module;
+};
 
-ENTRYPOINT IModule* XPLC_GetModule(IServiceManager*,
-				   const unsigned int);
-
-typedef IModule*(*XPLC_GetModuleFunc)(IServiceManager*,
-				      const unsigned int);
+ENTRYPOINT const XPLC_ModuleInfo XPLC_Module;
 
 #define XPLC_MODULE_VERSION 0
 

@@ -84,15 +84,8 @@ UUID_MAP_BEGIN(TestModule)
   UUID_MAP_ENTRY(IModule)
   UUID_MAP_END
 
-ENTRYPOINT IModule* XPLC_GetModule(IServiceManager*,
-                                   const unsigned int version) {
-  if(!module)
-    module = new GenericComponent<TestModule>;
+const XPLC_ModuleInfo XPLC_Module = {
+  XPLC_MODULE_VERSION,
+  new GenericComponent<TestModule>
+};
 
-  if(version == 0 && module) {
-    module->addRef();
-    return module;
-  }
-
-  return 0;
-}

@@ -32,6 +32,7 @@ struct ModuleNode {
   void* dlh;
   ModuleNode(IModule* aModule, void* aDlh, ModuleNode* aNext):
     next(aNext), module(aModule), dlh(aDlh) {
+    module->addRef();
   }
   ~ModuleNode() {
     module->release();
