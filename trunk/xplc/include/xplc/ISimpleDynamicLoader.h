@@ -23,9 +23,9 @@
 #ifndef __XPLC_ISIMPLEDYNAMICLOADER_H__
 #define __XPLC_ISIMPLEDYNAMICLOADER_H__
 
-#include <xplc/IFactory.h>
+#include <xplc/IServiceHandler.h>
 
-class ISimpleDynamicLoader: public IFactory {
+class ISimpleDynamicLoader: public IServiceHandler {
 public:
   static const UUID IID;
   /*

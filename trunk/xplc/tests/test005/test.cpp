@@ -58,7 +58,7 @@ void test() {
   err = dyn->loadModule("tests/test005/testobj.dll");
   ASSERT(!err, err);
 
-  obj = dyn->createObject();
+  obj = dyn->getObject(TestComponent_CID);
   ASSERT(obj != 0, "could not create test object");
 
   test = mutate<ITestComponent>(obj);
@@ -66,7 +66,7 @@ void test() {
 
   ASSERT(test->getAnswer() == 42, "test object did not have expected behavior");
 
-  VERIFY(test->release() == 0, "test object has wrong refcount");
+  VERIFY(test->release() == 1, "test object has wrong refcount");
 
   servmgr->shutdown();
 
