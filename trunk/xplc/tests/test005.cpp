@@ -94,7 +94,8 @@ void test005() {
   IObject* iobj = 0;
   IFoo* ifoo = 0;
   IBar* ibar = 0;
-  IWeakRef* weak = 0;
+  IWeakRef* weak1 = 0;
+  IWeakRef* weak2 = 0;
   IObject* itest = 0;
 
   test = MyTestObject::create();
@@ -105,8 +106,13 @@ void test005() {
 
   VERIFY(reinterpret_cast<void*>(iobj) == reinterpret_cast<void*>(test), "identity test failed");
 
-  weak = iobj->getWeakRef();
-  ASSERT(weak, "could not obtain weak reference");
+  weak1 = iobj->getWeakRef();
+  ASSERT(weak1, "could not obtain first weak reference");
+
+  weak2 = iobj->getWeakRef();
+  ASSERT(weak2, "could not obtain second weak reference");
+
+  VERIFY(weak1 == weak2, "the two weak references are different");
 
   ifoo = get<IFoo>(iobj);
   VERIFY(ifoo, "get<IFoo> failed on test object");
@@ -117,7 +123,7 @@ void test005() {
   ifoo->setFoo(10);
   ibar->setBar(20);
 
-  itest = weak->getObject();
+  itest = weak1->getObject();
   ASSERT(itest, "could not strengthen the weak reference");
   VERIFY(itest->release() == 4, "incorrect refcount");
 
@@ -138,9 +144,10 @@ void test005() {
 
   VERIFY(static_cast<IFoo*>(test)->release() == 0, "incorrect refcount");
 
-  itest = weak->getObject();
+  itest = weak1->getObject();
   VERIFY(!itest, "weak->getObject gave us something when it shouldn't");
 
-  VERIFY(weak->release() == 0, "incorrect refcount");
+  VERIFY(weak1->release() == 1, "incorrect refcount");
+  VERIFY(weak2->release() == 0, "incorrect refcount");
 }
 

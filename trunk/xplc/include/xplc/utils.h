@@ -107,8 +107,10 @@ public: \
       return xplc_iobject_internal.refcount; \
     /* protect against re-entering the destructor */ \
     xplc_iobject_internal.refcount = 1; \
-    if(xplc_iobject_internal.weakref) \
+    if(xplc_iobject_internal.weakref) { \
+      xplc_iobject_internal.weakref->release(); \
       xplc_iobject_internal.weakref->object = 0; \
+    } \
     delete this; \
     return 0; \
   } \
@@ -116,12 +118,9 @@ public: \
     return XPLC_getInterface_real(this, uuid, xplc_iobject_uuids); \
   } \
   virtual IWeakRef* getWeakRef() { \
-    if(!xplc_iobject_internal.weakref) { \
-      xplc_iobject_internal.weakref = new WeakRef; \
-      /* FIXME: why not just assign "this"? */ \
-      xplc_iobject_internal.weakref->object = this->getInterface(IObject_IID); \
-      this->release(); \
-    } \
+    if(!xplc_iobject_internal.weakref) \
+      xplc_iobject_internal.weakref = new WeakRef(reinterpret_cast<IObject*>(reinterpret_cast<ptrdiff_t>(this) + xplc_iobject_uuids->delta)); \
+    xplc_iobject_internal.weakref->addRef(); \
     return xplc_iobject_internal.weakref; \
   }
 
@@ -146,6 +145,9 @@ public:
       object->addRef();
 
     return object;
+  }
+  WeakRef(IObject* aObj):
+    object(aObj) {
   }
 };
 
