@@ -38,14 +38,13 @@ dustclean:
 
 clean: dustclean
 	rm -f $(shell find . -name '*.o' -print)
-	rm -f $(GARBAGES)
-	rm -f $(TARGETS)
+	rm -f $(wildcard $(GARBAGES) $(TARGETS))
 
 distclean: clean
-	rm -f $(DISTCLEAN)
+	rm -f $(wildcard $(DISTCLEAN))
 
 realclean: distclean
-	rm -f $(REALCLEAN)
+	rm -f $(wildcard $(REALCLEAN))
 
 installdirs:
 	mkdir -p $(libdir)
