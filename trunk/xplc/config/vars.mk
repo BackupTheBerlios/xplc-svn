@@ -24,7 +24,7 @@ DEPFILES:=$(shell find . -name '.*.d')
 DUSTCLEAN+=$(shell find . -name '*~' -o -name '.\#*')
 CLEAN+=$(shell find . -name '*.o') libxplc.so* $(DEPFILES) $(addprefix debian/,$(shell cat debian/.cvsignore | grep -v control)) autom4te.cache xplc-[0-9]*
 DISTCLEAN+=config/config.mk include/xplc/autoconf.h ChangeLog.bak
-REALCLEAN+=ChangeLog include/xplc/autoconf.h.in
+REALCLEAN+=ChangeLog include/xplc/autoconf.h.in debian/control
 
 SIMPLETARGETS+=ChangeLog clean dustclean realclean distclean doxygen clean-doxygen
 
