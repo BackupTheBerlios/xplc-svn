@@ -30,4 +30,8 @@
 #include <xplc/autoconf.h>
 #endif
 
+#ifdef WIN32
+#define UNSTABLE
+#endif
+
 #endif /* __XPLC_CONFIG_H__ */
