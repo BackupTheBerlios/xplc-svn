@@ -22,55 +22,26 @@
 #ifndef __XPLC_UTILS_H__
 #define __XPLC_UTILS_H__
 
+#ifdef DEBUG
+#include <stdio.h>
+#endif
 #include <xplc/IObject.h>
 
 /*
- * Define this if you want to debug components using the
- * GenericComponent template.
- */
-#undef GENERICDEBUG
-
-/*
- * Define this if you want to debug addRef()s and release()s.
- */
-#undef GENERICDEBUG_REFS
-
-#if defined(GENERICDEBUG) || defined(GENERICDEBUG_REFS)
-#include <stdio.h>
-#endif
-
-/*
- * This template contains an implementation of methods a basic
+ * Mix-in template that contains an implementation of methods a basic
  * component will need to implement.
  */
-
 template<class Component>
 class GenericComponent: public Component {
 private:
   unsigned int refcount;
 public:
   GenericComponent(): refcount(0) {
-#ifdef GENERICDEBUG
-    fprintf(stderr, "%s: instantiated\n", __PRETTY_FUNCTION__);
-#endif
   }
-#ifdef GENERICDEBUG
-  virtual ~GenericComponent() {
-    fprintf(stderr, "%s: destroyed\n", __PRETTY_FUNCTION__);
-  }
-#endif
   virtual unsigned int addRef() {
-#ifdef GENERICDEBUG_REFS
-    fprintf(stderr, "%s = %i\n", __PRETTY_FUNCTION__, refcount + 1);
-#endif
-
     return ++refcount;
   }
   virtual unsigned int release() {
-#ifdef GENERICDEBUG_REFS
-    fprintf(stderr, "%s = %i\n", __PRETTY_FUNCTION__, refcount - 1);
-#endif
-
     if(--refcount)
       return refcount;
 
@@ -83,12 +54,44 @@ public:
   }
 };
 
+#ifdef DEBUG
+
+/*
+ * Mix-in template that trace constructors, destructors and refcount
+ * to stderr.
+ */
+template<class Component>
+class TraceComponent: public Component {
+public:
+  TraceComponent() {
+    fprintf(stderr, "%s: instantiated\n", __PRETTY_FUNCTION__);
+  }
+  virtual unsigned int addRef() {
+    unsigned int refcount = Component::addRef();
+
+    fprintf(stderr, "%s = %i\n", __PRETTY_FUNCTION__, refcount);
+
+    return refcount;
+  }
+  virtual unsigned int release() {
+    unsigned int refcount = Component::release();
+
+    fprintf(stderr, "%s = %i\n", __PRETTY_FUNCTION__, refcount);
+
+    return refcount;
+  }
+  virtual ~TraceComponent() {
+    fprintf(stderr, "%s: destroyed\n", __PRETTY_FUNCTION__);
+  }
+};
+
+#endif /* DEBUG */
+
 /*
  * This templated function is a typesafe way to call the getInterface
  * method of a component and cast it properly. If the component does
  * not support the interface, a NULL pointer will be returned.
  */
-
 template<class Interface>
 Interface* getInterface(IObject* aObj) {
   if(!aObj)
