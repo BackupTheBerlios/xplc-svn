@@ -51,7 +51,6 @@
 #include <xplc/core.h>
 #include <xplc/module.h>
 #include <xplc/utils.h>
-#include <xplc/ICategoryManager.h>
 #include "loader.h"
 #include "moduleloader.h"
 
@@ -154,16 +153,6 @@ void ModuleLoader::loadModule(const char* fname)
   if(moduleinfo->loadModule && !moduleinfo->loadModule()) {
     loaderClose(dlh);
     return;
-  }
-
-  if(moduleinfo->categories) {
-#if 0
-    /* FIXME: this should be finished. */
-    IServiceManager* servmgr = XPLC_getServiceManager();
-    ICategoryManager* catmgr = mutate<ICategoryManager>(servmgr->getObject(XPLC_categoryManager));
-    const XPLC_CategoryEntry* entry = moduleinfo->categories;
-    servmgr->release();
-#endif
   }
 
   newmodule = new ModuleNode(moduleinfo, dlh, modules);
