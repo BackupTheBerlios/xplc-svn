@@ -52,7 +52,7 @@ AC_ARG_ENABLE(exceptions,
                              [C++ exceptions (compiler)]))
 
 AC_ARG_ENABLE(loader,
-              AC_HELP_STRING([--enable-loader],
+              AC_HELP_STRING([--disable-loader],
                              [dynamic loading]))
 
 AC_ARG_WITH(dlopen,
