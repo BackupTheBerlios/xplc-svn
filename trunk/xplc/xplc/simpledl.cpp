@@ -31,6 +31,7 @@
 
 #include "simpledl.h"
 #include <xplc/utils.h>
+#include <stddef.h>
 
 IObject* SimpleDynamicLoader::create() {
   return new GenericComponent<SimpleDynamicLoader>;
@@ -71,7 +72,7 @@ const char* SimpleDynamicLoader::loadModule(const char* filename) {
   const char* err;
 
   /* clear out dl error */
-  (void)dlerror();
+  static_cast<void>(dlerror());
 
   if(dlh)
     dlclose(dlh);
@@ -92,11 +93,18 @@ const char* SimpleDynamicLoader::loadModule(const char* filename) {
   }
 
   /*
-   * FIXME: What is the proper C++ cast to use here? reinterpret_cast
-   * with GCC gives a warning that "ISO C++ forbids casting between
-   * pointer-to-function and pointer-to-object".
+   * My appreciation for C++ sinks to an all-time low with this
+   * incredible casting maneuver. We're avoiding a warning which says
+   * that "ISO C++ forbids casting between pointer-to-function and
+   * pointer-to-object". And silly me, I had forgotten that 'void' is
+   * actually an object type! :-)
+   * 
+   * Beside causing insanity on sight, this is dependent on
+   * 'ptrdiff_t' being the same size as a pointer, which I am pretty
+   * sure is correct on every platforms.
    */
-  factory = (IObject*(*)())(dlsym(dlh, "XPLC_SimpleModule"));
+
+  factory = reinterpret_cast<IObject*(*)()>(reinterpret_cast<ptrdiff_t>(dlsym(dlh, "XPLC_SimpleModule")));
   err = dlerror();
   if(err)
     return err;
