@@ -6,5 +6,8 @@ Quick Start
 
  - ./configure
  - make
+ - make tests (optional)
  - make install
+
+You might have to use "ldconfig" to finish setting up the system.
 
