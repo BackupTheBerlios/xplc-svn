@@ -33,7 +33,6 @@
 #ifdef UNSTABLE
 #include <limits.h>
 #endif
-#include <xplc/IModule.h>
 
 /**
  * XPLC module magic number. Used to ensure that we are dealing with a
