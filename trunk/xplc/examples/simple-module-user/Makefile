@@ -1,0 +1,16 @@
+
+.PHONY: default clean
+
+# the UNSTABLE flag is there because we agree to use interfaces that
+# have not been frozen yet.
+CPPFLAGS+=-DUNSTABLE -I../../include -I../simple-module
+LDFLAGS+=-L../..
+
+default: example
+
+clean:
+	rm -f example *~ *.o
+
+example: $(patsubst %.cpp,%.o,$(wildcard *.cpp))
+	$(LINK.cc) $^ -lxplc -lxplc-cxx -o $@
+
