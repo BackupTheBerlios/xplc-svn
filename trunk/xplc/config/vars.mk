@@ -98,6 +98,6 @@ endif
 
 ifeq ("$(so_style)", "sysv")
 SONAMEOPT=-Wl,-h
-SHARED=-shared $(if $(SONAME),$(SONAMEOPT)$(SONAME))
+SHARED=-shared $(if $(SONAME),$(SONAMEOPT)$(SONAME)) -Wl,--version-script=config/exports.map
 endif
 

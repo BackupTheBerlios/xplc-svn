@@ -1,5 +1,6 @@
 
  * 0.5.0
+ - add a test for linker version script
  - categories
  - proper module meta-info
  - (proper) dynamic loadiong on Mac OS X (dlopen-style)
