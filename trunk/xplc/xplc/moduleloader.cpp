@@ -20,6 +20,8 @@
  */
 
 #include <stdio.h>
+
+#ifndef WIN32
 #include <xplc/autoconf.h>
 #if HAVE_DIRENT_H
 # include <dirent.h>
@@ -37,6 +39,8 @@
 #  include <ndir.h>
 # endif
 #endif
+#endif
+
 #include <xplc/xplc.h>
 #include <xplc/module.h>
 #include <xplc/utils.h>
@@ -98,6 +102,7 @@ void ModuleLoader::shutdown()
   }
 }
 
+#ifdef HAVE_DIRENT_H
 void ModuleLoader::setModuleDirectory(const char* directory)
 {
   DIR* dir;
@@ -152,4 +157,70 @@ void ModuleLoader::setModuleDirectory(const char* directory)
 
   closedir(dir);
 }
+#endif
 
+#ifdef WIN32
+#include <io.h>
+
+void ModuleLoader::setModuleDirectory(const char* directory)
+{
+  const size_t len = strlen(directory) + 256 + 1;
+  char pattern[1024];
+  strcpy(pattern, directory);
+  strcat(pattern, "/*.*");
+
+  _finddata_t data;
+  intptr_t dir = _findfirst(pattern, &data);
+
+  if(!dir)
+    return;
+
+  char* fname;
+  IServiceManager* servmgr;
+
+  fname = static_cast<char*>(malloc(len));
+  servmgr = XPLC::getServiceManager();
+
+  bool first = true;
+  while(fname && servmgr) {
+	if(!first && _findnext(dir, &data))
+      break;
+    first = false;
+    const char* err;
+    void* dlh;
+    XPLC_GetModuleFunc getmodule = 0;
+    IModule* module;
+    ModuleNode* newmodule;
+
+    snprintf(fname, len, "%s/%s", directory, data.name);
+
+    err = loaderOpen(fname, &dlh);
+    if(err)
+      continue;
+
+    err = loaderSymbol(dlh, "XPLC_GetModule",
+		       reinterpret_cast<void**>(&getmodule));
+    if(err || !getmodule) {
+      loaderClose(dlh);
+      continue;
+    }
+
+    module = getmodule(servmgr, XPLC_MODULE_VERSION);
+    if(!module) {
+      loaderClose(dlh);
+      continue;
+    }
+
+    newmodule = new ModuleNode(module, dlh, modules);
+    if(newmodule)
+      modules = newmodule;
+  }
+
+  if(servmgr)
+    servmgr->release();
+
+  free(fname);
+
+  _findclose(dir);
+}
+#endif

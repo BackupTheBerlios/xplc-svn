@@ -19,12 +19,20 @@
  * 02111-1307, USA.
  */
 
+#ifndef WIN32
 #include <xplc/autoconf.h>
 #ifdef HAVE_DLFCN_H
 #include <dlfcn.h>
 #endif
+#endif
+
+#ifdef WIN32
+#include <windows.h>
+#endif
+
 #include "loader.h"
 
+#ifdef HAVE_DLFCN_H
 const char* loaderOpen(const char* aFilename,
 		       void** aHandle) {
   const char* rv = 0;
@@ -55,3 +63,46 @@ bool loaderClose(void* aHandle) {
   return dlclose(aHandle) == 0;
 }
 
+#endif
+
+#ifdef WIN32
+
+const char* getErrorMessage() {
+  static char error[1024];
+  FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM, 0, GetLastError(), 0, error, sizeof(error), 0);
+  return error;
+}
+
+const char* loaderOpen(const char* aFilename,
+		       void** aHandle) {
+  const char* rv = 0;
+
+  UINT oldErrorMode = SetErrorMode(0);
+  SetErrorMode(oldErrorMode | SEM_FAILCRITICALERRORS);
+  *aHandle = LoadLibrary(aFilename);
+  SetErrorMode(oldErrorMode);
+
+  if(!*aHandle)
+    rv = getErrorMessage();
+
+  return rv;
+}
+
+const char* loaderSymbol(void* aHandle,
+			 const char* aSymbol,
+			 void** aPointer) {
+  const char* rv = 0;
+
+  *aPointer = GetProcAddress(static_cast<HMODULE>(aHandle), aSymbol);
+
+  if(!aPointer)
+    rv = getErrorMessage();
+
+  return rv;
+}
+
+bool loaderClose(void* aHandle) {
+  return FreeLibrary(static_cast<HMODULE>(aHandle)) != 0;
+}
+
+#endif

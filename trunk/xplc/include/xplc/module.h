@@ -27,7 +27,7 @@
 #include <xplc/IServiceManager.h>
 
 #ifdef WIN32
-#define ENTRYPOINT __declspec(dllexport) extern "C"
+#define ENTRYPOINT extern "C" __declspec(dllexport)
 #else
 #define ENTRYPOINT extern "C"
 #endif
