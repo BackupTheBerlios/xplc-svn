@@ -48,7 +48,7 @@ ifneq ("@enable_warnings@", "no")
 CXXFLAGS+=-pedantic -Wall -Wold-style-cast -Woverloaded-virtual
 endif
 
-ifeq ("@enable_fatal-warnings@", "yes")
+ifeq ("@enable_fatal_warnings@", "yes")
 CXXFLAGS+=-Werror
 endif
 
