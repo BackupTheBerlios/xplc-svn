@@ -30,9 +30,7 @@
 #define USE_PROTOTYPE
 
 #ifndef USE_PROTOTYPE
-
 #include <xplc/ptr.h>
-
 #else
 
 template<class T>
@@ -56,17 +54,26 @@ public:
   explicit xplc_ptr(T* aObj):
     ptr(aObj) {
   }
+  template<class P>
+  explicit xplc_ptr(const xplc_ptr<P>& aObj):
+    ptr(aObj) {
+    if(ptr)
+      ptr->addRef();
+  }
   ~xplc_ptr() {
     if(ptr)
       ptr->release();
   }
-  ProtectedPtr* operator->() {
+  ProtectedPtr* operator->() const {
     return static_cast<ProtectedPtr*>(ptr);
   }
-  operator ProtectedPtr*() {
+  operator ProtectedPtr*() const {
     return static_cast<ProtectedPtr*>(ptr);
   }
   xplc_ptr& operator=(T* _ptr) {
+    if(_ptr)
+      _ptr->addRef();
+
     if(ptr)
       ptr->release();
 
@@ -91,8 +98,9 @@ void test011() {
   {
     xplc_ptr<ITestInterface2> ptr1(testobj1);
     xplc_ptr<ITestInterface2> ptr2(testobj2);
+    xplc_ptr<ITestInterface> ptr3(ptr1);
 
-    VERIFY(ptr1->getRefCount() == 2, "incorrect refcount on test object 1");
+    VERIFY(ptr1->getRefCount() == 3, "incorrect refcount on test object 1");
     VERIFY(ptr2->getRefCount() == 2, "incorrect refcount on test object 2");
 
     VERIFY(ptr1, "test for truth");
@@ -116,9 +124,8 @@ void test011() {
 
     ptr1 = 0;
 
-    VERIFY(testobj1->getRefCount() == 1, "incorrect refcount on test object");
+    VERIFY(testobj1->getRefCount() == 2, "incorrect refcount on test object");
 
-    testobj1->addRef();
     ptr1 = testobj1;
 
     obj = ptr1;
@@ -130,7 +137,7 @@ void test011() {
     testiface2 = ptr1;
     VERIFY(testiface2 == testobj1, "assignment to ITestInterface2");
 
-    VERIFY(testobj1->getRefCount() == 2, "incorrect refcount on test object 1");
+    VERIFY(testobj1->getRefCount() == 3, "incorrect refcount on test object 1");
   }
 
   VERIFY(testobj1->release() == 0, "incorrect refcount on test object 1");
