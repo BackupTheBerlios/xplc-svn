@@ -1,7 +1,7 @@
 /* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*-
  *
  * XPLC - Cross-Platform Lightweight Components
- * Copyright (C) 2000, Pierre Phaneuf
+ * Copyright (C) 2000-2002, Pierre Phaneuf
  * Copyright (C) 2001, Stéphane Lajoie
  *
  * This library is free software; you can redistribute it and/or
@@ -68,6 +68,7 @@ int main(int argc, char* argv[]) {
   test006();
   test007();
   test008();
+  test009();
 
   if((failed + passed) == 0) {
     fprintf(stderr, "%s: BAD TEST\n", prog);
