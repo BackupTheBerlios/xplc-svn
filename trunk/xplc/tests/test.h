@@ -65,8 +65,10 @@ class TestObject: public ITestInterface {
 private:
   unsigned int refcount;
   bool destroyed;
+  bool deletethis;
 public:
-  TestObject(): refcount(0), destroyed(false) {
+  TestObject(const bool _deletethis = false): refcount(0), destroyed(false),
+                                      deletethis(_deletethis) {
   }
   virtual ~TestObject() {
   }
@@ -86,6 +88,8 @@ public:
 
     refcount = 1;
     destroyed = true;
+    if(deletethis)
+      delete this;
 
     return 0;
   }
@@ -165,7 +169,7 @@ public:
     return 0;
   }
   virtual IObject* createObject() {
-    IObject* obj = new TestObject;
+    IObject* obj = new TestObject(true);
 
     if(obj)
       obj->addRef();
