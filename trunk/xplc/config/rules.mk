@@ -59,6 +59,9 @@ $(DIST): ChangeLog README xplc.spec configure
 	rm -rf $(DIST)
 	tar cf - . | (mkdir $(DIST) && cd $(DIST) && tar xf -)
 	$(MAKE) -C $(DIST) distclean
+	for FILE in $$(find $(DIST) -name Root | grep CVS); do \
+		echo ':pserver:anonymous@cvs.sourceforge.net:/cvsroot/xplc' >$$FILE; \
+	done
 
 dist: default tests $(DIST).tar.gz
 
@@ -106,7 +109,7 @@ uninstall:
 
 ifeq ($(filter-out $(SIMPLETARGETS),$(MAKECMDGOALS)),$(MAKECMDGOALS))
 
-config/config.mk include/xplc/autoconf.h: config/config.mk.in configure
+config/config.mk: config/config.mk.in configure
 	@echo "Please run './configure'."
 	@exit 1
 
