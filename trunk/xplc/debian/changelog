@@ -6,7 +6,7 @@ xplc (0.3.10-2) unstable; urgency=low
 
 xplc (0.3.10-1) unstable; urgency=low
 
-  * New upstream release.
+  * New upstream release.  (Closes: Bug#281786)
   * New maintainer.
   * Renamed libxplc and libxplc-dev to reflect that they have unstable
     API and ABIs.
