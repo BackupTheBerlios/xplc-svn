@@ -21,12 +21,15 @@
 
 .PHONY: ChangeLog dist dustclean clean distclean realclean
 
-dist: distclean ChangeLog
+dist: distclean ChangeLog README
 	autoconf
 
 ChangeLog:
 	rm -f ChangeLog ChangeLog.bak
 	cvs2cl.pl --utc -U config/cvs-users
+
+README: dist/README.in
+	sed $< -e 's%@VERSION@%$(VERSION)%g' > $@
 
 dustclean:
 	rm -f $(shell find . -name 'core' -print)
