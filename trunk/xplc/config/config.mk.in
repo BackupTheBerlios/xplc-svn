@@ -31,6 +31,7 @@ CXXDEPS:=
 # set variables from the configure script
 CXX=@CXX@
 CXXFLAGS+=@CXXFLAGS@
+LIBDL=@LIBDL@
 enable_debug:=@enable_debug@
 enable_optimization:=@enable_optimization@
 enable_warnings:=@enable_warnings@

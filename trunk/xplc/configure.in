@@ -59,6 +59,9 @@ AC_PROG_CXX
 AC_PROG_INSTALL
 
 dnl Checks for libraries.
+AC_SEARCH_LIBS(dlopen, dl, LIBDL=$ac_cv_search_dlopen)
+test "$LIBDL" = "none required" && LIBDL=
+AC_SUBST(LIBDL)
 
 dnl Checks for header files.
 

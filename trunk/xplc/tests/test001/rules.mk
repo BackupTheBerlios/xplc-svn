@@ -19,6 +19,6 @@
 #
 # $Id$
 
-tests/test001/test: tests/test001/test.o tests/testmain.o libxplc_s.a -ldl
+tests/test001/test: tests/test001/test.o tests/testmain.o libxplc_s.a $(LIBDL)
 	$(LINK.cc) $^ $(LOADLIBES) $(LDLIBS) -o $@
 
