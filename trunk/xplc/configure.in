@@ -9,6 +9,10 @@ AC_ARG_ENABLE(debug,
   [  --enable-debug          debugging options])
 AC_SUBST(enable_debug)
 
+AC_ARG_ENABLE(private-debug,
+  [  --enable-private-debug  private debugging options])
+AC_SUBST(enable_private_debug)
+
 AC_ARG_ENABLE(optimization,
   [  --disable-optimization  optimization options])
 AC_SUBST(enable_optimization)

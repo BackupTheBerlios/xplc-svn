@@ -30,10 +30,14 @@ CXXDEPS:=
 CXXFLAGS=-pipe -Iinclude @CXXFLAGS@
 
 ifeq ("@enable_debug@", "yes")
-DEBUG:=$(shell whoami)
-CXXFLAGS+=-ggdb -DDEBUG_$(DEBUG)
+CXXFLAGS+=-ggdb
 else
 CXXFLAGS+=-DNDEBUG
+endif
+
+ifneq ("@enable_private_debug@", "")
+DEBUG:=@enable_private_debug@
+CXXFLAGS+=-DDEBUG_$(DEBUG)
 endif
 
 ifneq ("@enable_optimization@", "no")
@@ -58,7 +62,7 @@ prefix:=@prefix@
 exec_prefix:=@exec_prefix@
 
 test:
-	@echo "debug = \"@debug@\""
+	@echo "enable_debug = \"@enable_debug@\""
 	@echo "bindir = \"@bindir@\""
 	@echo "datadir = \"@datadir@\""
 	@echo "exec_prefix = \"@exec_prefix@\""
