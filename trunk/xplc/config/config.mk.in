@@ -57,7 +57,10 @@ CXXFLAGS+=-fno-exceptions
 endif
 
 ifdef DEBUG
-CXXFLAGS+=-ggdb -DDEBUG=$(DEBUG)
+CXXFLAGS+=-ggdb -DDEBUG
+ifneq ("$(DEBUG)", "yes")
+CXXFLAGS+=-DDEBUG_$(DEBUG)
+endif
 else
 CXXFLAGS+=-DNDEBUG
 endif
