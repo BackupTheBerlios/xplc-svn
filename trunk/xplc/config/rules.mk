@@ -21,13 +21,9 @@
 
 .PHONY: ChangeLog dist dustclean clean distclean realclean installdirs install uninstall
 
-DEPFILE = $(notdir $(@:.o=.d))
-
 %.o: %.cpp
-	$(COMPILE.cpp) -MD $(OUTPUT_OPTION) $<
-	@test -f $(DEPFILE)
-	@sed -e 's|^.*:|$@:|' $(DEPFILE) > $(dir $@).$(DEPFILE)
-	@rm -f $(DEPFILE)
+	@$(COMPILE.cpp) -M -E $< | sed -e 's|^.*:|$@:|' > $(dir $@).$(notdir $(@:.o=.d))
+	$(COMPILE.cpp) $(OUTPUT_OPTION) $<
 
 %: %.o
 	$(LINK.cc) $^ $(LOADLIBES) $(LDLIBS) -o $@
