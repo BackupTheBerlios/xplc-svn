@@ -118,22 +118,23 @@ void test005() {
 
   itest = weak->getObject();
   ASSERT(itest, "could not strengthen the weak reference");
-  VERIFY(itest->release() == 3, "incorrect refcount");
+  VERIFY(itest->release() == 4, "incorrect refcount");
 
   VERIFY(ifoo->getFoo() == 10, "test object has unexpected behavior");
   VERIFY(ibar->getBar() == 20, "test object has unexpected behavior");
 
-  VERIFY(iobj->addRef() == 4, "incorrect refcount");
-  VERIFY(ifoo->addRef() == 5, "incorrect refcount");
-  VERIFY(ibar->addRef() == 6, "incorrect refcount");
+  VERIFY(iobj->addRef() == 5, "incorrect refcount");
+  VERIFY(ifoo->addRef() == 6, "incorrect refcount");
+  VERIFY(ibar->addRef() == 7, "incorrect refcount");
 
-  VERIFY(iobj->release() == 5, "incorrect refcount");
-  VERIFY(ifoo->release() == 4, "incorrect refcount");
-  VERIFY(ibar->release() == 3, "incorrect refcount");
+  VERIFY(iobj->release() == 6, "incorrect refcount");
+  VERIFY(ifoo->release() == 5, "incorrect refcount");
+  VERIFY(ibar->release() == 4, "incorrect refcount");
 
-  VERIFY(iobj->release() == 2, "incorrect refcount");
-  VERIFY(ifoo->release() == 1, "incorrect refcount");
-  VERIFY(ibar->release() == 0, "incorrect refcount");
+  VERIFY(iobj->release() == 3, "incorrect refcount");
+  VERIFY(ifoo->release() == 2, "incorrect refcount");
+  VERIFY(ibar->release() == 1, "incorrect refcount");
+  VERIFY(static_cast<IFoo*>(test)->release() == 0, "incorrect refcount");
 
   itest = weak->getObject();
   VERIFY(!itest, "weak->getObject gave us something when it shouldn't");

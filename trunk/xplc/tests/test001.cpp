@@ -110,17 +110,14 @@ void test001() {
 
   handler1 = Handler1::create();
   ASSERT(handler1 != 0, "could not instantiate test handler 1");
-  handler1->addRef();
   serv->addFirstHandler(handler1);
 
   handler2 = Handler2::create();
   ASSERT(handler2 != 0, "could not instantiate test handler 2");
-  handler2->addRef();
   serv->addHandler(handler2);
 
   handler3 = Handler3::create();
   ASSERT(handler3 != 0, "could not instantiate test handler 2");
-  handler3->addRef();
   serv->addLastHandler(handler3);
 
   obj = serv->getObject(obj1);

@@ -99,7 +99,7 @@ public:
   static IObject* create() {
     return new GenericComponent;
   }
-  GenericComponent(): refcount(0), weakref(0) {
+  GenericComponent(): refcount(1), weakref(0) {
   }
   /** Implements IObject::addRef(). */
   virtual unsigned int addRef() {
@@ -128,7 +128,7 @@ public:
   virtual IWeakRef* getWeakRef() {
     if(!weakref) {
       weakref = new GenericComponent<WeakRef>;
-      weakref->addRef();
+      /* FIXME: why not just assign "this"? */
       weakref->object = this->getInterface(IObject_IID);
       this->release();
     }

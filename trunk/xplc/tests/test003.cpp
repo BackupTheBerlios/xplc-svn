@@ -43,8 +43,6 @@ void test003() {
   obj = new GenericComponent<GenericFactory>;
   ASSERT(obj != 0, "could not instantiate generic factory");
 
-  obj->addRef();
-
   factory = mutate<IGenericFactory>(obj);
   ASSERT(factory != 0, "factory does not have expected interface");
 

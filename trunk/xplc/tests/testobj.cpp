@@ -62,10 +62,8 @@ public:
       component->release();
   }
   virtual IObject* getObject(const UUID& uuid) {
-    if(!component) {
+    if(!component)
       component = TestComponent::create();
-      component->addRef();
-    }
 
     if(uuid == TestComponent_CID) {
       component->addRef();

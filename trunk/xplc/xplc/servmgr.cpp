@@ -47,14 +47,18 @@ static void add_factory(IStaticServiceHandler* handler,
   if(factory) {
     factory->setFactory(factoryptr);
     handler->addObject(uuid, factory);
+    factory->release();
   }
 }
 
 IServiceManager* XPLC_getServiceManager() {
-  if(!singleton) {
+  if(singleton) {
+    singleton->addRef();
+  } else {
     IStaticServiceHandler* handler;
     IStaticServiceHandler* handler2;
     IMonikerService* monikers;
+    IObject* obj;
 
     singleton = new GenericComponent<ServiceManager>;
 
@@ -63,7 +67,6 @@ IServiceManager* XPLC_getServiceManager() {
 
     handler = new GenericComponent<StaticServiceHandler>;
     if(!handler) {
-      singleton->addRef();
       singleton->release();
       return 0;
     }
@@ -76,20 +79,29 @@ IServiceManager* XPLC_getServiceManager() {
     if(handler2) {
       handler->addObject(XPLC_staticServiceHandler, handler2);
       singleton->addHandler(handler2);
+      handler2->release();
     } else {
-      singleton->addRef();
       singleton->release();
       return 0;
     }
 
-    handler->addObject(XPLC_newMoniker, new GenericComponent<NewMoniker>);
-    handler->addObject(XPLC_categoryManager,
-                       new GenericComponent<CategoryManager>);
+    obj = new GenericComponent<NewMoniker>;
+    if(obj) {
+      handler->addObject(XPLC_newMoniker, obj);
+      obj->release();
+    }
+
+    obj = new GenericComponent<CategoryManager>;
+    if(obj) {
+      handler->addObject(XPLC_categoryManager, obj);
+      obj->release();
+    }
 
     monikers = new GenericComponent<MonikerService>;
     if(monikers) {
       monikers->registerObject("new", XPLC_newMoniker);
       handler->addObject(XPLC_monikers, monikers);
+      monikers->release();
     }
 
     add_factory(handler, XPLC_genericFactory,
@@ -102,10 +114,9 @@ IServiceManager* XPLC_getServiceManager() {
                 GenericComponent<ModuleLoader>::create);
 
     singleton->addHandler(handler);
-  }
 
-  if(singleton)
-    singleton->addRef();
+    handler->release();
+  }
 
   return singleton;
 }

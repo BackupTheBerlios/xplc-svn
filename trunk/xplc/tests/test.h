@@ -69,7 +69,7 @@ private:
   TestWeakRef* weakref;
 public:
   IObject* object;
-  TestWeakRef(IObject* aObject): refcount(0), destroyed(false),
+  TestWeakRef(IObject* aObject): refcount(1), destroyed(false),
                                  weakref(0), object(aObject) {
   }
   virtual ~TestWeakRef() {
@@ -111,7 +111,6 @@ public:
   virtual IWeakRef* getWeakRef() {
     if(!weakref) {
       weakref = new TestWeakRef(this);
-      weakref->addRef();
     }
 
     return weakref;
@@ -131,7 +130,7 @@ private:
   bool deletethis;
   TestWeakRef* weakref;
 public:
-  TestObject(const bool _deletethis = false): refcount(0), destroyed(false),
+  TestObject(const bool _deletethis = false): refcount(1), destroyed(false),
                                       deletethis(_deletethis), weakref(0) {
   }
   virtual ~TestObject() {
@@ -140,12 +139,12 @@ public:
     ::operator delete(self);
   }
   virtual unsigned int addRef() {
-    ASSERT(!destroyed, "test object destroyed more than once");
+    ASSERT(!destroyed, "using destroyed test object");
 
     return ++refcount;
   }
   virtual unsigned int release() {
-    ASSERT(!destroyed, "using destroyed test object");
+    ASSERT(!destroyed, "test object destroyed more than once");
 
     if(--refcount)
       return refcount;
@@ -175,7 +174,6 @@ public:
   virtual IWeakRef* getWeakRef() {
     if(!weakref) {
       weakref = new TestWeakRef(this);
-      weakref->addRef();
     }
 
     return weakref;
@@ -205,7 +203,7 @@ private:
   bool destroyed;
   TestWeakRef* weakref;
 public:
-  TestObjectFactory(): refcount(0), destroyed(false), weakref(0) {
+  TestObjectFactory(): refcount(1), destroyed(false), weakref(0) {
   }
   virtual ~TestObjectFactory() {
   }
@@ -247,12 +245,7 @@ public:
     return weakref;
   }
   virtual IObject* createObject() {
-    IObject* obj = new TestObject(true);
-
-    if(obj)
-      obj->addRef();
-
-    return obj;
+    return new TestObject(true);
   }
 };
 
