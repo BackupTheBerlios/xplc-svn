@@ -59,6 +59,9 @@ public:
    */
   XPLC(IServiceManager* _servmgr): servmgr(do_addRef(_servmgr)) {}
 
+  /**
+   * Adds a directory to the module loader path.
+   */
   void addModuleDirectory(const char* directory);
 
   /**
