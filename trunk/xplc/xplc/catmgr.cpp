@@ -73,6 +73,6 @@ void CategoryManager::registerComponent(const UUID& aCatid,
 }
 
 ICategory* CategoryManager::getCategory(const UUID&) {
-  return NULL;
+  return new Category;
 }
 

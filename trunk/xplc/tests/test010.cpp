@@ -55,8 +55,8 @@ void test010() {
   IServiceManager* servmgr;
   IObject* obj;
   ICategoryManager* catmgr;
-#if 0
   ICategory* cat;
+#ifdef DEBUG_pphaneuf
   unsigned int num;
   bool seen[3] = { false, false, false };
 #endif
@@ -74,12 +74,12 @@ void test010() {
   catmgr->registerComponent(myCategory, myComponent2);
   catmgr->registerComponent(myCategory, myComponent3);
 
-#if 0
   cat = catmgr->getCategory(myCategory);
   ASSERT(cat, "could not obtain the category");
 
   catmgr->registerComponent(myCategory, myComponent4);
 
+#ifdef DEBUG_pphaneuf
   num = cat->numEntries();
   VERIFY(num == 3, "the category has an incorrect number of items");
 
@@ -87,16 +87,16 @@ void test010() {
     ICategoryEntry* item = cat->getEntry(i);
     ASSERT(item, "could not get a category entry");
 
-    VERIFY(!item->getUuid().equals(myComponent4),
+    VERIFY(item->getUuid() != myComponent4,
            "incorrectly got myComponent4");
 
-    if(item->getUuid().equals(myComponent1)) {
+    if(item->getUuid() == myComponent1) {
       VERIFY(!seen[0], "myComponent1 already seen");
       seen[0] = true;
-    } else if(item->getUuid().equals(myComponent2)) {
+    } else if(item->getUuid() == myComponent2) {
       VERIFY(!seen[1], "myComponent2 already seen");
       seen[1] = true;
-    } else if(item->getUuid().equals(myComponent3)) {
+    } else if(item->getUuid() == myComponent3) {
       VERIFY(!seen[2], "myComponent3 already seen");
       seen[2] = true;
     } else {
@@ -105,9 +105,9 @@ void test010() {
 
     VERIFY(item->release() == 0, "category item has wrong refcount");
   }
+#endif
 
   VERIFY(cat->release() == 0, "category has wrong refcount");
-#endif
 
   VERIFY(catmgr->release() == 1, "category manager has wrong refcount");
 
