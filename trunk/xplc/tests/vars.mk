@@ -22,5 +22,7 @@ CXXDEPS+=tests/testmain.cpp
 
 GARBAGES+=$(wildcard tests/test*/test)
 
+TESTS:=$(patsubst %,%/test,$(wildcard tests/test[0-9][0-9][0-9]))
+
 include $(wildcard tests/*/vars.mk)
 

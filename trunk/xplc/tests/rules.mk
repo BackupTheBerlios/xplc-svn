@@ -20,8 +20,6 @@
 
 .PHONY: tests
 
-TESTS:=$(patsubst %,%/test,$(wildcard tests/test[0-9][0-9][0-9]))
-
 tests: $(TESTS)
 	@echo "Running tests:"
 	@for TEST in $(TESTS); do $$TEST || break; done
