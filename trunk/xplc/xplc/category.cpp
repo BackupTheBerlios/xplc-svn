@@ -32,11 +32,7 @@ IObject* Category::createObject() {
   return NULL;
 }
 
-unsigned int Category::numEntries() {
-  return 0;
-}
-
-ICategoryEntry* Category::getEntry(unsigned int aIndex) {
+ICategoryIterator* Category::getIterator() {
   return NULL;
 }
 

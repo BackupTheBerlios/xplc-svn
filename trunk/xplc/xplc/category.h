@@ -30,8 +30,7 @@ public:
   /* IFactory */
   virtual IObject* createObject();
   /* ICategory */
-  virtual unsigned int numEntries();
-  virtual ICategoryEntry* getEntry(unsigned int aIndex);
+  virtual ICategoryIterator* getIterator();
 };
 
 #endif /* __XPLC_CATEGORY_H__ */

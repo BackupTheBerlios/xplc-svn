@@ -80,11 +80,14 @@ void test010() {
   catmgr->registerComponent(myCategory, myComponent4);
 
 #ifdef DEBUG_pphaneuf
+#if 0
+  /* FIXME: check the number of entries. */
   num = cat->numEntries();
   VERIFY(num == 3, "the category has an incorrect number of items");
+#endif
 
   for(unsigned int i = 0; i < num; ++i) {
-    ICategoryEntry* item = cat->getEntry(i);
+    ICategoryIterator* item = cat->getIterator();
     ASSERT(item, "could not get a category entry");
 
     VERIFY(item->getUuid() != myComponent4,
