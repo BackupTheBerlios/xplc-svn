@@ -19,25 +19,21 @@
  * 02111-1307, USA.
  */
 
-#include "../test.h"
-#include <xplc/IMoniker.h>
+#ifndef __XPLC_IMONIKER_H__
+#define __XPLC_IMONIKER_H__
 
-/*
- * test007
- *
- * Verifies the moniker facility
- */
+#include <xplc/IObject.h>
 
-void test() {
-  IServiceManager* servmgr;
-  IMoniker* monikers;
-  IObject* obj;
+class IMoniker: public IObject {
+public:
+  static const UUID IID;
+  /*
+   * The object returned by IMoniker::resolve() is already
+   * addRef()'d.
+   */
+  virtual IObject* resolve(const char*) = 0;
+};
 
-  servmgr = XPLC::getServiceManager();
-  ASSERT(servmgr != 0, "could not obtain service manager");
+DEFINE_UUID(IMoniker::IID) = {0x6c0bb432, 0x7c32, 0x4614, {0xa5, 0xab, 0xb2, 0x5d, 0x92, 0x23, 0xda, 0xa2}};
 
-  obj = servmgr->getObject(XPLC::monikers);
-  ASSERT(obj != 0, "could not obtain moniker component");
-
-}
-
+#endif /* __XPLC_IMONIKER_H__ */
