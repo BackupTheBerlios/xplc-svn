@@ -20,6 +20,7 @@
  */
 
 #include <xplc/ICategoryManager.h>
+#include <xplc/utils.h>
 #include "test.h"
 
 /*
@@ -28,16 +29,21 @@
  * Tests categories.
  */
 
-/* FIXME: to be done */
 void test010() {
   IServiceManager* servmgr;
+  IObject* obj;
   ICategoryManager* catmgr;
 
   servmgr = XPLC_getServiceManager();
   ASSERT(servmgr != 0, "could not obtain service manager");
 
-  catmgr = servmgr->getObject(XPLC_categoryManager);
-  ASSERT(catmgr != 0, "could not obtain category manager");
+  obj = servmgr->getObject(XPLC_categoryManager);
+  ASSERT(obj != 0, "could not obtain category manager");
+
+  catmgr = mutate<ICategoryManager>(obj);
+  ASSERT(catmgr != 0, "category manager does not have expected interface");
+
+  /* FIXME: to be done */
 
   VERIFY(catmgr->release() == 1, "category manager has wrong refcount");
 
