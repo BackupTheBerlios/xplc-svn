@@ -40,110 +40,67 @@ UUID_MAP_BEGIN(ServiceManager)
 static ServiceManager* singleton;
 
 IServiceManager* XPLC_getServiceManager() {
-  IServiceManager* servmgr;
-  IObject* obj;
-  IStaticServiceHandler* handler;
-  IStaticServiceHandler* handler2;
-  IGenericFactory* factory;
-  IFactory* factoryfactory;
-  IMonikerService* monikers;
-  ICategoryManager* catmgr;
+  if(!singleton) {
+    IStaticServiceHandler* handler;
+    IStaticServiceHandler* handler2;
+    IMonikerService* monikers;
+    IGenericFactory* factory;
 
-  /*
-   * The basic services have to be created.
-   */
-
-  servmgr = ServiceManager::obtain();
-  if(!servmgr)
-    return 0;
-
-  obj = servmgr->getObject(XPLC_staticServiceHandler);
-  if(obj) {
-    obj->release();
-    return servmgr;
-  }
-
-  handler = StaticServiceHandler::create();
-
-  if(!handler) {
-    servmgr->release();
-    return 0;
-  }
-
-  servmgr->addHandler(handler);
-
-  /*
-   * Populate the static service handler.
-   */
-
-  handler2 = StaticServiceHandler::create();
-  if(handler2) {
-    handler->addObject(XPLC_staticServiceHandler, handler2);
-    servmgr->addHandler(handler2);
-  } else {
-    servmgr->release();
-    return 0;
-  }
-
-  /* Create moniker service and register monikers. */
-  monikers = MonikerService::create();
-  if(monikers) {
-    monikers->addRef();
-
-    monikers->registerObject("new", XPLC_newMoniker);
-
-    handler->addObject(XPLC_monikers, monikers);
-
-    monikers->release();
-  }
-
-  catmgr = CategoryManager::create();
-  if(catmgr) {
-    catmgr->addRef();
-
-    handler->addObject(XPLC_categoryManager, catmgr);
-
-    catmgr->release();
-  }
-
-  obj = GenericFactory::create();
-  if(obj)
-    obj->addRef();
-  factory = mutate<IGenericFactory>(obj);
-  if(factory) {
-    factory->setFactory(GenericFactory::create);
-    handler->addObject(XPLC_genericFactory, factory);
-  }
-
-  /*
-   * We will use the factory to create the other factories.
-   */
-  factoryfactory = factory;
-
-  factory = mutate<IGenericFactory>(factoryfactory->createObject());
-  if(factory) {
-    factory->setFactory(SingleModuleLoader::create);
-    handler->addObject(XPLC_singleModuleLoader, factory);
-    factory->release();
-  }
-
-  factory = mutate<IGenericFactory>(factoryfactory->createObject());
-  if(factory) {
-    factory->setFactory(ModuleLoader::create);
-    handler->addObject(XPLC_moduleLoader, factory);
-    factory->release();
-  }
-
-  factoryfactory->release();
-
-  handler->addObject(XPLC_newMoniker, NewMoniker::create());
-
-  return servmgr;
-}
-
-ServiceManager* ServiceManager::obtain() {
-  if(!singleton)
     singleton = new GenericComponent<ServiceManager>;
+
+    if(!singleton)
+      return 0;
+
+    handler = new GenericComponent<StaticServiceHandler>;
+    if(!handler) {
+      singleton->addRef();
+      singleton->release();
+      return 0;
+    }
+
+    /*
+     * Populate the static service handler.
+     */
+
+    handler2 = StaticServiceHandler::create();
+    if(handler2) {
+      handler->addObject(XPLC_staticServiceHandler, handler2);
+      singleton->addHandler(handler2);
+    } else {
+      singleton->addRef();
+      singleton->release();
+      return 0;
+    }
+
+    handler->addObject(XPLC_newMoniker, NewMoniker::create());
+    handler->addObject(XPLC_categoryManager, CategoryManager::create());
+
+    monikers = MonikerService::create();
+    if(monikers) {
+      monikers->registerObject("new", XPLC_newMoniker);
+      handler->addObject(XPLC_monikers, monikers);
+    }
+
+    factory = new GenericComponent<GenericFactory>;
+    if(factory) {
+      factory->setFactory(GenericFactory::create);
+      handler->addObject(XPLC_genericFactory, factory);
+    }
+
+    factory = new GenericComponent<GenericFactory>;
+    if(factory) {
+      factory->setFactory(SingleModuleLoader::create);
+      handler->addObject(XPLC_singleModuleLoader, factory);
+    }
+
+    factory = new GenericComponent<GenericFactory>;
+    if(factory) {
+      factory->setFactory(ModuleLoader::create);
+      handler->addObject(XPLC_moduleLoader, factory);
+    }
+
+    singleton->addHandler(handler);
+  }
 
   if(singleton)
     singleton->addRef();
