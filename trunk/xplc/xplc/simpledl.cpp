@@ -49,6 +49,14 @@ IObject* SimpleDynamicLoader::getInterface(const UUID& aUuid) {
   return 0;
 }
 
+SimpleDynamicLoader::~SimpleDynamicLoader() {
+  if(module)
+    module->release();
+
+  if(dlh)
+    loaderClose(dlh);
+}
+
 IObject* SimpleDynamicLoader::getObject(const UUID& uuid) {
   if(module)
     return module->getObject(uuid);
@@ -57,24 +65,18 @@ IObject* SimpleDynamicLoader::getObject(const UUID& uuid) {
 }
 
 void SimpleDynamicLoader::shutdown() {
+  module->release();
+  module = 0;
 }
-
-#if 0
-IObject* SimpleDynamicLoader::createObject() {
-  IObject* obj;
-
-  obj = factory();
-
-  if(obj)
-    obj->addRef();
-
-  return obj;
-}
-#endif
 
 const char* SimpleDynamicLoader::loadModule(const char* filename) {
   const char* err;
   IModule*(*getmodule)() = 0;
+
+  if(module) {
+    module->release();
+    module = 0;
+  }
 
   if(dlh)
     loaderClose(dlh);
