@@ -27,10 +27,10 @@
 #include "factory.h"
 
 static IServiceManager* servmgr = 0;
-static IStaticServiceHandler* handler = 0;
 
 IServiceManager* XPLC::getServiceManager() {
   IObject* obj;
+  IStaticServiceHandler* handler;
   IGenericFactory* factory;
   IFactory* factoryfactory;
 
@@ -50,12 +50,7 @@ IServiceManager* XPLC::getServiceManager() {
   else
     return 0;
 
-  /*
-   * The static service handler could already have been created by a
-   * call to XPLC::addObject.
-   */
-  if(!handler)
-    handler = StaticServiceHandler::create();
+  handler = StaticServiceHandler::create();
 
   if(!handler) {
     servmgr->release();
