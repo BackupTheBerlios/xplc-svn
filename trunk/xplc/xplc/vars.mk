@@ -19,7 +19,7 @@
 #
 # $Id$
 
-TARGETS+=libxplc_s.a libxplc.so.$(VERSION)
+TARGETS+=libxplc.a libxplc_s.a libxplc.so.$(VERSION)
 
 CXXDEPS+=$(wildcard xplc/*.cpp)
 

@@ -53,13 +53,14 @@ installdirs:
 
 install: $(TARGETS) installdirs
 	$(INSTALL_PROGRAM) libxplc.so.$(VERSION) $(libdir)
-	$(INSTALL_DATA) libxplc_s.a $(libdir)
+	$(INSTALL_DATA) libxplc.a $(libdir)
 	$(INSTALL_DATA) $(wildcard include/xplc/*.h) $(includedir)/xplc
 	ln -s libxplc.so.$(VERSION) $(libdir)/libxplc.so
+	ln -s libxplc.a $(libdir)/libxplc_s.a
 
 uninstall:
 	rm -f $(libdir)/libxplc.so.$(VERSION) $(libdir)/libxplc.so
-	rm -f $(libdir)/libxplc_s.a
+	rm -f $(libdir)/libxplc.a $(libdir)/libxplc_s.a
 	rm -rf $(includedir)/xplc
 
 ifeq ($(filter-out $(SIMPLETARGETS),$(MAKECMDGOALS)),$(MAKECMDGOALS))
