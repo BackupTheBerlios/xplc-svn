@@ -52,9 +52,9 @@ static void add_factory(IStaticServiceHandler* handler,
 }
 
 IServiceManager* XPLC_getServiceManager() {
-  if(singleton) {
+  if(singleton)
     singleton->addRef();
-  } else {
+  else {
     IStaticServiceHandler* handler;
     IStaticServiceHandler* handler2;
     IMonikerService* monikers;

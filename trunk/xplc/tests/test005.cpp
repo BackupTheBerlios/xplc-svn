@@ -134,6 +134,7 @@ void test005() {
   VERIFY(iobj->release() == 3, "incorrect refcount");
   VERIFY(ifoo->release() == 2, "incorrect refcount");
   VERIFY(ibar->release() == 1, "incorrect refcount");
+
   VERIFY(static_cast<IFoo*>(test)->release() == 0, "incorrect refcount");
 
   itest = weak->getObject();
