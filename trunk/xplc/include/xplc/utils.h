@@ -36,6 +36,36 @@ struct UUID_Info {
  * component will need to implement.
  */
 template<class Component>
+class GenericComponent: public Component {
+private:
+  static const UUID_Info uuids[];
+  unsigned int refcount;
+public:
+  GenericComponent(): refcount(0) {
+  }
+  virtual unsigned int addRef() {
+    return ++refcount;
+  }
+  virtual unsigned int release() {
+    if(--refcount)
+      return refcount;
+
+    /* protect against re-entering the destructor */
+    refcount = 1;
+
+    delete this;
+
+    return 0;
+  }
+  virtual IObject* getInterface(const UUID& uuid) {
+    return XPLC_getInterface_real(this, uuid, uuids);
+  }
+};
+
+IObject* XPLC_getInterface_real(void* self, const UUID& uuid,
+                                const UUID_Info* uuidlist);
+
+template<class Component>
 class GenericComponentOld: public Component {
 private:
   unsigned int refcount;

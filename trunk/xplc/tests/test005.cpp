@@ -61,24 +61,6 @@ public:
     ASSERT(!destroyed, "test object destroyed twice");
     destroyed = true;
   }
-  virtual IObject* getInterface(const UUID& uuid) {
-    if(uuid.equals(IObject::IID)) {
-      static_cast<IFoo*>(this)->addRef();
-      return static_cast<IFoo*>(this);
-    }
-
-    if(uuid.equals(IFoo::IID)) {
-      static_cast<IFoo*>(this)->addRef();
-      return static_cast<IFoo*>(this);
-    }
-
-    if(uuid.equals(IBar::IID)) {
-      static_cast<IBar*>(this)->addRef();
-      return static_cast<IBar*>(this);
-    }
-
-    return 0;
-  }
   void operator delete(void* self) {
     ::operator delete(self);
   }
@@ -96,9 +78,18 @@ public:
   }
 };
 
+const UUID_Info GenericComponent<MyTestObject>::uuids[] = {
+  { &IObject::IID, 0 },
+  { &IFoo::IID, 0 },
+  { &IBar::IID, 4 },
+  { 0, 0 }
+};
+
 MyTestObject* MyTestObject::create() {
-  return new GenericComponentOld<MyTestObject>;
+  return new GenericComponent<MyTestObject>;
 }
+
+#include <stdio.h>
 
 void test005() {
   MyTestObject* test = 0;
