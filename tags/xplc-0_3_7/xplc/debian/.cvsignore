@@ -1,0 +1,9 @@
+*.debhelper
+compat
+files
+libxplc
+libxplc-dev
+libxplc.substvars
+stamp-autotools-files
+stamp-makefile-build
+tmp
