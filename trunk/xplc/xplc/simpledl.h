@@ -32,8 +32,9 @@ private:
   void* dlh;
   IModule* module;
 protected:
-  SimpleDynamicLoader(): dlh(0) {
+  SimpleDynamicLoader(): dlh(0), module(0) {
   }
+  virtual ~SimpleDynamicLoader();
 public:
   static IObject* create();
   /* IObject */
