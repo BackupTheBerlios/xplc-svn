@@ -33,8 +33,17 @@
 #define ENTRYPOINT extern "C"
 #endif
 
+/**
+ * Information for an XPLC module.
+ */
 struct XPLC_ModuleInfo {
+  /**
+   * The XPLC module ABI version that this module conforms to.
+   */
   int version;
+  /**
+   * A pointer to this module's IModule component.
+   */
   IModule* module;
 };
 
