@@ -40,7 +40,7 @@ ARFLAGS=rc
 
 RANLIB=ranlib
 
-CXXFLAGS+=-pipe -Iinclude -fPIC
+CXXFLAGS+=-pipe -Iinclude
 
 ifneq ("$(filter-out no,$(enable_debug))", "")
 DEBUG:=$(enable_debug)
@@ -86,6 +86,10 @@ endif
 
 ifneq ("$(enable_exceptions)", "yes")
 CXXFLAGS+=-fno-exceptions
+endif
+
+ifneq ("$(enable_pic)", "no")
+CXXFLAGS+=-fPIC
 endif
 
 ifeq ("$(so_style)", "darwin")

@@ -53,6 +53,10 @@ AC_ARG_ENABLE(exceptions,
               AC_HELP_STRING([--enable-exceptions],
                              [C++ exceptions (compiler)]))
 
+AC_ARG_ENABLE(pic,
+              AC_HELP_STRING([--disable-pic],
+                             [generation of position-independent code]))
+
 AC_ARG_ENABLE(loader,
               AC_HELP_STRING([--disable-loader],
                              [dynamic loading]))
@@ -114,6 +118,7 @@ AC_SUBST(enable_warnings)
 AC_SUBST(enable_unstable)
 AC_SUBST(enable_rtti)
 AC_SUBST(enable_exceptions)
+AC_SUBST(enable_pic)
 AC_SUBST(enable_loader)
 AC_SUBST(with_dlopen)
 AC_SUBST(so_style)
