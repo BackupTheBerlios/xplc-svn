@@ -48,6 +48,16 @@ else
 CXXFLAGS+=-DNDEBUG
 endif
 
+ifeq ("$(call oddeven,$(VERSION_MINOR))", "odd")
+ifndef enable_unstable
+enable_unstable=yes
+endif
+endif
+
+ifeq ("$(enable_unstable)", "yes")
+CXXFLAGS+=-DUNSTABLE
+endif
+
 ifeq ("$(enable_fatal_warnings)", "yes")
 CXXFLAGS+=-Werror
 endif

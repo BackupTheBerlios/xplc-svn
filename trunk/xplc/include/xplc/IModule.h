@@ -24,7 +24,7 @@
 
 #include <xplc/IObject.h>
 
-class IModule: public IObject {
+class IModule: public IObject { UNSTABLE_INTERFACE
 public:
   static const UUID IID;
   /*

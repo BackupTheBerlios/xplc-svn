@@ -26,7 +26,7 @@
 
 #include <xplc/IServiceHandler.h>
 
-class ISimpleDynamicLoader: public IServiceHandler {
+class ISimpleDynamicLoader: public IServiceHandler { UNSTABLE_INTERFACE
 public:
   static const UUID IID;
   /*
