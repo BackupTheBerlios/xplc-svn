@@ -1,5 +1,6 @@
 # XPLC - Cross-Platform Lightweight Components
 # Copyright (C) 2000-2001, Pierre Phaneuf
+# Copyright (C) 2002, Net Integration Technologies, Inc.
 #
 # This library is free software; you can redistribute it and/or modify
 # it under the terms of the GNU Library General Public License as
@@ -18,6 +19,6 @@
 #
 # $Id$
 
-tests/test000/test: tests/test000/test.o tests/testmain.o xplc/libxplc_s.a -ldl
+tests/test000/test: tests/test000/test.o tests/testmain.o libxplc_s.a -ldl
 	$(LINK.cc) $^ $(LOADLIBES) $(LDLIBS) -o $@
 
