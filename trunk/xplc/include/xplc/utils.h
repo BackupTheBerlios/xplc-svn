@@ -31,7 +31,6 @@
 
 #include <stddef.h>
 #include <xplc/IWeakRef.h>
-#include <xplc/IFactory.h>
 
 /**
  * Utility structure used for the interface map.
@@ -182,31 +181,6 @@ Interface* mutate(IObject* aObj) {
   rv = static_cast<Interface*>(aObj->getInterface(XPLC_IID<Interface>::get()));
 
   aObj->release();
-
-  return rv;
-}
-
-/**
- * Shorthand to get a factory, create an object and get an interface.
- */
-template<class Interface>
-Interface* create(const UUID& cid) {
-  IServiceManager* servmgr;
-  IFactory* factory;
-  Interface* rv;
-
-  servmgr = XPLC_getServiceManager();
-  if(!servmgr)
-    return 0;
-
-  factory = mutate<IFactory>(servmgr->getObject(cid));
-  servmgr->release();
-  if(!factory)
-    return 0;
-
-  rv = mutate<Interface>(factory->createObject());
-
-  factory->release();
 
   return rv;
 }
