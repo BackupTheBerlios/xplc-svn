@@ -2,7 +2,7 @@
  *
  * XPLC - Cross-Platform Lightweight Components
  * Copyright (C) 2002, Net Integration Technologies, Inc.
- * Copyright (C) 2003, Pierre Phaneuf
+ * Copyright (C) 2003-2004, Pierre Phaneuf
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public License
@@ -29,7 +29,7 @@ IObject* XPLC::create(const UUID& cid) {
   if(!servmgr)
     return 0;
 
-  xplc_ptr<IFactory> factory(servmgr->getObject(cid));
+  xplc_ptr<IFactory> factory(mutate<IFactory>(servmgr->getObject(cid)));
 
   if(!factory)
     return 0;
@@ -41,11 +41,11 @@ IObject* XPLC::create(const char* aMoniker) {
   if(!servmgr)
     return 0;
 
-  xplc_ptr<IMoniker> moniker(servmgr->getObject(XPLC_monikers));
+  xplc_ptr<IMoniker> moniker(mutate<IMoniker>(servmgr->getObject(XPLC_monikers)));
   if(!moniker)
     return 0;
 
-  xplc_ptr<IFactory> factory(moniker->resolve(aMoniker));
+  xplc_ptr<IFactory> factory(mutate<IFactory>(moniker->resolve(aMoniker)));
   if(!factory)
     return 0;
 

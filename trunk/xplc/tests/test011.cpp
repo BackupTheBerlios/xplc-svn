@@ -20,70 +20,13 @@
  */
 
 #include "test.h"
+#include <xplc/ptr.h>
 
 /*
  * test011
  *
  * Tests xplc_ptr<>.
  */
-
-#define USE_PROTOTYPE
-
-#ifndef USE_PROTOTYPE
-#include <xplc/ptr.h>
-#else
-
-template<class T>
-class xplc_ptr {
-private:
-  T* ptr;
-
-  class ProtectedPtr: public T {
-  private:
-    virtual unsigned int addRef() = 0;
-    virtual unsigned int release() = 0;
-    void operator delete(void*);
-  };
-
-  xplc_ptr& operator=(const xplc_ptr&);
-
-public:
-  xplc_ptr():
-    ptr(0) {
-  }
-  explicit xplc_ptr(T* aObj):
-    ptr(aObj) {
-  }
-  template<class P>
-  explicit xplc_ptr(const xplc_ptr<P>& aObj):
-    ptr(aObj) {
-    if(ptr)
-      ptr->addRef();
-  }
-  ~xplc_ptr() {
-    if(ptr)
-      ptr->release();
-  }
-  ProtectedPtr* operator->() const {
-    return static_cast<ProtectedPtr*>(ptr);
-  }
-  operator ProtectedPtr*() const {
-    return static_cast<ProtectedPtr*>(ptr);
-  }
-  xplc_ptr& operator=(T* _ptr) {
-    if(_ptr)
-      _ptr->addRef();
-
-    if(ptr)
-      ptr->release();
-
-    ptr = _ptr;
-
-    return *this;
-  }
-};
-
-#endif /* USE_PROTOTYPE */
 
 void test011() {
   TestObject* testobj1 = new TestObject(false);
