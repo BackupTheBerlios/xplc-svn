@@ -90,7 +90,7 @@ fi
 
 if test "$with_dyld" != "no"; then
     AC_CHECK_HEADERS(mach-o/dyld.h)
-    AC_SEARCH_LIBS(NSCreateObjectFileImageFromFile, , with_dyld=$ac_cv_search_NSCreateObjectFileImageFromFile, with_dyld=no)
+    AC_SEARCH_LIBS(NSCreateObjectFileImageFromFile, System, with_dyld=$ac_cv_search_NSCreateObjectFileImageFromFile, with_dyld=no)
     test "$with_dyld" = "none required" && with_dyld=
     test "$with_dyld" = "no" || AC_DEFINE(WITH_DYLD, 1, [Define if you have dyld.])
 fi
