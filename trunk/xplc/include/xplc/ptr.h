@@ -38,7 +38,6 @@
  * Smart pointer for XPLC interfaces.
  */
 
-#include <assert.h>
 #include <xplc/IObject.h>
 
 #ifndef UNSTABLE
@@ -100,5 +99,15 @@ public:
     return *this;
   }
 };
+
+
+template<class T>
+T* do_addRef(T* obj) {
+  if (obj)
+    obj->addRef();
+
+  return obj;
+}
+
 
 #endif /* __XPLC_PTR_H__ */
