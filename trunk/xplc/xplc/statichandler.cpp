@@ -88,6 +88,10 @@ void StaticServiceHandler::shutdown() {
 void StaticServiceHandler::addObject(const UUID& aUuid, IObject* aObj) {
   ObjectNode* node;
 
+  /* No object given? */
+  if(!aObj)
+    return;
+
   node = objects;
 
   while(node) {
