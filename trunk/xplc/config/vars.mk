@@ -21,7 +21,7 @@
 
 DEPFILES:=$(shell find . -name '.*.d')
 
-CLEAN+=$(shell find . -name '*.o' -print) libxplc.so* $(DEPFILES)
+CLEAN+=$(shell find . -name '*.o' -print) libxplc.so* $(DEPFILES) $(addprefix debian/,$(shell cat debian/.cvsignore))
 DISTCLEAN+=config/config.mk include/xplc/autoconf.h ChangeLog.bak
 REALCLEAN+=ChangeLog autom4te.cache include/xplc/autoconf.h.in
 
