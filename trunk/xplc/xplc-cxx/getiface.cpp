@@ -22,7 +22,7 @@
 #include <xplc/utils.h>
 
 IObject* XPLC_getInterface_real(void* self, const UUID& uuid,
-                                const UUID_Info* uuidlist) {
+                           const UUID_Info* uuidlist) {
   IObject* rv;
 
   while(uuidlist->iid) {
@@ -37,3 +37,4 @@ IObject* XPLC_getInterface_real(void* self, const UUID& uuid,
 
   return 0;
 }
+
