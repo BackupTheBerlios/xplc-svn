@@ -124,7 +124,7 @@ AC_SUBST(with_dlopen)
 AC_SUBST(so_style)
 
 AC_CONFIG_FILES([config/config.mk])
-AC_CONFIG_HEADERS([include/xplc/autoconf.h])
+AC_CONFIG_HEADERS([include/autoconf.h])
 
 AC_OUTPUT
 
