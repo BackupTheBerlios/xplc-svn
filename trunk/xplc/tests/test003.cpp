@@ -59,5 +59,7 @@ void test003() {
   VERIFY(test->release() == 0, "test object has non-zero refcount after release");
 
   VERIFY(factory->release() == 0, "factory has non-zero refcount after release");
+
+  delete test;
 }
 
