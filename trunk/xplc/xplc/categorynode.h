@@ -1,8 +1,7 @@
 /* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*-
  *
  * XPLC - Cross-Platform Lightweight Components
- * Copyright (C) 2003, Net Integration Technologies, Inc.
- * Copyright (C) 2003, Pierre Phaneuf
+ * Copyright (C) 2000, Pierre Phaneuf
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public License
@@ -20,23 +19,40 @@
  * USA
  */
 
-#ifndef __XPLC_CATMGR_H__
-#define __XPLC_CATMGR_H__
+#ifndef __XPLC_CATEGORYNODE_H__
+#define __XPLC_CATEGORYNODE_H__
 
-#include <xplc/ICategoryManager.h>
-#include "categorynode.h"
-
-class CategoryManager: public ICategoryManager {
-private:
-  CategoryNode* categories;
+class CategoryEntryNode {
 public:
-  CategoryManager();
-  virtual ~CategoryManager();
-  /* IServiceHandler */
-  virtual IObject* getObject(const UUID&);
-  /* ICategoryManager */
-  virtual void registerComponent(const UUID&, const UUID&);
-  virtual ICategory* getCategory(const UUID&);
+  CategoryEntryNode* next;
+  UUID entry;
+  CategoryEntryNode(const UUID& aUuid,
+                    CategoryEntryNode* aNext): next(aNext),
+                                               entry(aUuid) {
+  }
+  ~CategoryEntryNode() {
+    if(next)
+      delete next;
+  }
 };
 
-#endif /* __XPLC_CATMGR_H__ */
+class CategoryNode {
+public:
+  CategoryNode* next;
+  UUID category;
+  CategoryEntryNode* entries;
+  CategoryNode(const UUID& aUuid,
+               CategoryNode* aNext): next(aNext),
+                                     category(aUuid),
+                                     entries(0) {
+  }
+  ~CategoryNode() {
+    if(entries)
+      delete entries;
+
+    if(next)
+      delete next;
+  }
+};
+
+#endif /* __XPLC_CATEGORYNODE_H__ */

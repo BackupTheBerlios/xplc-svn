@@ -20,8 +20,10 @@
  * USA
  */
 
+#include <assert.h>
 #include <xplc/utils.h>
 #include "catmgr.h"
+#include "category.h"
 
 UUID_MAP_BEGIN(CategoryManager)
   UUID_MAP_ENTRY(IObject)
@@ -29,11 +31,45 @@ UUID_MAP_BEGIN(CategoryManager)
   UUID_MAP_ENTRY(ICategoryManager)
   UUID_MAP_END
 
+CategoryManager::CategoryManager():
+  categories(0) {
+}
+
+CategoryManager::~CategoryManager() {
+  if(categories)
+    delete categories;
+}
+
 IObject* CategoryManager::getObject(const UUID&) {
   return NULL;
 }
 
-void CategoryManager::registerComponent(const UUID&, const UUID&) {
+void CategoryManager::registerComponent(const UUID& aCatid,
+                                        const UUID& aUuid) {
+  CategoryNode* cat = categories;
+  CategoryEntryNode* entry;
+
+  for(cat = categories; cat; cat = cat->next) {
+    if(cat->category.equals(aCatid))
+      break;
+  }
+
+  if(!cat) {
+    cat = new CategoryNode(aCatid, categories);
+    categories = cat;
+  }
+
+  assert(cat);
+
+  for(entry = cat->entries; entry; entry = entry->next) {
+    if(entry->entry.equals(aUuid))
+      return;
+  }
+
+  entry = new CategoryEntryNode(aUuid, cat->entries);
+  assert(entry);
+
+  cat->entries = entry;
 }
 
 ICategory* CategoryManager::getCategory(const UUID&) {

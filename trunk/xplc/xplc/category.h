@@ -2,7 +2,6 @@
  *
  * XPLC - Cross-Platform Lightweight Components
  * Copyright (C) 2003, Net Integration Technologies, Inc.
- * Copyright (C) 2003, Pierre Phaneuf
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public License
@@ -20,23 +19,18 @@
  * USA
  */
 
-#ifndef __XPLC_CATMGR_H__
-#define __XPLC_CATMGR_H__
+#ifndef __XPLC_CATEGORY_H__
+#define __XPLC_CATEGORY_H__
 
-#include <xplc/ICategoryManager.h>
-#include "categorynode.h"
+#include <xplc/ICategory.h>
 
-class CategoryManager: public ICategoryManager {
-private:
-  CategoryNode* categories;
+class Category: public ICategory {
 public:
-  CategoryManager();
-  virtual ~CategoryManager();
-  /* IServiceHandler */
-  virtual IObject* getObject(const UUID&);
-  /* ICategoryManager */
-  virtual void registerComponent(const UUID&, const UUID&);
-  virtual ICategory* getCategory(const UUID&);
+  /* IFactory */
+  virtual IObject* createObject();
+  /* ICategory */
+  virtual unsigned int numEntries();
+  virtual ICategoryEntry* getEntry(unsigned int aIndex);
 };
 
-#endif /* __XPLC_CATMGR_H__ */
+#endif /* __XPLC_CATEGORY_H__ */
