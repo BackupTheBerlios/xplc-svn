@@ -1,7 +1,8 @@
 /* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*-
  *
  * XPLC - Cross-Platform Lightweight Components
- * Copyright (C) 2000, Pierre Phaneuf
+ * Copyright (C) 2001-2002, Pierre Phaneuf
+ * Copyright (C) 2002, Net Integration Technologies, Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public License
@@ -63,11 +64,14 @@ void test() {
 
   monikers->registerObject("testobject", TestObject_CID);
 
+  /* FIXME: should test for resolving sub-monikers. */
+
   obj = monikers->resolve("testobject");
   ASSERT(obj != 0, "resolving the test object returned nothing");
   ASSERT(obj == test, "the testobject moniker resolved to something else than the test object");
-
   VERIFY(obj->release() == 1, "refcount is wrong on the test object");
+
+  VERIFY(monikers->release() == 1, "incorrect refcount on moniker service");
 
   servmgr->shutdown();
   VERIFY(servmgr->release() == 0, "service manager has non-zero refcount after shutdown/release");

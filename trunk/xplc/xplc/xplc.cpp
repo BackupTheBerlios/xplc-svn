@@ -1,7 +1,8 @@
 /* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*-
  *
  * XPLC - Cross-Platform Lightweight Components
- * Copyright (C) 2000, Pierre Phaneuf
+ * Copyright (C) 2000-2002, Pierre Phaneuf
+ * Copyright (C) 2002, Net Integration Technologies, Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public License
@@ -25,6 +26,7 @@
 #include "statichandler.h"
 #include "simpledl.h"
 #include "factory.h"
+#include "monikers.h"
 
 static IServiceManager* servmgr = 0;
 
@@ -72,6 +74,15 @@ IServiceManager* XPLC::getServiceManager() {
   if(factory) {
     factory->setFactory(GenericFactory::create);
     handler->addObject(XPLC::genericFactory, factory);
+  }
+
+  obj = MonikerService::create();
+  if(obj)
+    obj->addRef();
+  obj = mutateInterface<IMonikerService>(obj);
+  if(obj) {
+    handler->addObject(XPLC::monikers, obj);
+    obj->release();
   }
 
   /*
