@@ -1,5 +1,6 @@
 # XPLC - Cross-Platform Lightweight Components
-# Copyright (C) 2000, Pierre Phaneuf
+# Copyright (C) 2000-2002, Pierre Phaneuf
+# Copyright (C) 2002, Net Integration Technologies, Inc.
 #
 # This library is free software; you can redistribute it and/or modify
 # it under the terms of the GNU Library General Public License as
@@ -30,6 +31,7 @@ ChangeLog:
 dustclean:
 	rm -f $(shell find . -name 'core' -print)
 	rm -f $(shell find . -name '*~' -print)
+	rm -f $(shell find . -name '.#*' -print)
 
 clean: dustclean
 	rm -f $(shell find . -name '*.o' -print)
