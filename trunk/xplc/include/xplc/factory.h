@@ -27,13 +27,25 @@
 
 typedef IObject*(*FactoryFunc)();
 
+/**
+ * Base type for the generic factory.
+ */
 class GenericFactoryBase: public IFactory {
 };
 
+/**
+ * Generic factory class. Implements IFactory by calling the function
+ * pointer that its constructor takes.
+ */
 class GenericFactory: public GenericComponent<GenericFactoryBase> {
 private:
   FactoryFunc factory;
 public:
+  /**
+   * Set up the generic factory. The generic factory will use the
+   * function that the specified pointer indicates to answer to
+   * IFactory::createObject requests.
+   */
   GenericFactory(FactoryFunc aFactory);
   /* IFactory */
   virtual IObject* createObject();
