@@ -77,6 +77,7 @@ installdirs:
 install: default installdirs
 	$(INSTALL_PROGRAM) libxplc.so $(DESTDIR)$(libdir)/libxplc.so.$(PACKAGE_VERSION)
 	$(INSTALL_DATA) libxplc.a $(DESTDIR)$(libdir)
+	$(INSTALL_DATA) libxplc-cxx.a $(DESTDIR)$(libdir)
 	$(INSTALL_DATA) $(wildcard include/xplc/*.h) $(DESTDIR)$(includedir)/xplc
 	ln -s libxplc.so.$(PACKAGE_VERSION) $(DESTDIR)$(libdir)/libxplc.so
 	ln -s libxplc.a $(DESTDIR)$(libdir)/libxplc_s.a
