@@ -1,0 +1,44 @@
+New in 0.1.3
+------------
+
+ * Added a way to mark unstable interfaces as such, so that you cannot
+   accidentally use an unstable interface (there is a 'configure'
+   switch to allow unstable interfaces, and unstable releases of XPLC
+   have it enabled by default).
+ * Added an "uninstall" make target.
+ * Renamed the static library libxplc.a and added a libxplc_s.a
+   symbolic link pointing to it.
+ * Added a platform-independent dlopen/LoadLibrary abstraction.
+ * Changed the simple dynamic loader so that it does not require a
+   different binary interface from modules.
+ * Started laying down a binary interface for modules.
+ * Improved testing suite.
+
+New in 0.1.2
+------------
+
+ * Added a moniker interface and resolving service.
+ * Added a "new" moniker that creates an instance from a factory
+   moniker.
+ * Changed the "getInterface" and "mutateInterface" templated
+   functions name to "get" and "mutate", respectively.
+ * Fixed a bug where the static service handler would hold a reference
+   to itself and never release it.
+ * Added a template mix-in that traces addRef/release calls.
+ * Added methods to convert UUID to/from strings.
+ * Improved the testing suite to catch more errors.
+ * Added developer-specific debugging hooks.
+
+New in 0.1.1
+------------
+
+ * Added the missing test for the generic component template.
+ * Automated some of the release work.
+ * Added 'configure' switches for a number of compiler behaviors.
+ * The simple dynamic loader does not append the platform-specific
+   extension for shared objects anymore.
+ * Added addFirstHandler and addLastHandler methods to the
+   IServiceManager interface (bug #431200).
+ * Enabled more warnings and fixed them.
+ * Bug fixes.
+
