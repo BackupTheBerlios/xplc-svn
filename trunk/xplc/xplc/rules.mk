@@ -25,6 +25,6 @@ libxplc_s.a: $(LIBXPLC_OBJS)
 	$(AR) $(ARFLAGS) $@ $^
 	$(RANLIB) $@
 
-libxplc.so: $(LIBXPLC_OBJS)
-	$(LINK.cc) -shared $^ -o $@
+libxplc.so.$(VERSION): $(LIBXPLC_OBJS)
+	$(LINK.cc) -shared -Wl,-soname,$(LIBXPLC_SONAME) $^ -o $@
 

@@ -24,6 +24,9 @@ REALCLEAN+=ChangeLog
 
 SIMPLETARGETS+=dist ChangeLog clean dustclean realclean distclean
 
+# Function that returns "even" or "odd", depending on the value passed.
+oddeven = $(filter even odd,$(foreach d,0 2 4 6 8,$(1:%$d=even)) $(foreach d,1 3 5 7 9,$(1:%$d=odd)))
+
 # The 'S' option to 'ar' seems to cause problem on Solaris?
 #ARFLAGS=rcS
 ARFLAGS=rc
