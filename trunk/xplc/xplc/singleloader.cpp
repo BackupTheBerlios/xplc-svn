@@ -52,8 +52,7 @@ IObject* SingleModuleLoader::getInterface(const UUID& aUuid) {
 }
 
 SingleModuleLoader::~SingleModuleLoader() {
-  if(module)
-    module->release();
+  shutdown();
 
   if(dlh)
     loaderClose(dlh);
@@ -67,8 +66,10 @@ IObject* SingleModuleLoader::getObject(const UUID& uuid) {
 }
 
 void SingleModuleLoader::shutdown() {
-  module->release();
-  module = 0;
+  if(module) {
+    module->release();
+    module = 0;
+  }
 }
 
 const char* SingleModuleLoader::loadModule(const char* filename) {
