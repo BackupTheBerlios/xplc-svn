@@ -100,13 +100,17 @@ IServiceManager* XPLC::getServiceManager() {
   if(factory) {
     factory->setFactory(SingleModuleLoader::create);
     handler->addObject(XPLC::singleModuleLoader, factory);
+    factory->release();
   }
 
   factory = mutate<IGenericFactory>(factoryfactory->createObject());
   if(factory) {
     factory->setFactory(ModuleLoader::create);
     handler->addObject(XPLC::moduleLoader, factory);
+    factory->release();
   }
+
+  factoryfactory->release();
 
   handler->addObject(XPLC::newMoniker, NewMoniker::obtain());
 

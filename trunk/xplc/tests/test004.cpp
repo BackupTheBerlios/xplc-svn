@@ -53,6 +53,8 @@ void test004() {
   obj = loaderfactory->createObject();
   ASSERT(obj != 0, "could not create single module loader component");
 
+  VERIFY(loaderfactory->release() == 1, "single module loader factory has wrong refcount");
+
   loader = mutate<ISingleModuleLoader>(obj);
   ASSERT(loader != 0, "single module loader does not have expected interface");
 
@@ -68,6 +70,8 @@ void test004() {
   ASSERT(test->getAnswer() == 42, "test object did not have expected behavior");
 
   VERIFY(test->release() == 1, "test object has wrong refcount");
+
+  VERIFY(loader->release() == 0, "single module loader has wrong refcount");
 
   servmgr->shutdown();
 

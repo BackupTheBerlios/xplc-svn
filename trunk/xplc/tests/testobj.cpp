@@ -65,16 +65,17 @@ int TestComponent::getAnswer() {
   return 42;
 }
 
+static IModule* module = 0;
+
 class TestModule: public IModule {
 private:
   TestComponent* component;
 public:
   TestModule(): component(0) {}
-  virtual unsigned int addRef() {
-    return 2;
-  }
-  virtual unsigned int release() {
-    return 1;
+  virtual ~TestModule() {
+    module = 0;
+    if(component)
+      component->release();
   }
   virtual IObject* getInterface(const UUID& uuid) {
     if(uuid.equals(IObject::IID))
@@ -100,12 +101,15 @@ public:
   }
 };
 
-TestModule module;
-
 ENTRYPOINT IModule* XPLC_GetModule(IServiceManager*,
                                    const unsigned int version) {
-  if(version == 0)
-    return &module;
+  if(!module)
+    module = new GenericComponent<TestModule>;
+
+  if(version == 0 && module) {
+    module->addRef();
+    return module;
+  }
 
   return 0;
 }
