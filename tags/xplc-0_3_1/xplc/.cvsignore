@@ -1,0 +1,16 @@
+ChangeLog
+configure
+config.cache
+config.log
+config.status
+doxygen
+Debug
+Release
+README
+*.dsw
+*.opt
+*.ncb
+Tags.WW
+libxplc.so.*
+autom4te.cache
+xplc.spec
