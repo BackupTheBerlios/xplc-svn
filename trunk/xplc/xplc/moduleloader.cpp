@@ -2,6 +2,8 @@
  *
  * XPLC - Cross-Platform Lightweight Components
  * Copyright (C) 2002, Net Integration Technologies, Inc.
+ * Copyright (C) 2002, Pierre Phaneuf
+ * Copyright (C) 2002, Stéphane Lajoie
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public License
@@ -21,24 +23,25 @@
 
 #include <stdio.h>
 
-#ifndef WIN32
-#include <xplc/autoconf.h>
-#if HAVE_DIRENT_H
-# include <dirent.h>
-# define NAMLEN(dirent) strlen((dirent)->d_name)
-#else
-# define dirent direct
-# define NAMLEN(dirent) (dirent)->d_namlen
-# if HAVE_SYS_NDIR_H
-#  include <sys/ndir.h>
+#include <xplc/config.h>
+
+#if !defined(WIN32)
+# if HAVE_DIRENT_H
+#  include <dirent.h>
+#  define NAMLEN(dirent) strlen((dirent)->d_name)
+# else
+#  define dirent direct
+#  define NAMLEN(dirent) (dirent)->d_namlen
+#  if HAVE_SYS_NDIR_H
+#   include <sys/ndir.h>
+#  endif
+#  if HAVE_SYS_DIR_H
+#   include <sys/dir.h>
+#  endif
+#  if HAVE_NDIR_H
+#   include <ndir.h>
+#  endif
 # endif
-# if HAVE_SYS_DIR_H
-#  include <sys/dir.h>
-# endif
-# if HAVE_NDIR_H
-#  include <ndir.h>
-# endif
-#endif
 #endif
 
 #include <xplc/xplc.h>
@@ -102,7 +105,7 @@ void ModuleLoader::shutdown()
   }
 }
 
-#ifdef HAVE_DIRENT_H
+#if !defined(WIN32)
 void ModuleLoader::setModuleDirectory(const char* directory)
 {
   DIR* dir;
@@ -157,9 +160,8 @@ void ModuleLoader::setModuleDirectory(const char* directory)
 
   closedir(dir);
 }
-#endif
 
-#ifdef WIN32
+#elif defined(WIN32)
 #include <io.h>
 
 void ModuleLoader::setModuleDirectory(const char* directory)
@@ -223,4 +225,5 @@ void ModuleLoader::setModuleDirectory(const char* directory)
 
   _findclose(dir);
 }
+
 #endif

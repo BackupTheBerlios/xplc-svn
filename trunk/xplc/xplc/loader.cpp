@@ -2,6 +2,8 @@
  *
  * XPLC - Cross-Platform Lightweight Components
  * Copyright (C) 2002, Net Integration Technologies, Inc.
+ * Copyright (C) 2002, Pierre Phaneuf
+ * Copyright (C) 2002, Stéphane Lajoie
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public License
@@ -19,20 +21,12 @@
  * 02111-1307, USA.
  */
 
-#ifndef WIN32
-#include <xplc/autoconf.h>
-#ifdef HAVE_DLFCN_H
-#include <dlfcn.h>
-#endif
-#endif
-
-#ifdef WIN32
-#include <windows.h>
-#endif
-
+#include <xplc/config.h>
 #include "loader.h"
 
 #ifdef HAVE_DLFCN_H
+#include <dlfcn.h>
+
 const char* loaderOpen(const char* aFilename,
 		       void** aHandle) {
   const char* rv = 0;
@@ -66,6 +60,7 @@ bool loaderClose(void* aHandle) {
 #endif
 
 #ifdef WIN32
+#include <windows.h>
 
 const char* getErrorMessage() {
   static char error[1024];
