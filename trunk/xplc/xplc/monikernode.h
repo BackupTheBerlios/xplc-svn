@@ -22,6 +22,9 @@
 #ifndef __XPLC_MONIKERNODE_H__
 #define __XPLC_MONIKERNODE_H__
 
+#include <stdlib.h>
+#include <string.h>
+
 class MonikerNode {
 public:
   MonikerNode* next;

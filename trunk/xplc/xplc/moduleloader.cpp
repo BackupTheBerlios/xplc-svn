@@ -21,6 +21,7 @@
  * USA
  */
 
+#include <stdlib.h>
 #include <stdio.h>
 
 #include <xplc/config.h>
