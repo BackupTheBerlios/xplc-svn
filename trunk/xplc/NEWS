@@ -1,3 +1,17 @@
+New in 0.1.6
+------------
+
+ * Added a (still experimental) smart pointer templated class.
+ * Fixed a large number of leaks, thanks to Valgrind.
+ * Added a "create" templated helper function to create instances of
+   components quickly and easily.
+ * Improved GenericComponent to also automate getInterface
+   implementation, also a 100% inlined version.
+ * Added a Perl script to convert the output of "uuidgen" to a C
+   definition.
+ * Improved the dependencies generation.
+ * Fixed various small bugs and warnings.
+
 New in 0.1.5
 ------------
 
