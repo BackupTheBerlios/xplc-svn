@@ -21,6 +21,7 @@
 
 #include "test.h"
 #include <stdio.h>
+#include <string.h>
 
 /*
  * test007
