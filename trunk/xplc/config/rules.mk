@@ -35,13 +35,14 @@ lib%_s.a: lib%.a
 	$(AR) $(ARFLAGS) $@ $^
 	$(RANLIB) $@
 
-SONAMEFLAGS:=-Wl,-soname,
+SONAMEOPT=-Wl,-h
+SHARED=-shared $(if $(SONAME),$(SONAMEOPT)$(SONAME))
 
 %.so:
-	$(LINK.cc) -shared $(if $(SONAME),$(SONAMEFLAGS)$(SONAME)) $^ -o $@
+	$(LINK.cc) $(SHARED) $^ -o $@
 
 %.dll:
-	$(LINK.cc) -shared -o $@ $^
+	$(LINK.cc) $(SHARED) $^ -o $@
 
 dist: ChangeLog README xplc.spec distclean
 	autoconf

@@ -40,7 +40,7 @@ ARFLAGS=rc
 
 RANLIB=ranlib
 
-CXXFLAGS+=-pipe -Iinclude
+CXXFLAGS+=-pipe -Iinclude -fPIC
 
 ifneq ("$(filter-out no,$(enable_debug))", "")
 DEBUG:=$(enable_debug)
