@@ -27,5 +27,5 @@ tests: tests/testmain tests/testobj.dll
 
 tests/testmain: tests/testmain.o $(patsubst %.cpp,%.o,$(wildcard tests/test[0-9][0-9][0-9].cpp)) libxplc.a $(LIBS)
 
-tests/testobj.dll: tests/testobj.o
+tests/testobj.dll: tests/testobj.o libxplc-cxx.a
 

@@ -75,51 +75,6 @@ IObject* XPLC_getInterface_real(void* self, const UUID& uuid,
                                 const UUID_Info* uuidlist);
 
 /*
- * Mix-in template that contains an implementation of methods a basic
- * component will need to implement, but doesn't need any external
- * symbols.
- */
-template<class Component>
-class GenericComponentInline: public Component {
-private:
-  static const UUID_Info uuids[];
-  unsigned int refcount;
-public:
-  GenericComponentInline(): refcount(0) {
-  }
-  virtual unsigned int addRef() {
-    return ++refcount;
-  }
-  virtual unsigned int release() {
-    if(--refcount)
-      return refcount;
-
-    /* protect against re-entering the destructor */
-    refcount = 1;
-
-    delete this;
-
-    return 0;
-  }
-  virtual IObject* getInterface(const UUID& uuid) {
-    IObject* rv;
-    const UUID_Info* uuidlist = uuids;
-
-    while(uuidlist->iid) {
-      if(uuidlist->iid->equals(uuid)) {
-        rv = reinterpret_cast<IObject*>
-          (reinterpret_cast<ptrdiff_t>(this) + uuidlist->delta);
-        rv->addRef();
-        return rv;
-      }
-      uuidlist++;
-    }
-
-    return 0;
-  }
-};
-
-/*
  * This templated function is a typesafe way to call the getInterface
  * method of a component and cast it properly. If the component does
  * not support the interface, a NULL pointer will be returned.

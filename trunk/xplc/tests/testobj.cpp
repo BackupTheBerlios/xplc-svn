@@ -39,7 +39,7 @@ public:
 };
 
 TestComponent* TestComponent::create() {
-  return new GenericComponentInline<TestComponent>;
+  return new GenericComponent<TestComponent>;
 }
 
 int TestComponent::getAnswer() {
@@ -76,22 +76,20 @@ public:
   }
 };
 
-const UUID_Info GenericComponentInline<TestComponent>::uuids[] = {
-  { &IObject::IID, 0 },
-  { &ITestComponent::IID, 0 },
-  { 0, 0 }
-};
+UUID_MAP_BEGIN(TestComponent)
+  UUID_MAP_ENTRY(IObject)
+  UUID_MAP_ENTRY(ITestComponent)
+  UUID_MAP_END
 
-const UUID_Info GenericComponentInline<TestModule>::uuids[] = {
-  { &IObject::IID, 0 },
-  { &IModule::IID, 0 },
-  { 0, 0 }
-};
+UUID_MAP_BEGIN(TestModule)
+  UUID_MAP_ENTRY(IObject)
+  UUID_MAP_ENTRY(IModule)
+  UUID_MAP_END
 
 ENTRYPOINT IModule* XPLC_GetModule(IServiceManager*,
                                    const unsigned int version) {
   if(!module)
-    module = new GenericComponentInline<TestModule>;
+    module = new GenericComponent<TestModule>;
 
   if(version == 0 && module) {
     module->addRef();
