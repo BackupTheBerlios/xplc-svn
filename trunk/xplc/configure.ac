@@ -20,7 +20,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 # USA
 
-AC_INIT(xplc, 0.0.0, pp@ludusdesign.com)
+AC_INIT(xplc, 0.1.5, pp@ludusdesign.com)
 AC_REVISION($Id$)
 
 AC_ARG_ENABLE(debug,
@@ -84,4 +84,8 @@ AC_CONFIG_FILES([config/config.mk])
 AC_CONFIG_HEADERS([include/xplc/autoconf.h])
 
 AC_OUTPUT
+
+if test "$with_dlopen" == "no"; then
+    AC_MSG_WARN([dynamic loading is disabled.])
+fi
 

@@ -19,7 +19,7 @@
 #
 # $Id$
 
-TARGETS+=libxplc.a libxplc_s.a libxplc.so.$(VERSION)
+TARGETS+=libxplc.a libxplc_s.a libxplc.so.$(PACKAGE_VERSION)
 
 CXXDEPS+=$(wildcard xplc/*.cpp)
 
@@ -28,6 +28,6 @@ LIBXPLC_OBJS:=$(patsubst %.cpp,%.o,$(wildcard xplc/*.cpp))
 ifeq ("$(call oddeven,$(VERSION_MINOR))", "even")
 LIBXPLC_SONAME:=libxplc.so.$(BINARY_VERSION)
 else
-LIBXPLC_SONAME:=libxplc.so.$(VERSION)-unstable
+LIBXPLC_SONAME:=libxplc.so.$(PACKAGE_VERSION)-unstable
 endif
 

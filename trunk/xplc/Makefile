@@ -23,8 +23,6 @@
 
 default: all
 
-include config/version.mk
-
 -include config/config.mk
 
 GARBAGES+=$(wildcard libxplc.so.*)
