@@ -33,8 +33,6 @@ private:
 public:
   CategoryManager();
   virtual ~CategoryManager();
-  /* IServiceHandler */
-  virtual IObject* getObject(const UUID&);
   /* ICategoryManager */
   virtual void registerComponent(const UUID&, const UUID&, const char*);
   virtual ICategory* getCategory(const UUID&);

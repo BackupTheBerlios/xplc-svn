@@ -30,7 +30,7 @@
  * Let you register categories and obtain information about them.
  */
 
-class ICategoryManager: public IServiceHandler {
+class ICategoryManager: public IObject {
   UNSTABLE_INTERFACE
 public:
   /**
