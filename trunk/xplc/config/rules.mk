@@ -72,10 +72,10 @@ ChangeLog:
 doxygen: clean-doxygen
 	doxygen
 
-README: dist/README.in
+README: dist/README.in configure.ac
 	sed $< -e 's%@VERSION@%$(PACKAGE_VERSION)%g' > $@
 
-xplc.spec: dist/xplc.spec.in
+xplc.spec: dist/xplc.spec.in configure.ac
 	sed $< -e 's%@VERSION@%$(PACKAGE_VERSION)%g' > $@
 
 dustclean:
