@@ -22,7 +22,7 @@
 
 tests: $(TESTS)
 	@echo "Running tests:"
-	@for TEST in $(TESTS); do $$TEST || break; done
+	@for TEST in $(TESTS); do $$TEST; done; true
 
 include $(wildcard tests/*/rules.mk)
 
