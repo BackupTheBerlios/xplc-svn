@@ -51,8 +51,7 @@ config/config.mk: config/config.mk.in configure
 	@exit 1
 
 configure: configure.in
-	@echo "Please run 'autoconf'."
-	@exit 1
+	autoconf
 
 config/depends.mk: config/config.mk
 	@echo "Building dependencies file ($@)"
@@ -61,3 +60,4 @@ config/depends.mk: config/config.mk
 -include config/depends.mk
 
 endif
+
