@@ -100,8 +100,7 @@ if test "$with_dyld" != "no"; then
 fi
 
 # dyld not really supported yet
-#if test "$with_dlopen" = "no" && test "$with_dyld" = "no"; then
-if test "$with_dlopen" = "no"; then
+if test "$with_dlopen" = "no" && test "$with_dyld" = "no"; then
     enable_loader=no
 fi
 
@@ -123,7 +122,7 @@ AC_SUBST(enable_loader)
 AC_SUBST(with_dlopen)
 AC_SUBST(so_style)
 
-AC_CONFIG_FILES([config/config.mk])
+AC_CONFIG_FILES([config/config.mk dist/xplc.pc dist/xplc-uninstalled.pc])
 AC_CONFIG_HEADERS([include/autoconf.h])
 
 AC_OUTPUT
