@@ -48,16 +48,16 @@ xplc.spec: dist/xplc.spec.in config/version.mk
 	sed $< -e 's%@VERSION@%$(VERSION)%g' > $@
 
 dustclean:
-	rm -f BOGUS $(shell find . -name 'core' -print) $(shell find . -name '*~' -print) $(shell find . -name '.#*' -print)
+	-rm -f $(shell find . -name 'core' -print) $(shell find . -name '*~' -print) $(shell find . -name '.#*' -print)
 
 clean: dustclean
-	rm -f BOGUS $(shell find . -name '*.o' -print) $(wildcard $(GARBAGES) $(DEPFILES) $(TARGETS))
+	-rm -f $(shell find . -name '*.o' -print) $(wildcard $(GARBAGES) $(DEPFILES) $(TARGETS))
 
 distclean: clean
-	rm -f BOGUS $(wildcard $(DISTCLEAN))
+	-rm -f $(wildcard $(DISTCLEAN))
 
 realclean: distclean
-	rm -f BOGUS $(wildcard $(REALCLEAN))
+	-rm -f $(wildcard $(REALCLEAN))
 
 installdirs:
 	mkdir -p $(DESTDIR)$(libdir)
