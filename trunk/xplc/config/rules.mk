@@ -70,9 +70,17 @@ dist: default examples tests $(DIST).tar.gz
 	@echo REMINDER: did you update the version number in configure.ac?
 	@echo The NEWS file? The debian/changelog file?
 
+CVS2CL := $(shell which cvs2cl.pl)
+ifeq ($(CVS2CL),)
+CVS2CL := $(shell which cvs2cl)
+ifeq ($(CVS2CL),)
+CVS2CL := true
+$(warning cannot find cvs2cl)
+endif
+endif
 ChangeLog:
 	rm -f ChangeLog ChangeLog.bak
-	cvs2cl.pl --utc -U config/cvs-users
+	$(CVS2CL) --utc -U config/cvs-users
 
 doxygen: clean-doxygen
 	doxygen
