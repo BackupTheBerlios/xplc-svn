@@ -67,6 +67,9 @@ private:
   unsigned int refcount;
   WeakRef* weakref;
 public:
+  static IObject* create() {
+    return new GenericComponent;
+  }
   GenericComponent(): refcount(0), weakref(0) {
   }
   virtual unsigned int addRef() {

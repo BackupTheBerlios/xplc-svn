@@ -2,6 +2,7 @@
  *
  * XPLC - Cross-Platform Lightweight Components
  * Copyright (C) 2003, Net Integration Technologies, Inc.
+ * Copyright (C) 2003, Pierre Phaneuf
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public License
@@ -26,7 +27,6 @@
 
 class CategoryManager: public ICategoryManager {
 public:
-  static CategoryManager* create();
   /* IServiceHandler */
   virtual IObject* getObject(const UUID&);
   /* ICategoryManager */

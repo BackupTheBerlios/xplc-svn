@@ -1,7 +1,7 @@
 /* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*-
  *
  * XPLC - Cross-Platform Lightweight Components
- * Copyright (C) 2000-2002, Pierre Phaneuf
+ * Copyright (C) 2000-2003, Pierre Phaneuf
  * Copyright (C) 2000, Stéphane Lajoie
  * Copyright (C) 2002, Net Integration Technologies, Inc.
  *
@@ -39,12 +39,22 @@ UUID_MAP_BEGIN(ServiceManager)
 
 static ServiceManager* singleton;
 
+static void add_factory(IStaticServiceHandler* handler,
+                        const UUID& uuid,
+                        IObject*(*factoryptr)()) {
+  IGenericFactory* factory = new GenericComponent<GenericFactory>;
+
+  if(factory) {
+    factory->setFactory(factoryptr);
+    handler->addObject(uuid, factory);
+  }
+}
+
 IServiceManager* XPLC_getServiceManager() {
   if(!singleton) {
     IStaticServiceHandler* handler;
     IStaticServiceHandler* handler2;
     IMonikerService* monikers;
-    IGenericFactory* factory;
 
     singleton = new GenericComponent<ServiceManager>;
 
@@ -62,7 +72,7 @@ IServiceManager* XPLC_getServiceManager() {
      * Populate the static service handler.
      */
 
-    handler2 = StaticServiceHandler::create();
+    handler2 = new GenericComponent<StaticServiceHandler>;
     if(handler2) {
       handler->addObject(XPLC_staticServiceHandler, handler2);
       singleton->addHandler(handler2);
@@ -72,32 +82,24 @@ IServiceManager* XPLC_getServiceManager() {
       return 0;
     }
 
-    handler->addObject(XPLC_newMoniker, NewMoniker::create());
-    handler->addObject(XPLC_categoryManager, CategoryManager::create());
+    handler->addObject(XPLC_newMoniker, new GenericComponent<NewMoniker>);
+    handler->addObject(XPLC_categoryManager,
+                       new GenericComponent<CategoryManager>);
 
-    monikers = MonikerService::create();
+    monikers = new GenericComponent<MonikerService>;
     if(monikers) {
       monikers->registerObject("new", XPLC_newMoniker);
       handler->addObject(XPLC_monikers, monikers);
     }
 
-    factory = new GenericComponent<GenericFactory>;
-    if(factory) {
-      factory->setFactory(GenericFactory::create);
-      handler->addObject(XPLC_genericFactory, factory);
-    }
+    add_factory(handler, XPLC_genericFactory,
+                GenericComponent<GenericFactory>::create);
 
-    factory = new GenericComponent<GenericFactory>;
-    if(factory) {
-      factory->setFactory(SingleModuleLoader::create);
-      handler->addObject(XPLC_singleModuleLoader, factory);
-    }
+    add_factory(handler, XPLC_singleModuleLoader,
+                GenericComponent<SingleModuleLoader>::create);
 
-    factory = new GenericComponent<GenericFactory>;
-    if(factory) {
-      factory->setFactory(ModuleLoader::create);
-      handler->addObject(XPLC_moduleLoader, factory);
-    }
+    add_factory(handler, XPLC_moduleLoader,
+                GenericComponent<ModuleLoader>::create);
 
     singleton->addHandler(handler);
   }
