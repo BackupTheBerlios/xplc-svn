@@ -29,15 +29,15 @@ CXXDEPS:=
 
 CXXFLAGS=-pipe -Iinclude @CXXFLAGS@
 
-ifeq ("@enable_debug@", "yes")
-CXXFLAGS+=-ggdb
-else
-CXXFLAGS+=-DNDEBUG
+ENABLE_DEBUG:=@enable_debug@
+
+# default behavior is "no"
+ifeq ("$(ENABLE_DEBUG)", "")
+ENABLE_DEBUG:=no
 endif
 
-ifneq ("@enable_private_debug@", "")
-DEBUG:=@enable_private_debug@
-CXXFLAGS+=-DDEBUG_$(DEBUG)
+ifneq ("$(ENABLE_DEBUG)", "no")
+DEBUG:=$(ENABLE_DEBUG)
 endif
 
 ifneq ("@enable_optimization@", "no")
@@ -56,10 +56,16 @@ ifneq ("@enable_exceptions@", "yes")
 CXXFLAGS+=-fno-exceptions
 endif
 
-.PHONY: test
+ifdef DEBUG
+CXXFLAGS+=-ggdb -DDEBUG=$(DEBUG)
+else
+CXXFLAGS+=-DNDEBUG
+endif
 
 prefix:=@prefix@
 exec_prefix:=@exec_prefix@
+
+.PHONY: test
 
 test:
 	@echo "enable_debug = \"@enable_debug@\""
