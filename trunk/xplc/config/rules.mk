@@ -23,6 +23,7 @@
 
 dist: distclean ChangeLog README
 	autoconf
+	autoheader
 
 ChangeLog:
 	rm -f ChangeLog ChangeLog.bak
@@ -70,6 +71,7 @@ config/config.mk: config/config.mk.in configure
 
 configure: configure.in
 	autoconf
+	autoheader
 
 config/depends.mk: config/config.mk
 	@echo "Building dependencies file ($@)"
