@@ -106,7 +106,7 @@ uninstall:
 
 ifeq ($(filter-out $(SIMPLETARGETS),$(MAKECMDGOALS)),$(MAKECMDGOALS))
 
-config/config.mk include/xplc/autoconf.h: config/config.mk.in include/xplc/autoconf.h.in configure
+config/config.mk include/xplc/autoconf.h: config/config.mk.in configure
 	@echo "Please run './configure'."
 	@exit 1
 
