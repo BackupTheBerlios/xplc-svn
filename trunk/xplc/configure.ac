@@ -109,6 +109,7 @@ if test "$enable_loader" != "no"; then
 fi
 
 AC_HEADER_DIRENT
+AC_CHECK_HEADERS([limits.h])
 
 AC_SUBST(enable_debug)
 AC_SUBST(enable_fatal_warnings)
