@@ -19,7 +19,7 @@
 #
 # $Id$
 
-.PHONY: ChangeLog dist dustclean clean distclean realclean installdirs install uninstall
+.PHONY: ChangeLog dist dustclean clean distclean realclean installdirs install uninstall doxygen clean-doxygen
 
 %.o: %.cpp
 	@$(COMPILE.cpp) -M -E $< | sed -e 's|^.*:|$@:|' > $(dir $@).$(notdir $(@:.o=.d))
@@ -54,6 +54,12 @@ ChangeLog:
 	rm -f ChangeLog ChangeLog.bak
 	cvs2cl.pl --utc -U config/cvs-users
 
+doxygen: clean-doxygen
+	doxygen
+
+clean-doxygen:
+	rm -rf doxygen
+
 README: dist/README.in
 	sed $< -e 's%@VERSION@%$(PACKAGE_VERSION)%g' > $@
 
@@ -63,7 +69,7 @@ xplc.spec: dist/xplc.spec.in
 dustclean:
 	-rm -rf $(shell find . -name '*~' -print) $(shell find . -name '.#*' -print)
 
-clean: dustclean
+clean: dustclean clean-doxygen
 	-rm -rf $(wildcard $(CLEAN))
 
 distclean: clean
