@@ -20,5 +20,5 @@
 
 CXXDEPS+=$(wildcard tests/test005/*.cpp)
 
-GARBAGES+=tests/test005/testobj.so
+GARBAGES+=tests/test005/testobj.dll
 
