@@ -24,6 +24,9 @@ use and having the lowest possible overhead.
 %description devel
 This is the parts of XPLC needed for development.
 
+%description doc
+This package contains documentation and examples for XPLC.
+
 %prep
 %setup -q
 
