@@ -21,11 +21,11 @@
 
 DEPFILES:=$(shell find . -name '.*.d')
 
-CLEAN+=$(shell find . -name '*.o' -print) $(DEPFILES)
+CLEAN+=$(shell find . -name '*.o' -print) libxplc.so* $(DEPFILES)
 DISTCLEAN+=config/config.mk include/xplc/autoconf.h ChangeLog.bak
 REALCLEAN+=ChangeLog autom4te.cache include/xplc/autoconf.h.in
 
-SIMPLETARGETS+=ChangeLog clean dustclean realclean distclean doxygen clean-doxygen
+SIMPLETARGETS+=ChangeLog clean dustclean realclean distclean doxygen clean-doxygen dist
 
 # Function that returns "even" or "odd", depending on the value passed.
 oddeven = $(filter even odd,$(foreach d,0 2 4 6 8,$(1:%$d=even)) $(foreach d,1 3 5 7 9,$(1:%$d=odd)))
