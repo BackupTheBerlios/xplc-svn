@@ -25,32 +25,9 @@
 
 /** \file
  *
- * Definitions related to UUIDs.
- */
-
-//@{
-#ifndef GUID_DEFINED
-#define GUID_DEFINED
-/**
- * The structure underlying UUIDs. This is similar to the Windows
- * definition, for compatibility reasons.
- */
-typedef struct _GUID {
-  //@{
-  unsigned long Data1;
-  unsigned short Data2;
-  unsigned short Data3;
-  unsigned char Data4[8];
-  //@}
-} GUID;
-#endif
-
-#ifndef UUID_DEFINED
-#define UUID_DEFINED
-/**
- * A Universally Unique IDentifier.
+ * Universally Unique IDentifiers.
  * 
- * This is a sequence of 16 bytes that is unique throughout the
+ * A UUID is a sequence of 16 bytes that is unique throughout the
  * universe, and which can uniquely identify anything you might want.
  * It will never have a name conflict with any other UUID.  To come up
  * with a UUID of your own, run the 'uuidgen' program that comes with
@@ -93,6 +70,26 @@ typedef struct _GUID {
  * particular interface, and each of those objects will have its own
  * UUID.
  */
+
+//@{
+#ifndef GUID_DEFINED
+#define GUID_DEFINED
+/**
+ * The structure underlying UUIDs. This is similar to the Windows
+ * definition, for compatibility reasons.
+ */
+typedef struct _GUID {
+  //@{
+  unsigned long Data1;
+  unsigned short Data2;
+  unsigned short Data3;
+  unsigned char Data4[8];
+  //@}
+} GUID;
+#endif
+
+#ifndef UUID_DEFINED
+#define UUID_DEFINED
 typedef GUID UUID;
 #ifndef uuid_t
 #define uuid_t UUID
@@ -125,8 +122,9 @@ inline bool operator!=(const UUID& uuid1, const UUID& uuid2) {
 }
 
 /**
- * Converts a printable C string to a UUID.  The string is of the
- * form: 9c318f06-52ec-4a62-b5fb-9279216e8586
+ * Converts a printable C string to a UUID.  The string is of the form
+ * "9c318f06-52ec-4a62-b5fb-9279216e8586" (without the quotes), but
+ * will also tolerate opening and closing braces before and after.
  * 
  * This is the form produced by the 'uuidgen' program and is used in
  * the Windows registry.
@@ -135,8 +133,8 @@ const UUID UuidFromString(const char* str);
 
 /**
  * Fill the given pointer with a printable string representing the
- * given UUID.  The string is of the form:
- * 9c318f06-52ec-4a62-b5fb-9279216e8586
+ * given UUID.  The string is of the form
+ * "9c318f06-52ec-4a62-b5fb-9279216e8586" (without the quotes).
  * 
  * 'str' should point to at least 39 bytes of available memory.
  * Always returns 'str', which has been null-terminated.
