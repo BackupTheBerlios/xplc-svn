@@ -28,7 +28,8 @@
 class ICategoryManager: public IServiceHandler {
   UNSTABLE_INTERFACE
 public:
-  virtual void registerComponent(const UUID&, const UUID&) = 0;
+  virtual void registerComponent(const UUID& category,
+                                 const UUID& component) = 0;
   virtual ICategory* getCategory(const UUID&) = 0;
 };
 

@@ -19,20 +19,18 @@
  * USA
  */
 
-#ifndef __XPLC_ICATEGORY_H__
-#define __XPLC_ICATEGORY_H__
+#ifndef __XPLC_ICATEGORYENTRY_H__
+#define __XPLC_ICATEGORYENTRY_H__
 
-#include <xplc/IFactory.h>
-#include <xplc/ICategoryEntry.h>
+#include <xplc/IObject.h>
 
-class ICategory: public IFactory {
+class ICategoryEntry: public IObject {
   UNSTABLE_INTERFACE
 public:
-  virtual unsigned int numEntries() = 0;
-  virtual ICategoryEntry* getEntry(unsigned int aIndex) = 0;
+  virtual const UUID& getUuid() = 0;
 };
 
-DEFINE_IID(ICategory, {0x90abfe8d, 0x50a9, 0x44d8,
-  {0x96, 0x03, 0x29, 0x9c, 0x8b, 0x21, 0x9e, 0x5d}});
+DEFINE_IID(ICategoryEntry, {0x97dbdd09, 0x8814, 0x4262,
+  {0xa5, 0x90, 0x06, 0x7a, 0xdf, 0x83, 0x8a, 0x6c}});
 
-#endif /* __XPLC_ICATEGORYMANAGER_H__ */
+#endif /* __XPLC_ICATEGORYENTRY_H__ */
