@@ -32,6 +32,7 @@ public:
    * already addRef()'d.
    */
   virtual IObject* getObject(const UUID&) = 0;
+  virtual void shutdown() = 0;
 };
 
 DEFINE_UUID(IServiceHandler::IID) = {0xe897384f, 0x3ba6, 0x46e3, {0xad, 0x06, 0x53, 0x76, 0x21, 0xa6, 0x0a, 0x03}};

@@ -47,6 +47,8 @@ public:
 
     return 0;
   }
+  virtual void shutdown() {
+  }
   virtual IObject* getInterface(const UUID& uuid) {
     if(uuid.equals(IObject::IID)) {
       addRef();
@@ -76,6 +78,8 @@ public:
 
     return 0;
   }
+  virtual void shutdown() {
+  }
   virtual IObject* getInterface(const UUID& uuid) {
     if(uuid.equals(IObject::IID)) {
       addRef();
@@ -104,6 +108,8 @@ public:
     }
 
     return 0;
+  }
+  virtual void shutdown() {
   }
   virtual IObject* getInterface(const UUID& uuid) {
     if(uuid.equals(IObject::IID)) {

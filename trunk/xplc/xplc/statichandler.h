@@ -37,6 +37,7 @@ public:
   virtual IObject* getInterface(const UUID&);
   /* IServiceHandler */
   virtual IObject* getObject(const UUID&);
+  virtual void shutdown();
   /* IStaticServiceHandler */
   virtual void addObject(const UUID&, IObject*);
   virtual void removeObject(const UUID&);
