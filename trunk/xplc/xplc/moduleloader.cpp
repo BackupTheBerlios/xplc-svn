@@ -56,7 +56,7 @@ IObject* ModuleLoader::getInterface(const UUID& aUuid) {
 
 IObject* ModuleLoader::getObject(const UUID& uuid)
 {
-  ModuleList* module = modules;
+  ModuleNode* module = modules;
   IObject* obj = 0;
 
   while(module) {
@@ -72,7 +72,7 @@ IObject* ModuleLoader::getObject(const UUID& uuid)
 
 void ModuleLoader::shutdown()
 {
-  ModuleList* next;
+  ModuleNode* next;
 
   while(modules) {
     loaderClose(modules->dlh);
@@ -103,7 +103,7 @@ void ModuleLoader::setModuleDirectory(const char* directory)
     void* dlh;
     XPLC_GetModuleFunc getmodule = 0;
     IModule* module;
-    ModuleList* newmodule;
+    ModuleNode* newmodule;
 
     snprintf(fname, len, "%s/%s", directory, ent->d_name);
 
@@ -124,7 +124,7 @@ void ModuleLoader::setModuleDirectory(const char* directory)
       continue;
     }
 
-    newmodule = new ModuleList(module, dlh, modules);
+    newmodule = new ModuleNode(module, dlh, modules);
     if(newmodule)
       modules = newmodule;
   }
