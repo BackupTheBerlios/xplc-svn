@@ -25,7 +25,7 @@ default:
 
 -include config/config.mk
 
-CLEAN+=$(wildcard libxplc*.a libxplc.so.*)
+CLEAN+=$(wildcard libxplc*.a libxplc.so.* doxygen)
 DISTCLEAN+=config.cache config.log config.status
 REALCLEAN+=configure README xplc.spec
 

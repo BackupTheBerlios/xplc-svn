@@ -45,10 +45,22 @@ lib%_s.a: lib%.a
 %.dll:
 	$(LINK.cc) $(SHARED) $^ -o $@
 
-dist: ChangeLog README xplc.spec distclean
-	autoconf
-	autoheader
-	rm -rf autom4te.cache
+%.tar: %
+	tar cf $@ $^
+
+%.gz: %
+	gzip -c9 $< > $@
+
+%.bz2: %
+	bzip2 -c9 $< > $@
+
+.PHONY: $(DIST)
+$(DIST): ChangeLog README xplc.spec configure
+	rm -rf $(DIST)
+	tar cf - . | (mkdir $(DIST) && cd $(DIST) && tar xf -)
+	$(MAKE) -C $(DIST) distclean
+
+dist: default tests $(DIST).tar.gz
 
 ChangeLog:
 	rm -f ChangeLog ChangeLog.bak
@@ -57,9 +69,6 @@ ChangeLog:
 doxygen: clean-doxygen
 	doxygen
 
-clean-doxygen:
-	rm -rf doxygen
-
 README: dist/README.in
 	sed $< -e 's%@VERSION@%$(PACKAGE_VERSION)%g' > $@
 
@@ -67,9 +76,9 @@ xplc.spec: dist/xplc.spec.in
 	sed $< -e 's%@VERSION@%$(PACKAGE_VERSION)%g' > $@
 
 dustclean:
-	-rm -rf $(shell find . -name '*~' -print) $(shell find . -name '.#*' -print)
+	-rm -rf $(wildcard $(DUSTCLEAN))
 
-clean: dustclean clean-doxygen
+clean: dustclean
 	-rm -rf $(wildcard $(CLEAN))
 
 distclean: clean
@@ -97,11 +106,11 @@ uninstall:
 
 ifeq ($(filter-out $(SIMPLETARGETS),$(MAKECMDGOALS)),$(MAKECMDGOALS))
 
-config/config.mk: config/config.mk.in configure
+config/config.mk include/xplc/autoconf.h: config/config.mk.in include/xplc/autoconf.h.in configure
 	@echo "Please run './configure'."
 	@exit 1
 
-configure: configure.ac
+configure include/xplc/autoconf.h.in: configure.ac
 	autoconf
 	autoheader
 
