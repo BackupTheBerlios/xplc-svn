@@ -19,7 +19,7 @@
  * 02111-1307, USA.
  */
 
-#ifdef __LINUX__
+#ifdef __linux__
 #include <dlfcn.h>
 #endif
 #ifdef WIN32
@@ -68,7 +68,7 @@ IObject* SimpleDynamicLoader::createObject() {
 }
 
 const char* SimpleDynamicLoader::loadModule(const char* filename) {
-#ifdef __GCC__
+#ifdef __GNUC__
 	const std::string file = std::string(filename) + ".so";
 
   const char* err;
