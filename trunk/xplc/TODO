@@ -5,9 +5,12 @@ release number is the one that will have these features. Of course,
 this is subject to revision!
 
  * 0.5.0
+ - some documentation
+ - examples
  - add an autoconf test for linker version script
  - categories
  - proper module meta-info
+ - fix dynamic loading on Mac OS X
  - (proper) dynamic loading on Mac OS X (dlopen-style)
 
  * 0.7.0
