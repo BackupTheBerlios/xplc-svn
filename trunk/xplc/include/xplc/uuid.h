@@ -2,6 +2,7 @@
  *
  * XPLC - Cross-Platform Lightweight Components
  * Copyright (C) 2000-2002, Pierre Phaneuf
+ * Copyright (C) 2002, Net Integration Technologies, Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public License
@@ -35,7 +36,7 @@ struct UUID {
   unsigned char data3[8];
   /* FIXME: the remaining of this is C++-specific. */
   static const UUID null;
-  inline bool equals(const UUID& uuid) const {
+  bool equals(const UUID& uuid) const {
     return
       (this == &uuid) ||
       ((static_cast<const unsigned int*>(&data0)[0] == static_cast<const unsigned int*>(&uuid.data0)[0]) &&
@@ -123,6 +124,7 @@ struct UUID {
     if(!ok)
       *this = null;
   }
+  /* str should point to at least 39 bytes of available memory. */
   char* toString(char* str) const {
     if(str) {
       str[0] = '{';
