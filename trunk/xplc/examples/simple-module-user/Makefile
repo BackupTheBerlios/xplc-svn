@@ -1,3 +1,5 @@
+# This file is example code for XPLC (http://xplc.sourceforge.net/),
+# and is put into the public domain.
 
 .PHONY: default clean
 
