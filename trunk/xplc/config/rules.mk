@@ -18,7 +18,14 @@
 #
 # $Id$
 
-.PHONY: dustclean clean distclean realclean
+.PHONY: ChangeLog dist dustclean clean distclean realclean
+
+dist: distclean ChangeLog
+	autoconf
+
+ChangeLog:
+	rm -f ChangeLog ChangeLog.bak
+	cvs2cl.pl --utc -U config/cvs-users
 
 dustclean:
 	rm -f $(shell find . -name 'core' -print)
