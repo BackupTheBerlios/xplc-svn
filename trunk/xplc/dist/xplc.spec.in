@@ -15,6 +15,10 @@ Summary: Cross-platform lightweight component system (development)
 Group: Development/Libraries
 Requires: xplc = %{version}
 
+%package doc
+Summary: Cross-platform lightweight component system (documentation)
+Group: Development/Libraries
+
 %description
 XPLC (cross-platform lightweight components) is a component system
 that provide extensibility and reusability both inside and between
