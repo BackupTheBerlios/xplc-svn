@@ -217,10 +217,6 @@ void ModuleLoader::setModuleDirectory(const char* directory)
 	if(!first && _findnext(dir, &data))
       break;
     first = false;
-    const char* err;
-    void* dlh;
-    XPLC_ModuleInfo* moduleinfo = 0;
-    ModuleNode* newmodule;
 
     _snprintf(fname, len, "%s/%s", directory, data.name);
 
