@@ -45,19 +45,6 @@ RANLIB=ranlib
 
 CXXFLAGS+=-pipe -Iinclude
 
-ifneq ("$(filter-out no,$(enable_debug))", "")
-DEBUG:=$(enable_debug)
-endif
-
-ifdef DEBUG
-CXXFLAGS+=-ggdb -DDEBUG
-ifneq ("$(DEBUG)", "yes")
-CXXFLAGS+=-DDEBUG_$(DEBUG)
-endif
-else
-CXXFLAGS+=-DNDEBUG
-endif
-
 ifeq ("$(call oddeven,$(VERSION_MINOR))", "odd")
 ifndef enable_unstable
 enable_unstable=yes
@@ -66,33 +53,6 @@ endif
 
 ifeq ("$(enable_unstable)", "yes")
 CXXFLAGS+=-DUNSTABLE
-endif
-
-ifeq ("$(enable_fatal_warnings)", "yes")
-CXXFLAGS+=-Werror
-endif
-
-ifneq ("$(enable_optimization)", "no")
-CXXFLAGS+=-O2
-endif
-
-ifneq ("$(enable_warnings)", "no")
-CXXFLAGS+=-Wall -Woverloaded-virtual
-ifeq ("$(enable_warnings)", "yes")
-CXXFLAGS+=-Wold-style-cast
-endif
-endif
-
-ifneq ("$(enable_rtti)", "yes")
-CXXFLAGS+=-fno-rtti
-endif
-
-ifneq ("$(enable_exceptions)", "yes")
-CXXFLAGS+=-fno-exceptions
-endif
-
-ifneq ("$(enable_pic)", "no")
-CXXFLAGS+=-fpic
 endif
 
 ifeq ("$(so_style)", "darwin")

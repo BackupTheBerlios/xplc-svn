@@ -108,17 +108,50 @@ if test "$enable_loader" != "no"; then
     AC_DEFINE(ENABLE_LOADER, 1, [Define if you want to enable dynamic loading.])
 fi
 
+if test "$enable_optimization" != "no"; then
+    CXXFLAGS="$CXXFLAGS -O2"
+fi
+
+if test -z "$enable_debug"; then
+    enable_debug=no
+fi
+
+if test "$enable_debug" != "no"; then
+    CXXFLAGS="$CXXFLAGS -ggdb -DDEBUG"
+    if test "$enable_debug" != "yes"; then
+        CXXFLAGS="$CXXFLAGS -DDEBUG_$enable_debug"
+    fi
+else
+    CXXFLAGS="$CXXFLAGS -DNDEBUG"
+fi
+
+if test "$enable_fatal_warnings" = "yes"; then
+    CXXFLAGS="$CXXFLAGS -Werror"
+fi
+
+if test "$enable_warnings" != "no"; then
+    CXXFLAGS="$CXXFLAGS -Wall -Woverloaded-virtual"
+    if test "$enable_warnings" = "yes"; then
+        CXXFLAGS="$CXXFLAGS -Wold-style-cast"
+    fi
+fi
+
+if test "$enable_rtti" != "yes"; then
+    CXXFLAGS="$CXXFLAGS -fno-rtti"
+fi
+
+if test "$enable_exceptions" != "yes"; then
+    CXXFLAGS="$CXXFLAGS -fno-exceptions"
+fi
+
+if test "$enable_pic" != "no"; then
+    CXXFLAGS="$CXXFLAGS -fpic"
+fi
+
 AC_HEADER_DIRENT
 AC_CHECK_HEADERS([limits.h])
 
-AC_SUBST(enable_debug)
-AC_SUBST(enable_fatal_warnings)
-AC_SUBST(enable_optimization)
-AC_SUBST(enable_warnings)
 AC_SUBST(enable_unstable)
-AC_SUBST(enable_rtti)
-AC_SUBST(enable_exceptions)
-AC_SUBST(enable_pic)
 AC_SUBST(enable_loader)
 AC_SUBST(with_dlopen)
 AC_SUBST(so_style)
