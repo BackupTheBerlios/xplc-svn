@@ -1,7 +1,7 @@
 /* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*-
  *
  * XPLC - Cross-Platform Lightweight Components
- * Copyright (C) 2000, Pierre Phaneuf
+ * Copyright (C) 2000-2002, Pierre Phaneuf
  * Copyright (C) 2001, Stéphane Lajoie
  * Copyright (C) 2002, Net Integration Technologies, Inc.
  *
@@ -41,13 +41,5 @@ public:
 DEFINE_UUID(ISingleModuleLoader::IID) = {0x0f8eb75a, 0x0b47, 0x494f,
                                          {0xb2, 0xa8, 0x7b, 0x2f,
                                           0xb0, 0xef, 0x99, 0xde}};
-
-/*
- * This is the prototype of the entry point that must be provided by
- * the dynamically loaded library. This should create and return a
- * NON-addRef'd new instance of the component in the module, in a
- * manner similar to the factory function required by IGenericFactory.
- */
-//extern "C" IObject* XPLC_SimpleModule();
 
 #endif /* __XPLC_ISINGLEMODULELOADER_H__ */
