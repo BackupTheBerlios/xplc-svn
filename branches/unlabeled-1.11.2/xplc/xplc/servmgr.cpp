@@ -23,6 +23,8 @@
 #include <xplc/utils.h>
 #include "servmgr.h"
 
+/* FIXME: this file needs to be reviewed */
+
 ServiceManager* ServiceManager::create() {
   return new GenericComponent<ServiceManager>;
 }
@@ -42,36 +44,35 @@ IObject* ServiceManager::getInterface(const UUID& uuid) {
   return this;
 }
 
-void ServiceManager::addObject(const UUID& aUuid, IObject* aObj) {
-  ObjectNode* node;
+void ServiceManager::addHandler(IServiceHandler* aHandler) {
+  HandlerNode* node;
 
-  node = objects;
+  node = handlers;
   while(node) {
-    if(node->uuid.equals(aUuid))
+    if(node->handler == aHandler)
       break;
 
     node = node->next;
   }
 
   /*
-   * FIXME: maybe add a "replace" bool parameter? Or would this
-   *  encourage UUID hijacking too much?
+   * The handler is already there.
    */
   if(node)
     return;
 
-  node = new ObjectNode(aUuid, aObj, objects);
-  objects = node;
+  node = new HandlerNode(aHandler, handlers);
+  handlers = node;
 }
 
-void ServiceManager::removeObject(const UUID& aUuid) {
-  ObjectNode* node;
-  ObjectNode** ptr;
+void ServiceManager::removeHandler(IServiceHandler* aHandler) {
+  HandlerNode* node;
+  HandlerNode** ptr;
 
-  node = objects;
-  ptr = &objects;
+  node = handlers;
+  ptr = &handlers;
   while(node) {
-    if(node->uuid.equals(aUuid)) {
+    if(node->handler == aHandler) {
       *ptr = node->next;
       delete node;
       break;
@@ -83,45 +84,32 @@ void ServiceManager::removeObject(const UUID& aUuid) {
 }
 
 IObject* ServiceManager::getObject(const UUID& aUuid) {
-  ObjectNode* obj;
+  IObject* obj;
   HandlerNode* handler;
 
-  /*
-   * We look through the objects list and return if we find a match.
-   */
-  obj = objects;
-  while(obj) {
-    if(obj->uuid.equals(aUuid)) {
-      obj->obj->addRef();
-      return obj->obj;
-    }
-    obj = obj->next;
-  }
-
-  /*
-   * Then, we ask our handlers.
-   */
   handler = handlers;
   while(handler) {
+    obj = handler->handler->getObject(aUuid);
+    if(obj)
+      return obj;
+
     handler = handler->next;
   }
 
-  /*
-   * No match was found, we return empty-handed.
-   */
   return NULL;
 }
 
 void ServiceManager::shutdown() {
-  ObjectNode* node;
-  ObjectNode* ptr;
+  HandlerNode* node;
+  HandlerNode* ptr;
 
-  node = objects;
+  node = handlers;
   while(node) {
     ptr = node;
     node = node->next;
     delete ptr;
   }
-  objects = NULL;
+
+  handlers = NULL;
 }
 
