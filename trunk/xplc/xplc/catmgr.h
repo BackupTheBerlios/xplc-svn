@@ -1,7 +1,7 @@
 /* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*-
  *
  * XPLC - Cross-Platform Lightweight Components
- * Copyright (C) 2003, Pierre Phaneuf
+ * Copyright (C) 2003, Net Integration Technologies, Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public License
@@ -19,28 +19,18 @@
  * USA
  */
 
-#include <xplc/ICategoryManager.h>
-#include "test.h"
+#ifndef __XPLC_CATMGR_H__
+#define __XPLC_CATMGR_H__
 
-/*
- * test010
- *
- * Tests categories.
- */
+#include "xplc/ICategoryManager.h"
 
-/* FIXME: to be done */
-void test010() {
-  IServiceManager* servmgr;
-  ICategoryManager* catmgr;
+class CategoryManager: public ICategoryManager {
+public:
+  static CategoryManager* create();
+  /* IServiceHandler */
+  virtual IObject* getObject(const UUID&);
+  /* ICategoryManager */
+  virtual void registerComponent(const UUID&, const UUID&);
+};
 
-  servmgr = XPLC_getServiceManager();
-  ASSERT(servmgr != 0, "could not obtain service manager");
-
-  catmgr = servmgr->getObject(XPLC_categoryManager);
-  ASSERT(catmgr != 0, "could not obtain category manager");
-
-  VERIFY(catmgr->release() == 1, "category manager has wrong refcount");
-
-  VERIFY(servmgr->release() == 0, "service manager has non-zero refcount after release");
-}
-
+#endif /* __XPLC_CATMGR_H__ */

@@ -24,6 +24,7 @@
 #include <xplc/core.h>
 #include <xplc/utils.h>
 #include "servmgr.h"
+#include "catmgr.h"
 #include "statichandler.h"
 #include "moduleloader.h"
 #include "singleloader.h"
@@ -46,6 +47,7 @@ IServiceManager* XPLC_getServiceManager() {
   IGenericFactory* factory;
   IFactory* factoryfactory;
   IMonikerService* monikers;
+  ICategoryManager* catmgr;
 
   /*
    * The basic services have to be created.
@@ -102,6 +104,15 @@ IServiceManager* XPLC_getServiceManager() {
     handler->addObject(XPLC_monikers, monikers);
 
     monikers->release();
+  }
+
+  catmgr = CategoryManager::create();
+  if(catmgr) {
+    catmgr->addRef();
+
+    handler->addObject(XPLC_categoryManager, catmgr);
+
+    catmgr->release();
   }
 
   /*
