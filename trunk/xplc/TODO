@@ -1,0 +1,25 @@
+
+ * 0.5.0
+ - categories
+ - proper module meta-info
+ - (proper) dynamic loadiong on Mac OS X (dlopen-style)
+ - Debian package
+
+ * 0.7.0
+ - IDL compiler
+ - cache module meta-info
+
+ * 0.9.0
+ - BSD port
+ - Mac OS X package
+ - Windows package
+
+ * 1.0.0
+ - fix dlerror() leak (impossible?)
+
+ * future
+ - event loop component
+ - stream component
+ - proplist component
+ - XFree86 module loader
+
