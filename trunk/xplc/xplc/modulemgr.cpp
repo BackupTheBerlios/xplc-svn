@@ -134,15 +134,15 @@ IServiceHandler* ModuleManagerFactory::createModuleManager(const char* directory
 
   snprintf(pattern, sizeof(pattern), "%s/*.*", directory);
 
-  dir = _findfirst(pattern, &data);
+  dir = _findfirst(pattern, &ent);
 
   if(!dir)
-    return;
+    return 0;
 
   do {
     IModule* module;
 
-    _snprintf(fname, sizeof(fname), "%s/%s", directory, data.name);
+    _snprintf(fname, sizeof(fname), "%s/%s", directory, ent.name);
 
     module = loader->loadModule(fname);
     if(module) {
@@ -151,11 +151,12 @@ IServiceHandler* ModuleManagerFactory::createModuleManager(const char* directory
       if(node)
         modules = node;
     }
-  } while(_findnext(dir, &data) == 0);
+  } while(_findnext(dir, &ent) == 0);
 
   loader->release();
 
   _findclose(dir);
+  return new ModuleManager(modules);
 #endif
 }
 
