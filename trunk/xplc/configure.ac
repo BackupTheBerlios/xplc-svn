@@ -76,6 +76,9 @@ AC_LANG(C++)
 AC_PROG_CXX
 AC_PROG_INSTALL
 
+AC_HEADER_DIRENT
+AC_CHECK_HEADERS([limits.h])
+
 case "$host_os" in
 darwin*|rhapsody*)
     so_style=darwin
@@ -148,10 +151,22 @@ if test "$enable_pic" != "no"; then
     CXXFLAGS="$CXXFLAGS -fpic"
 fi
 
-AC_HEADER_DIRENT
-AC_CHECK_HEADERS([limits.h])
+pc_version=
+libdir_version=
+if test "$(echo $PACKAGE_VERSION | awk -F. '{ print $2 % 2}')" -eq 1; then
+    AC_MSG_WARN([Unstable release, the API might change in the next release.])
+    enable_unstable=yes
+    includedir="$includedir/xplc-${PACKAGE_VERSION}"
+    pc_version="-${PACKAGE_VERSION}"
+    libdir_version="/xplc-${PACKAGE_VERSION}"
+fi
 
-AC_SUBST(enable_unstable)
+if test "$enable_unstable" = "yes"; then
+    CXXFLAGS="$CXXFLAGS -DUNSTABLE"
+fi
+
+AC_SUBST(pc_version)
+AC_SUBST(libdir_version)
 AC_SUBST(enable_loader)
 AC_SUBST(with_dlopen)
 AC_SUBST(so_style)

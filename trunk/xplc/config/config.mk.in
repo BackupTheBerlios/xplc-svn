@@ -24,7 +24,8 @@
 # set variables from the configure script
 CXX=@CXX@
 CXXFLAGS+=@CXXFLAGS@
-enable_unstable:=@enable_unstable@
+pc_version:=@pc_version@
+libdir_version:=@libdir_version@
 enable_loader:=@enable_loader@
 with_dlopen:=@with_dlopen@
 so_style:=@so_style@

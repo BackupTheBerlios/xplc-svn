@@ -45,16 +45,6 @@ RANLIB=ranlib
 
 CXXFLAGS+=-pipe -Iinclude
 
-ifeq ("$(call oddeven,$(VERSION_MINOR))", "odd")
-ifndef enable_unstable
-enable_unstable=yes
-endif
-endif
-
-ifeq ("$(enable_unstable)", "yes")
-CXXFLAGS+=-DUNSTABLE
-endif
-
 ifeq ("$(so_style)", "darwin")
 SHARED=-bundle
 endif

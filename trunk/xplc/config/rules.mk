@@ -98,21 +98,23 @@ realclean: distclean
 
 installdirs:
 	mkdir -p $(DESTDIR)$(libdir)/pkgconfig
+	mkdir -p $(DESTDIR)$(libdir)$(libdir_version)
 	mkdir -p $(DESTDIR)$(includedir)/xplc
 
 install: default installdirs
 	$(INSTALL_PROGRAM) libxplc.so $(DESTDIR)$(libdir)/libxplc.so.$(PACKAGE_VERSION)
-	$(INSTALL_DATA) libxplc.a $(DESTDIR)$(libdir)
-	$(INSTALL_DATA) libxplc-cxx.a $(DESTDIR)$(libdir)
-	$(INSTALL_DATA) dist/xplc.pc $(DESTDIR)$(libdir)/pkgconfig
+	$(INSTALL_DATA) libxplc.a $(DESTDIR)$(libdir)$(libdir_version)
+	$(INSTALL_DATA) libxplc-cxx.a $(DESTDIR)$(libdir)$(libdir_version)
+	$(INSTALL_DATA) dist/xplc.pc $(DESTDIR)$(libdir)/pkgconfig/xplc$(pc_version).pc
 	$(INSTALL_DATA) $(wildcard include/xplc/*.h) $(DESTDIR)$(includedir)/xplc
-	ln -s libxplc.so.$(PACKAGE_VERSION) $(DESTDIR)$(libdir)/libxplc.so
-	ln -s libxplc.a $(DESTDIR)$(libdir)/libxplc_s.a
+	ln -s libxplc.so.$(PACKAGE_VERSION) $(DESTDIR)$(libdir)$(libdir_version)/libxplc.so
+	ln -s libxplc.a $(DESTDIR)$(libdir)$(libdir_version)/libxplc_s.a
 
 uninstall:
-	rm -f $(DESTDIR)$(libdir)/libxplc.so.$(PACKAGE_VERSION) $(DESTDIR)$(libdir)/libxplc.so
-	rm -f $(DESTDIR)$(libdir)/libxplc.a $(DESTDIR)$(libdir)/libxplc_s.a
-	rm -f $(DESTDIR)$(libdir)/pkgconfig/xplc.pc
+	rm -f $(DESTDIR)$(libdir)/libxplc.so.$(PACKAGE_VERSION) $(DESTDIR)$(libdir)$(libdir_version)/libxplc.so
+	rm -f $(DESTDIR)$(libdir)$(libdir_version)/libxplc.a $(DESTDIR)$(libdir)$(libdir_version)/libxplc_s.a
+	rm -f $(DESTDIR)$(libdir)$(libdir_version)/libxplc-cxx.a
+	rm -f $(DESTDIR)$(libdir)/pkgconfig/xplc$(pc_version).pc
 	rm -rf $(DESTDIR)$(includedir)/xplc
 
 ifeq ($(filter-out $(SIMPLETARGETS),$(MAKECMDGOALS)),$(MAKECMDGOALS))
