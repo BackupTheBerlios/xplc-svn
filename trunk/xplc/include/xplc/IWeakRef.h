@@ -1,9 +1,7 @@
 /* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*-
  *
  * XPLC - Cross-Platform Lightweight Components
- * Copyright (C) 2000-2003, Pierre Phaneuf
- * Copyright (C) 2002, Net Integration Technologies, Inc.
- * Copyright (C) 2002, Stéphane Lajoie
+ * Copyright (C) 2003, Pierre Phaneuf
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public License
@@ -21,29 +19,18 @@
  * USA
  */
 
-#ifndef __XPLC_IOBJECT_H__
-#define __XPLC_IOBJECT_H__
+#ifndef __XPLC_IWEAKREF_H__
+#define __XPLC_IWEAKREF_H__
 
-#include <xplc/uuid.h>
+#include <xplc/IObject.h>
 
-#ifndef UNSTABLE
-#define UNSTABLE_INTERFACE static bool UNSTABLE_INTERFACE = true;
-#else
-#define UNSTABLE_INTERFACE
-#endif
-
-class IWeakRef;
-
-class IObject {
+class IWeakRef: public IObject {
   UNSTABLE_INTERFACE
 public:
-  virtual unsigned int addRef() = 0;
-  virtual unsigned int release() = 0;
-  virtual IObject* getInterface(const UUID&) = 0;
-  virtual IWeakRef* getWeakRef() = 0;
+  virtual IObject* getObject() = 0;
 };
 
-DEFINE_IID(IObject, {0x8ca76e98, 0xb653, 0x43d7,
-  {0xb0, 0x56, 0x8b, 0x9d, 0xde, 0x9a, 0xbe, 0x9d}});
+DEFINE_IID(IWeakRef, {0x6a97f962, 0xeeec, 0x48e2,
+  {0xb4, 0x68, 0x56, 0x60, 0x57, 0x3f, 0xd9, 0x24}});
 
-#endif /* __XPLC_IOBJECT_H__ */
+#endif /* __XPLC_IWEAKREF_H__ */

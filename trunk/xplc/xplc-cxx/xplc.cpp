@@ -2,6 +2,7 @@
  *
  * XPLC - Cross-Platform Lightweight Components
  * Copyright (C) 2002, Net Integration Technologies, Inc.
+ * Copyright (C) 2003, Pierre Phaneuf
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public License
@@ -21,6 +22,11 @@
 
 #include <xplc/xplc.h>
 #include <xplc/ptr.h>
+
+UUID_MAP_BEGIN(WeakRef)
+  UUID_MAP_ENTRY(IObject)
+  UUID_MAP_ENTRY(IWeakRef)
+  UUID_MAP_END
 
 IObject* XPLC::create(const UUID& cid) {
   xplc_ptr<IFactory> factory;
