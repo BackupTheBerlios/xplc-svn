@@ -1,5 +1,5 @@
 # XPLC - Cross-Platform Lightweight Components
-# Copyright (C) 2000, Pierre Phaneuf
+# Copyright (C) 2001, Pierre Phaneuf
 #
 # This library is free software; you can redistribute it and/or modify
 # it under the terms of the GNU Library General Public License as
