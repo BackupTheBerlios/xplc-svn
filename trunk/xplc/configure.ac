@@ -76,14 +76,10 @@ AC_LANG(C++)
 AC_PROG_CXX
 AC_PROG_INSTALL
 
-# Detect CVS2CL
-AC_CHECK_PROGS([CVS2CL], [cvs2cl.pl cvs2cl], [no])
-if test "$CVS2CL" = "no"; then
-    AC_MSG_WARN([cvs2cl is required for 'make dist'])
-fi
-
 AC_HEADER_DIRENT
 AC_CHECK_HEADERS([limits.h])
+
+AC_CHECK_PROGS([CVS2CL], [cvs2cl.pl cvs2cl], [no])
 
 case "$host_os" in
 darwin*|rhapsody*)

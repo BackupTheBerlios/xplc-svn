@@ -45,6 +45,11 @@ RANLIB=ranlib
 
 CXXFLAGS+=-pipe -Iinclude
 
+# Ensure CVS2CL is there
+ifeq ("$(CVS2CL)", "no")
+CVS2CL=$(error Please install cvs2cl)
+endif
+
 ifeq ("$(so_style)", "darwin")
 SHARED=-bundle
 endif
