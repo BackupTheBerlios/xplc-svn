@@ -24,6 +24,7 @@
 #include <xplc/utils.h>
 #include "servmgr.h"
 #include "statichandler.h"
+#include "moduleloader.h"
 #include "singleloader.h"
 #include "factory.h"
 #include "monikers.h"
@@ -99,6 +100,12 @@ IServiceManager* XPLC::getServiceManager() {
   if(factory) {
     factory->setFactory(SingleModuleLoader::create);
     handler->addObject(XPLC::singleModuleLoader, factory);
+  }
+
+  factory = mutate<IGenericFactory>(factoryfactory->createObject());
+  if(factory) {
+    factory->setFactory(ModuleLoader::create);
+    handler->addObject(XPLC::moduleLoader, factory);
   }
 
   handler->addObject(XPLC::newMoniker, NewMoniker::obtain());

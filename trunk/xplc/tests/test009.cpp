@@ -2,6 +2,7 @@
  *
  * XPLC - Cross-Platform Lightweight Components
  * Copyright (C) 2002, Pierre Phaneuf
+ * Copyright (C) 2002, Net Integration Technologies, Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public License
@@ -32,17 +33,14 @@
 
 void test009() {
   IServiceManager* servmgr;
-#ifdef DEBUG_pp
   IObject* obj;
   IFactory* loaderfactory;
   IModuleLoader* loader;
   ITestComponent* test;
-#endif
 
   servmgr = XPLC::getServiceManager();
   ASSERT(servmgr != 0, "could not obtain service manager");
 
-#ifdef DEBUG_pp
   obj = servmgr->getObject(XPLC::moduleLoader);
   ASSERT(obj != 0, "could not obtain module loader component");
 
@@ -66,7 +64,6 @@ void test009() {
   ASSERT(test->getAnswer() == 42, "test object did not have expected behavior");
 
   VERIFY(test->release() == 1, "test object has wrong refcount");
-#endif
 
   servmgr->shutdown();
   VERIFY(servmgr->release() == 0, "service manager has non-zero refcount after shutdown/release");
