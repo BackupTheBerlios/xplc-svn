@@ -23,12 +23,12 @@
 
 #include <xplc/core.h>
 #include <xplc/utils.h>
+#include <xplc/factory.h>
 #include "servmgr.h"
 #include "catmgr.h"
 #include "statichandler.h"
 #include "moduleloader.h"
 #include "singleloader.h"
-#include "factory.h"
 #include "monikers.h"
 #include "new.h"
 
@@ -42,10 +42,9 @@ static ServiceManager* singleton;
 static void add_factory(IStaticServiceHandler* handler,
                         const UUID& uuid,
                         IObject*(*factoryptr)()) {
-  IGenericFactory* factory = new GenericComponent<GenericFactory>;
+  GenericFactory* factory = new GenericFactory(factoryptr);
 
   if(factory) {
-    factory->setFactory(factoryptr);
     handler->addObject(uuid, factory);
     factory->release();
   }
@@ -103,9 +102,6 @@ IServiceManager* XPLC_getServiceManager() {
       handler->addObject(XPLC_monikers, monikers);
       monikers->release();
     }
-
-    add_factory(handler, XPLC_genericFactory,
-                GenericComponent<GenericFactory>::create);
 
     add_factory(handler, XPLC_singleModuleLoader,
                 GenericComponent<SingleModuleLoader>::create);
