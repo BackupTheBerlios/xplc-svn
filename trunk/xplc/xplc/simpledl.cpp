@@ -74,7 +74,6 @@ IObject* SimpleDynamicLoader::createObject() {
 
 const char* SimpleDynamicLoader::loadModule(const char* filename) {
   const char* err;
-  void* tmp;
   IModule*(*getmodule)() = 0;
 
   if(dlh)
@@ -84,14 +83,13 @@ const char* SimpleDynamicLoader::loadModule(const char* filename) {
   if(err)
     return err;
 
-  err = loaderSymbol(dlh, "XPLC_GetModule", &tmp);
+  err = loaderSymbol(dlh, "XPLC_GetModule",
+                     reinterpret_cast<void**>(&getmodule));
   if(err) {
     loaderClose(dlh);
     dlh = 0;
     return err;
   }
-
-  getmodule = tmp;
 
   if(!getmodule) {
     loaderClose(dlh);
