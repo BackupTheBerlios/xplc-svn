@@ -24,6 +24,7 @@
 #define __XPLC_UUID_H__
 
 /* FIXME: these should not be here. */
+#include <assert.h>
 #include <string.h>
 #include <stdlib.h>
 
@@ -126,47 +127,47 @@ struct UUID {
   }
   /* str should point to at least 39 bytes of available memory. */
   char* toString(char* str) const {
-    if(str) {
-      str[0] = '{';
-      str[1] = UUID_hexchars[data0 >> 28];
-      str[2] = UUID_hexchars[(data0 >> 24) & 0xf];
-      str[3] = UUID_hexchars[(data0 >> 20) & 0xf];
-      str[4] = UUID_hexchars[(data0 >> 16) & 0xf];
-      str[5] = UUID_hexchars[(data0 >> 12) & 0xf];
-      str[6] = UUID_hexchars[(data0 >> 8) & 0xf];
-      str[7] = UUID_hexchars[(data0 >> 4) & 0xf];
-      str[8] = UUID_hexchars[data0 & 0xf];
-      str[9] = '-';
-      str[10] = UUID_hexchars[(data1 >> 12) & 0xf];
-      str[11] = UUID_hexchars[(data1 >> 8) & 0xf];
-      str[12] = UUID_hexchars[(data1 >> 4) & 0xf];
-      str[13] = UUID_hexchars[data1 & 0xf];
-      str[14] = '-';
-      str[15] = UUID_hexchars[(data2 >> 12) & 0xf];
-      str[16] = UUID_hexchars[(data2 >> 8) & 0xf];
-      str[17] = UUID_hexchars[(data2 >> 4) & 0xf];
-      str[18] = UUID_hexchars[data2 & 0xf];
-      str[19] = '-';
-      str[20] = UUID_hexchars[data3[0] >> 4];
-      str[21] = UUID_hexchars[data3[0] & 0xf];
-      str[22] = UUID_hexchars[data3[1] >> 4];
-      str[23] = UUID_hexchars[data3[1] & 0xf];
-      str[24] = '-';
-      str[25] = UUID_hexchars[data3[2] >> 4];
-      str[26] = UUID_hexchars[data3[2] & 0xf];
-      str[27] = UUID_hexchars[data3[3] >> 4];
-      str[28] = UUID_hexchars[data3[3] & 0xf];
-      str[29] = UUID_hexchars[data3[4] >> 4];
-      str[30] = UUID_hexchars[data3[4] & 0xf];
-      str[31] = UUID_hexchars[data3[5] >> 4];
-      str[32] = UUID_hexchars[data3[5] & 0xf];
-      str[33] = UUID_hexchars[data3[6] >> 4];
-      str[34] = UUID_hexchars[data3[6] & 0xf];
-      str[35] = UUID_hexchars[data3[7] >> 4];
-      str[36] = UUID_hexchars[data3[7] & 0xf];
-      str[37] = '}';
-      str[38] = 0;
-    }
+    assert(str);
+
+    str[0] = '{';
+    str[1] = UUID_hexchars[data0 >> 28];
+    str[2] = UUID_hexchars[(data0 >> 24) & 0xf];
+    str[3] = UUID_hexchars[(data0 >> 20) & 0xf];
+    str[4] = UUID_hexchars[(data0 >> 16) & 0xf];
+    str[5] = UUID_hexchars[(data0 >> 12) & 0xf];
+    str[6] = UUID_hexchars[(data0 >> 8) & 0xf];
+    str[7] = UUID_hexchars[(data0 >> 4) & 0xf];
+    str[8] = UUID_hexchars[data0 & 0xf];
+    str[9] = '-';
+    str[10] = UUID_hexchars[(data1 >> 12) & 0xf];
+    str[11] = UUID_hexchars[(data1 >> 8) & 0xf];
+    str[12] = UUID_hexchars[(data1 >> 4) & 0xf];
+    str[13] = UUID_hexchars[data1 & 0xf];
+    str[14] = '-';
+    str[15] = UUID_hexchars[(data2 >> 12) & 0xf];
+    str[16] = UUID_hexchars[(data2 >> 8) & 0xf];
+    str[17] = UUID_hexchars[(data2 >> 4) & 0xf];
+    str[18] = UUID_hexchars[data2 & 0xf];
+    str[19] = '-';
+    str[20] = UUID_hexchars[data3[0] >> 4];
+    str[21] = UUID_hexchars[data3[0] & 0xf];
+    str[22] = UUID_hexchars[data3[1] >> 4];
+    str[23] = UUID_hexchars[data3[1] & 0xf];
+    str[24] = '-';
+    str[25] = UUID_hexchars[data3[2] >> 4];
+    str[26] = UUID_hexchars[data3[2] & 0xf];
+    str[27] = UUID_hexchars[data3[3] >> 4];
+    str[28] = UUID_hexchars[data3[3] & 0xf];
+    str[29] = UUID_hexchars[data3[4] >> 4];
+    str[30] = UUID_hexchars[data3[4] & 0xf];
+    str[31] = UUID_hexchars[data3[5] >> 4];
+    str[32] = UUID_hexchars[data3[5] & 0xf];
+    str[33] = UUID_hexchars[data3[6] >> 4];
+    str[34] = UUID_hexchars[data3[6] & 0xf];
+    str[35] = UUID_hexchars[data3[7] >> 4];
+    str[36] = UUID_hexchars[data3[7] & 0xf];
+    str[37] = '}';
+    str[38] = 0;
 
     return str;
   }
