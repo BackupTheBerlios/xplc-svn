@@ -144,6 +144,9 @@ public:
 
     return object;
   }
+  /**
+   * Initialize a weak reference.
+   */
   WeakRef(IObject* aObj):
     object(aObj) {
   }
