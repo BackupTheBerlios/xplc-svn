@@ -1,6 +1,5 @@
 # XPLC - Cross-Platform Lightweight Components
-# Copyright (C) 2000-2002, Pierre Phaneuf
-# Copyright (C) 2002, Net Integration Technologies, Inc.
+# Copyright (C) 2002, Pierre Phaneuf
 #
 # This library is free software; you can redistribute it and/or modify
 # it under the terms of the GNU Library General Public License as
@@ -19,15 +18,5 @@
 #
 # $Id$
 
-CXXDEPS+=tests/testmain.cpp
-
-GARBAGES+=$(wildcard tests/test*/test)
-
-TESTS:=$(patsubst %,%/test,$(wildcard tests/test[0-9][0-9][0-9]))
-
-ifneq ("$(DEBUG)", "pp")
-TESTS:=$(filter-out tests/test009/test,$(TESTS))
-endif
-
-include $(wildcard tests/*/vars.mk)
+CXXDEPS+=$(wildcard tests/test009/*.cpp)
 
