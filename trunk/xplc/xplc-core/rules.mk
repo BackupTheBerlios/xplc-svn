@@ -1,5 +1,4 @@
 # XPLC - Cross-Platform Lightweight Components
-# Copyright (C) 2000-2002, Pierre Phaneuf
 # Copyright (C) 2002, Net Integration Technologies, Inc.
 #
 # This library is free software; you can redistribute it and/or modify
@@ -19,13 +18,7 @@
 #
 # $Id$
 
-.PHONY: tests
+default: libxplc-core.a libxplc-core_s.a libxplc-core.so
 
-tests: tests/testmain tests/testobj.dll
-	@echo "Running tests:"
-	@cd tests && ./testmain
-
-tests/testmain: tests/testmain.o $(patsubst %.cpp,%.o,$(wildcard tests/test[0-9][0-9][0-9].cpp)) libxplc.a libxplc-core.a $(LIBS)
-
-tests/testobj.dll: tests/testobj.o
+libxplc-core.a libxplc-core.so: $(patsubst %.cpp,%.o,$(wildcard xplc-core/*.cpp))
 

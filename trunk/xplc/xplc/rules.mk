@@ -23,3 +23,5 @@ default: libxplc.a libxplc_s.a libxplc.so
 
 libxplc.a libxplc.so: $(patsubst %.cpp,%.o,$(wildcard xplc/*.cpp))
 
+libxplc.so: libxplc-core.so
+

@@ -20,9 +20,9 @@
  * USA
  */
 
+#include <xplc/core.h>
 #include <xplc/xplc.h>
 #include <xplc/utils.h>
-#include "servmgr.h"
 #include "statichandler.h"
 #include "moduleloader.h"
 #include "singleloader.h"
@@ -30,9 +30,8 @@
 #include "monikers.h"
 #include "new.h"
 
-static ServiceManager* servmgr = 0;
-
 IServiceManager* XPLC::getServiceManager() {
+  IServiceManager* servmgr;
   IObject* obj;
   IStaticServiceHandler* handler;
   IStaticServiceHandler* handler2;
@@ -40,21 +39,19 @@ IServiceManager* XPLC::getServiceManager() {
   IFactory* factoryfactory;
   IMonikerService* monikers;
 
-  if(servmgr) {
-    servmgr->addRef();
-    return servmgr;
-  }
-
   /*
    * The basic services have to be created.
    */
 
-  ServiceManager::create(&servmgr);
-
-  if(servmgr)
-    servmgr->addRef();
-  else
+  servmgr = XPLC_getCoreServiceManager();
+  if(!servmgr)
     return 0;
+
+  obj = servmgr->getObject(XPLC::staticServiceHandler);
+  if(obj) {
+    obj->release();
+    return servmgr;
+  }
 
   handler = StaticServiceHandler::create();
 

@@ -29,12 +29,10 @@
 class ServiceManager: public IServiceManager {
 private:
   HandlerNode* handlers;
-  ServiceManager** reference;
 public:
   ServiceManager(): handlers(0) {
   }
   virtual ~ServiceManager();
-  static void create(ServiceManager**);
   /* IServiceManager */
   virtual void addHandler(IServiceHandler*);
   virtual void addFirstHandler(IServiceHandler*);

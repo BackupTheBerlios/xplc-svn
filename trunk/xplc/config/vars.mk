@@ -23,7 +23,7 @@ DEPFILES:=$(shell find . -name '.*.d')
 
 CLEAN+=$(shell find . -name '*.o' -print) $(DEPFILES)
 DISTCLEAN+=config/config.mk include/xplc/autoconf.h ChangeLog.bak
-REALCLEAN+=ChangeLog include/xplc/autoconf.h.in
+REALCLEAN+=ChangeLog autom4te.cache include/xplc/autoconf.h.in
 
 SIMPLETARGETS+=ChangeLog clean dustclean realclean distclean
 

@@ -63,16 +63,16 @@ xplc.spec: dist/xplc.spec.in
 	sed $< -e 's%@VERSION@%$(PACKAGE_VERSION)%g' > $@
 
 dustclean:
-	-rm -f $(shell find . -name 'core' -print) $(shell find . -name '*~' -print) $(shell find . -name '.#*' -print)
+	-rm -rf $(shell find . -name '*~' -print) $(shell find . -name '.#*' -print)
 
 clean: dustclean
-	-rm -f $(wildcard $(CLEAN))
+	-rm -rf $(wildcard $(CLEAN))
 
 distclean: clean
-	-rm -f $(wildcard $(DISTCLEAN))
+	-rm -rf $(wildcard $(DISTCLEAN))
 
 realclean: distclean
-	-rm -f $(wildcard $(REALCLEAN))
+	-rm -rf $(wildcard $(REALCLEAN))
 
 installdirs:
 	mkdir -p $(DESTDIR)$(libdir)
