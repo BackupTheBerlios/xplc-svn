@@ -23,18 +23,24 @@
 #ifndef __XPLC_UTILS_H__
 #define __XPLC_UTILS_H__
 
+#include <stddef.h>
 #include <xplc/IObject.h>
+
+struct UUID_Info {
+  const UUID* const iid;
+  const ptrdiff_t delta;
+};
 
 /*
  * Mix-in template that contains an implementation of methods a basic
  * component will need to implement.
  */
 template<class Component>
-class GenericComponent: public Component {
+class GenericComponentOld: public Component {
 private:
   unsigned int refcount;
 public:
-  GenericComponent(): refcount(0) {
+  GenericComponentOld(): refcount(0) {
   }
   virtual unsigned int addRef() {
     return ++refcount;

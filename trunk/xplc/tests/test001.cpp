@@ -39,7 +39,7 @@ const UUID obj3 = {0xe1eabacb, 0x0795, 0x4c6d, {0x81, 0x8e, 0x7a, 0xab, 0x2c, 0x
 class Handler1: public IServiceHandler {
 public:
   static Handler1* create() {
-    return new GenericComponent<Handler1>;
+    return new GenericComponentOld<Handler1>;
   }
   virtual IObject* getObject(const UUID& uuid) {
     if(uuid.equals(obj1)) {
@@ -68,7 +68,7 @@ public:
 class Handler2: public IServiceHandler {
 public:
   static Handler2* create() {
-    return new GenericComponent<Handler2>;
+    return new GenericComponentOld<Handler2>;
   }
   virtual IObject* getObject(const UUID& uuid) {
     VERIFY(!uuid.equals(obj1), "request for the first object reached second handler");
@@ -99,7 +99,7 @@ public:
 class Handler3: public IServiceHandler {
 public:
   static Handler3* create() {
-    return new GenericComponent<Handler3>;
+    return new GenericComponentOld<Handler3>;
   }
   virtual IObject* getObject(const UUID& uuid) {
     VERIFY(!uuid.equals(obj1), "request for the first object reached third handler");

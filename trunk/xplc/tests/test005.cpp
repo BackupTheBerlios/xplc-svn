@@ -97,7 +97,7 @@ public:
 };
 
 MyTestObject* MyTestObject::create() {
-  return new GenericComponent<MyTestObject>;
+  return new GenericComponentOld<MyTestObject>;
 }
 
 void test005() {

@@ -25,7 +25,7 @@
 #include "statichandler.h"
 
 StaticServiceHandler* StaticServiceHandler::create() {
-  return new GenericComponent<StaticServiceHandler>;
+  return new GenericComponentOld<StaticServiceHandler>;
 }
 
 StaticServiceHandler::~StaticServiceHandler() {

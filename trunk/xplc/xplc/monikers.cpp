@@ -27,7 +27,7 @@
 #define MONIKER_SEPARATOR_CHAR ':'
 
 MonikerService* MonikerService::create() {
-  return new GenericComponent<MonikerService>;
+  return new GenericComponentOld<MonikerService>;
 }
 
 MonikerService::~MonikerService() {

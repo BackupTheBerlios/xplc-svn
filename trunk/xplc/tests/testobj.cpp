@@ -41,7 +41,7 @@ public:
 };
 
 inline TestComponent* TestComponent::create() {
-  return new GenericComponent<TestComponent>;
+  return new GenericComponentOld<TestComponent>;
 }
 
 IObject* TestComponent::getInterface(const UUID& aUuid) {
@@ -104,7 +104,7 @@ public:
 ENTRYPOINT IModule* XPLC_GetModule(IServiceManager*,
                                    const unsigned int version) {
   if(!module)
-    module = new GenericComponent<TestModule>;
+    module = new GenericComponentOld<TestModule>;
 
   if(version == 0 && module) {
     module->addRef();

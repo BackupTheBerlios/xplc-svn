@@ -25,7 +25,7 @@
 #include "servmgr.h"
 
 void ServiceManager::create(ServiceManager** aReference) {
-  *aReference = new GenericComponent<ServiceManager>;
+  *aReference = new GenericComponentOld<ServiceManager>;
 
   (*aReference)->reference = aReference;
 }

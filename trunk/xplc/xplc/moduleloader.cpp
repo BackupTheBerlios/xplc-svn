@@ -51,7 +51,7 @@
 #include "moduleloader.h"
 
 IObject* ModuleLoader::create() {
-  return new GenericComponent<ModuleLoader>;
+  return new GenericComponentOld<ModuleLoader>;
 }
 
 ModuleLoader::~ModuleLoader() {

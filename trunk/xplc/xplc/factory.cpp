@@ -25,7 +25,7 @@
 #include "factory.h"
 
 IObject* GenericFactory::create() {
-  return new GenericComponent<GenericFactory>;
+  return new GenericComponentOld<GenericFactory>;
 }
 
 IObject* GenericFactory::getInterface(const UUID& aUuid) {

@@ -29,7 +29,7 @@ static NewMoniker* singleton = 0;
 
 NewMoniker* NewMoniker::obtain() {
   if(!singleton)
-    singleton = new GenericComponent<NewMoniker>;
+    singleton = new GenericComponentOld<NewMoniker>;
 
   return singleton;
 }

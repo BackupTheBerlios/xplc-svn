@@ -29,7 +29,7 @@
 #include "singleloader.h"
 
 IObject* SingleModuleLoader::create() {
-  return new GenericComponent<SingleModuleLoader>;
+  return new GenericComponentOld<SingleModuleLoader>;
 }
 
 IObject* SingleModuleLoader::getInterface(const UUID& aUuid) {
