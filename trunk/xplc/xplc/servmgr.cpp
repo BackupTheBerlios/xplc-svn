@@ -24,7 +24,7 @@
 #include <xplc/utils.h>
 #include "servmgr.h"
 
-const UUID_Info GenericComponentInline<ServiceManager>::uuids[] = {
+const UUID_Info GenericComponent<ServiceManager>::uuids[] = {
   { &IObject::IID, 0 },
   { &IServiceManager::IID, 0 },
   { 0, 0 }
@@ -34,7 +34,7 @@ static ServiceManager* singleton;
 
 extern "C" IServiceManager* XPLC_getCoreServiceManager() {
   if(!singleton)
-    singleton = new GenericComponentInline<ServiceManager>;
+    singleton = new GenericComponent<ServiceManager>;
 
   if(singleton)
     singleton->addRef();

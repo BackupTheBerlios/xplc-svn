@@ -20,7 +20,6 @@
  * USA
  */
 
-#include <xplc/core.h>
 #include <xplc/xplc.h>
 #include <xplc/utils.h>
 #include "statichandler.h"
@@ -29,8 +28,9 @@
 #include "factory.h"
 #include "monikers.h"
 #include "new.h"
+#include "servmgr.h"
 
-IServiceManager* XPLC::getServiceManager() {
+IServiceManager* XPLC_getServiceManager() {
   IServiceManager* servmgr;
   IObject* obj;
   IStaticServiceHandler* handler;

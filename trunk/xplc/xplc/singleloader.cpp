@@ -85,7 +85,7 @@ const char* SingleModuleLoader::loadModule(const char* filename) {
     return "could not find XPLC_GetModule entry point";
   }
 
-  servmgr = XPLC::getServiceManager();
+  servmgr = XPLC_getServiceManager();
 
   module = getmodule(servmgr, XPLC_MODULE_VERSION);
   if(!module) {

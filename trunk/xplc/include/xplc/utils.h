@@ -24,7 +24,6 @@
 #define __XPLC_UTILS_H__
 
 #include <stddef.h>
-#include <xplc/xplc.h>
 #include <xplc/IFactory.h>
 
 struct UUID_Info {
@@ -153,7 +152,7 @@ Interface* create(const UUID& cid) {
   IFactory* factory;
   Interface* rv;
 
-  servmgr = XPLC::getServiceManager();
+  servmgr = XPLC_getCoreServiceManager();
   if(!servmgr)
     return 0;
 

@@ -69,7 +69,7 @@ IObject* MonikerService::resolve(const char* aName) {
 
   while(node) {
     if(strcmp(name, node->name) == 0) {
-      servmgr = XPLC::getServiceManager();
+      servmgr = XPLC_getServiceManager();
       if(!servmgr)
         break;
 

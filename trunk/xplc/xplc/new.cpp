@@ -44,7 +44,7 @@ IObject* NewMoniker::resolve(const char* aName) {
   IFactory* factory;
   IObject* obj = 0;
 
-  servmgr = XPLC::getServiceManager();
+  servmgr = XPLC_getServiceManager();
   if(servmgr) {
     monikers = mutate<IMoniker>(servmgr->getObject(XPLC::monikers));
 

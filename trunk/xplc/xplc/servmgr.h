@@ -26,6 +26,8 @@
 #include <xplc/IServiceManager.h>
 #include "handlernode.h"
 
+extern "C" IServiceManager* XPLC_getCoreServiceManager();
+
 class ServiceManager: public IServiceManager {
 private:
   HandlerNode* handlers;

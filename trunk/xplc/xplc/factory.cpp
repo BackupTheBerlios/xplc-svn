@@ -21,7 +21,7 @@
  */
 
 #include <stddef.h>
-#include <xplc/utils.h>
+#include <xplc/xplc.h>
 #include "factory.h"
 
 const UUID_Info GenericComponent<GenericFactory>::uuids[] = {

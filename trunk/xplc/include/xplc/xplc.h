@@ -23,14 +23,17 @@
 #ifndef __XPLC_XPLC_H__
 #define __XPLC_XPLC_H__
 
+#include <xplc/ptr.h>
+#include <xplc/utils.h>
 #include <xplc/IServiceManager.h>
+#include <xplc/IFactory.h>
+
+extern "C" IServiceManager* XPLC_getServiceManager();
 
 class XPLC {
+private:
+  IServiceManager* servmgr;
 public:
-  /*
-   * Global methods
-   */
-  static IServiceManager* getServiceManager();
   /*
    * XPLC components
    */
@@ -40,6 +43,27 @@ public:
   static const UUID monikers;
   static const UUID newMoniker;
   static const UUID moduleLoader;
+
+  XPLC(): servmgr(XPLC_getServiceManager()) {}
+
+  template<class Interface>
+  Interface* create(const UUID& cid) {
+    xplc_ptr<IFactory> factory;
+
+    if(!servmgr)
+      return 0;
+
+    factory = servmgr->getObject(cid);
+    if(!factory)
+      return 0;
+
+    return mutate<Interface>(factory->createObject());
+  }
+
+  virtual ~XPLC() {
+    if(servmgr)
+      servmgr->release();
+  }
 };
 
 DEFINE_UUID(XPLC::staticServiceHandler) = {0xf8c76062, 0xf241, 0x4f38,

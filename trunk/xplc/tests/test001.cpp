@@ -107,7 +107,7 @@ void test001() {
   IServiceHandler* handler3;
   IObject* obj;
 
-  serv = XPLC::getServiceManager();
+  serv = XPLC_getServiceManager();
 
   ASSERT(serv != 0, "could not obtain service manager");
 

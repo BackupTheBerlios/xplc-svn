@@ -21,6 +21,7 @@
  */
 
 #include <xplc/config.h>
+#include <xplc/xplc.h>
 #include <xplc/utils.h>
 #include <xplc/IModuleLoader.h>
 #include "test.h"
@@ -40,7 +41,7 @@ void test009() {
   IModuleLoader* loader;
   ITestComponent* test;
 
-  servmgr = XPLC::getServiceManager();
+  servmgr = XPLC_getServiceManager();
   ASSERT(servmgr != 0, "could not obtain service manager");
 
   obj = servmgr->getObject(XPLC::moduleLoader);

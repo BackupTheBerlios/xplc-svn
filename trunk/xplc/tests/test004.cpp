@@ -43,7 +43,7 @@ void test004() {
   ITestComponent* test;
   const char* err;
 
-  servmgr = XPLC::getServiceManager();
+  servmgr = XPLC_getServiceManager();
   ASSERT(servmgr != 0, "could not obtain service manager");
 
   obj = servmgr->getObject(XPLC::singleModuleLoader);

@@ -104,7 +104,7 @@ void ModuleLoader::setModuleDirectory(const char* directory)
     return;
 
   fname = static_cast<char*>(malloc(len));
-  servmgr = XPLC::getServiceManager();
+  servmgr = XPLC_getServiceManager();
 
   rewinddir(dir);
   while((ent = readdir(dir)) && fname && servmgr) {
