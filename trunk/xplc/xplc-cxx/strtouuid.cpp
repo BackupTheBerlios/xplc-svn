@@ -1,7 +1,7 @@
 /* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*-
  *
  * XPLC - Cross-Platform Lightweight Components
- * Copyright (C) 2002, Pierre Phaneuf
+ * Copyright (C) 2002-2003, Pierre Phaneuf
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public License
@@ -22,8 +22,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <xplc/uuid.h>
-
-const UUID UUID::null = {0, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0}};
 
 void UUID::fromString(const char* str) {
   char tmp[3];
@@ -103,6 +101,6 @@ void UUID::fromString(const char* str) {
   } while(0);
 
   if(!ok)
-    *this = null;
+    *this = UUID_null;
 }
 
