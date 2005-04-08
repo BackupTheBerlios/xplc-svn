@@ -77,7 +77,7 @@ Module* Module::loadModule(const char* modulename) {
   return new Module(dlh, moduleinfo);
 }
 
-Module::Module(void* aHandle, XPLC_ModuleInfo* aModuleInfo):
+Module::Module(void* aHandle, const XPLC_ModuleInfo* aModuleInfo):
   handle(aHandle),
   moduleinfo(aModuleInfo)
 {
@@ -101,6 +101,13 @@ IObject* Module::getObject(const UUID& cid) {
 }
 
 Module::~Module() {
-  loaderClose(handle);
+  /*
+   * FIXME: Adding the conditional here is for future expansion, where
+   * this class could be used for a non-dynamically loaded module. But
+   * for some reason, the size of this file increases in an odd way
+   * when it is added. This should be investigated.
+   */
+  if(handle)
+    loaderClose(handle);
 }
 
