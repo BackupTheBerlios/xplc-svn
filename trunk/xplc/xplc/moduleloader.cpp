@@ -69,11 +69,6 @@ Module* Module::loadModule(const char* modulename) {
     return NULL;
   };
 
-  if(moduleinfo->loadModule && !moduleinfo->loadModule()) {
-    loaderClose(dlh);
-    return NULL;
-  }
-
   return new Module(dlh, moduleinfo);
 }
 

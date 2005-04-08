@@ -64,13 +64,16 @@ const XPLC_ComponentEntry components[] = {
   { UUID_null, 0 }
 };
 
+const XPLC_CategoryEntry categories[] = {
+  { UUID_null, UUID_null }
+};
+
 const XPLC_ModuleInfo XPLC_Module = {
   XPLC_MODULE_MAGIC,
   XPLC_MODULE_VERSION_MAJOR,
   XPLC_MODULE_VERSION_MINOR,
   "Test Module",
   components,
-  0,
-  0
+  categories
 };
 
