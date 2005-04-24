@@ -84,6 +84,7 @@ struct XPLC_CategoryEntry {
   //@{
   const UUID& category;
   const UUID& uuid;
+  const char* const string;
   //@}
 };
 

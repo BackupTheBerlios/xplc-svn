@@ -21,9 +21,11 @@
  * USA
  */
 
+#include <assert.h>
+#include <xplc/ICategoryManager.h>
+#include <xplc/uuidops.h>
 #include "moduleloader.h"
 #include "loader.h"
-#include <xplc/uuidops.h>
 
 UUID_MAP_BEGIN(ModuleLoader)
   UUID_MAP_ENTRY(IObject)
@@ -76,6 +78,34 @@ Module::Module(void* aHandle, const XPLC_ModuleInfo* aModuleInfo):
   handle(aHandle),
   moduleinfo(aModuleInfo)
 {
+  assert(moduleinfo);
+
+  if(moduleinfo->categories) {
+    IServiceManager* servmgr;
+    IObject* obj;
+    ICategoryManager* catmgr;
+    const XPLC_CategoryEntry* entry;
+
+    servmgr = XPLC_getServiceManager();
+    assert(servmgr);
+
+    obj = servmgr->getObject(XPLC_categoryManager);
+    assert(obj);
+
+    servmgr->release();
+
+    catmgr = mutate<ICategoryManager>(obj);
+    assert(catmgr);
+
+    entry = moduleinfo->categories;
+    while(entry->category != UUID_null && entry->uuid != UUID_null) {
+      catmgr->registerComponent(entry->category, entry->uuid, entry->string);
+
+      ++entry;
+    }
+
+    catmgr->release();
+  }
 }
 
 IObject* Module::getObject(const UUID& cid) {

@@ -65,8 +65,8 @@ const XPLC_ComponentEntry components[] = {
 };
 
 const XPLC_CategoryEntry categories[] = {
-  { TestCategory, TestComponent_CID },
-  { UUID_null, UUID_null }
+  { testCategory, TestComponent_CID, "TestComponent" },
+  { UUID_null, UUID_null, 0 }
 };
 
 const XPLC_ModuleInfo XPLC_Module = {
