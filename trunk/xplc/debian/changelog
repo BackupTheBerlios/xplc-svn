@@ -1,3 +1,17 @@
+xplc (0.3.12-1.1) NONE; urgency=low
+
+  * Unofficial build from CVS.
+
+ -- J. Random Hacker <jrhacker@example>  Wed,  7 Jul 2005 00:00:00 -0000
+
+xplc (0.3.12-1) unstable; urgency=low
+
+  * New upstream release.
+  * Built for G++ 4.0.
+  * BuildAdd a Build-Depends for pkg-config.
+
+ -- Simon Law <sfllaw@debian.org>  Wed,  6 Jul 2005 12:36:20 -0400
+
 xplc (0.3.11-1) unstable; urgency=low
 
   * New Upstream release. (Closes: #286505)
