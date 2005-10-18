@@ -23,7 +23,7 @@
 #ifndef __XPLC_ISERVICEHANDLER_H__
 #define __XPLC_ISERVICEHANDLER_H__
 
-#ifdef __GNUC__
+#if defined(__GNUC__) && __GNUC__ > 3
 # pragma GCC system_header
 #endif
 
