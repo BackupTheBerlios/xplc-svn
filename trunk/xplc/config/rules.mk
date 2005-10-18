@@ -102,14 +102,14 @@ realclean: distclean
 installdirs:
 	mkdir -p $(DESTDIR)$(libdir)/pkgconfig
 	mkdir -p $(DESTDIR)$(libdir)$(libdir_version)
-	mkdir -p $(DESTDIR)$(includedir)/xplc
+	mkdir -p $(DESTDIR)$(includedir)$(libdir_version)/xplc
 
 install: default installdirs
 	$(INSTALL_PROGRAM) libxplc.so $(DESTDIR)$(libdir)/libxplc.so.$(PACKAGE_VERSION)
 	$(INSTALL_DATA) libxplc.a $(DESTDIR)$(libdir)$(libdir_version)
 	$(INSTALL_DATA) libxplc-cxx.a $(DESTDIR)$(libdir)$(libdir_version)
 	$(INSTALL_DATA) dist/xplc.pc $(DESTDIR)$(libdir)/pkgconfig/xplc$(pc_version).pc
-	$(INSTALL_DATA) $(wildcard include/xplc/*.h) $(DESTDIR)$(includedir)/xplc
+	$(INSTALL_DATA) $(wildcard include/xplc/*.h) $(DESTDIR)$(includedir)$(libdir_version)/xplc
 	$(LN_S) $(lib_prefix_version)libxplc.so.$(PACKAGE_VERSION) $(DESTDIR)$(libdir)$(libdir_version)/libxplc.so
 	$(LN_S) libxplc.a $(DESTDIR)$(libdir)$(libdir_version)/libxplc_s.a
 
