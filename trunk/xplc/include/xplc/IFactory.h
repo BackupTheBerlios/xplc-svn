@@ -23,6 +23,10 @@
 #ifndef __XPLC_IFACTORY_H__
 #define __XPLC_IFACTORY_H__
 
+#ifdef __GNUC__
+# pragma GCC system_header
+#endif
+
 #include <xplc/IObject.h>
 
 /** \interface IFactory IFactory.h xplc/IFactory.h

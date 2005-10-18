@@ -22,6 +22,10 @@
 #ifndef __XPLC_ICATEGORY_H__
 #define __XPLC_ICATEGORY_H__
 
+#ifdef __GNUC__
+# pragma GCC system_header
+#endif
+
 #include <xplc/IFactory.h>
 #include <xplc/ICategoryIterator.h>
 

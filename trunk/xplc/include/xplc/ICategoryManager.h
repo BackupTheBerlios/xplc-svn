@@ -22,6 +22,10 @@
 #ifndef __XPLC_ICATEGORYMANAGER_H__
 #define __XPLC_ICATEGORYMANAGER_H__
 
+#ifdef __GNUC__
+# pragma GCC system_header
+#endif
+
 #include <xplc/IServiceHandler.h>
 #include <xplc/ICategory.h>
 

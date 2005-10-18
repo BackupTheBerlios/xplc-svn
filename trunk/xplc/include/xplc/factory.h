@@ -32,6 +32,10 @@
 #ifndef __XPLC_FACTORY_H__
 #define __XPLC_FACTORY_H__
 
+#ifdef __GNUC__
+# pragma GCC system_header
+#endif
+
 #include <xplc/IFactory.h>
 #include <xplc/utils.h>
 

@@ -24,6 +24,10 @@
 #ifndef __XPLC_MODULE_H__
 #define __XPLC_MODULE_H__
 
+#ifdef __GNUC__
+# pragma GCC system_header
+#endif
+
 /** \file
  *
  * Structures and definitions related to the XPLC module ABI

@@ -22,6 +22,10 @@
 #ifndef __XPLC_ICATEGORYITERATOR_H__
 #define __XPLC_ICATEGORYITERATOR_H__
 
+#ifdef __GNUC__
+# pragma GCC system_header
+#endif
+
 #include <xplc/IObject.h>
 
 /** \interface ICategoryIterator ICategoryIterator.h xplc/ICategoryIterator.h

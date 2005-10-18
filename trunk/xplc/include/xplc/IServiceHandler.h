@@ -23,6 +23,10 @@
 #ifndef __XPLC_ISERVICEHANDLER_H__
 #define __XPLC_ISERVICEHANDLER_H__
 
+#ifdef __GNUC__
+# pragma GCC system_header
+#endif
+
 /** \file
  *
  * The service handler interface.

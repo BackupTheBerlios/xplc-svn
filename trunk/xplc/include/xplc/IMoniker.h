@@ -23,6 +23,10 @@
 #ifndef __XPLC_IMONIKER_H__
 #define __XPLC_IMONIKER_H__
 
+#ifdef __GNUC__
+# pragma GCC system_header
+#endif
+
 #include <xplc/IObject.h>
 
 /** \interface IMoniker IMoniker.h xplc/IMoniker.h

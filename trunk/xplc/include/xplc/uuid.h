@@ -24,6 +24,10 @@
 #ifndef __XPLC_UUID_H__
 #define __XPLC_UUID_H__
 
+#ifdef __GNUC__
+# pragma GCC system_header
+#endif
+
 /** \file
  *
  * Universally Unique IDentifiers.
