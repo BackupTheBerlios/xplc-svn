@@ -83,6 +83,8 @@ void print_help(const char* program) {
   printf("When called without options, this programme will generate a "
          "universally\n"
          "unique identifier (UUID), and output it as requested.\n");
+  printf("\n"
+         "Report bugs to <" PACKAGE_BUGREPORT ">.\n");
 }
 
 
