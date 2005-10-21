@@ -105,7 +105,7 @@ realclean: distclean
 
 installdirs:
 	mkdir -p $(DESTDIR)$(bindir)
-	mkdir -p $(DESTDIR)$(mandir)
+	mkdir -p $(DESTDIR)$(mandir)/man1
 	mkdir -p $(DESTDIR)$(libdir)/pkgconfig
 	mkdir -p $(DESTDIR)$(libdir)$(xplcdir_version)
 	mkdir -p $(DESTDIR)$(includedir)$(xplcdir_version)/xplc
@@ -117,11 +117,11 @@ install: default installdirs
 	$(INSTALL_DATA) dist/xplc.pc $(DESTDIR)$(libdir)/pkgconfig/xplc$(pc_version).pc
 	$(INSTALL_DATA) $(wildcard include/xplc/*.h) $(DESTDIR)$(includedir)$(xplcdir_version)/xplc
 	$(INSTALL_PROGRAM) uuid/bin/uuidgen $(DESTDIR)$(bindir)
-	$(INSTALL_DATA) uuid/bin/uuidgen.1 $(DESTDIR)$(mandir)
+	$(INSTALL_DATA) uuid/bin/uuidgen.1 $(DESTDIR)$(mandir)/man1
 	$(LN_S) $(lib_prefix_version)libxplc.so.$(PACKAGE_VERSION) $(DESTDIR)$(libdir)$(xplcdir_version)/libxplc.so
 	$(LN_S) libxplc.a $(DESTDIR)$(libdir)$(xplcdir_version)/libxplc_s.a
 	$(LN_S) uuidgen $(DESTDIR)$(bindir)/uuidcdef
-	$(LN_S) uuidgen.1 $(DESTDIR)$(mandir)/uuidcdef.1
+	$(LN_S) uuidgen.1 $(DESTDIR)$(mandir)/man1/uuidcdef.1
 
 uninstall:
 	rm -f $(DESTDIR)$(libdir)/libxplc.so.$(PACKAGE_VERSION) $(DESTDIR)$(libdir)$(xplcdir_version)/libxplc.so
@@ -129,7 +129,8 @@ uninstall:
 	rm -f $(DESTDIR)$(libdir)$(xplcdir_version)/libxplc-cxx.a
 	rm -f $(DESTDIR)$(libdir)/pkgconfig/xplc$(pc_version).pc
 	rm -f $(DESTDIR)$(bindir)/uuidgen $(DESTDIR)$(bindir)/uuidcdef
-	rm -f $(DESTDIR)$(mandir)/uuidgen.1 $(DESTDIR)$(mandir)/uuidcdef.1
+	rm -f $(DESTDIR)$(mandir)/man1/uuidgen.1
+	rm -f $(DESTDIR)$(mandir)/man1/uuidcdef.1
 	rm -rf $(DESTDIR)$(includedir)$(xplcdir_version)/xplc
 ifneq ($(xplcdir_version),)
 	rm -rf $(DESTDIR)$(libdir)$(xplcdir_version)
