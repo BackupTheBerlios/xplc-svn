@@ -39,6 +39,7 @@ exec_prefix:=@exec_prefix@
 includedir:=@includedir@
 libdir:=@libdir@
 bindir:=@bindir@
+mandir:=@mandir@
 INSTALL:=@INSTALL@
 INSTALL_PROGRAM:=@INSTALL_PROGRAM@
 INSTALL_DATA:=@INSTALL_DATA@
