@@ -101,24 +101,28 @@ realclean: distclean
 
 installdirs:
 	mkdir -p $(DESTDIR)$(libdir)/pkgconfig
-	mkdir -p $(DESTDIR)$(libdir)$(libdir_version)
-	mkdir -p $(DESTDIR)$(includedir)$(libdir_version)/xplc
+	mkdir -p $(DESTDIR)$(libdir)$(xplcdir_version)
+	mkdir -p $(DESTDIR)$(includedir)$(xplcdir_version)/xplc
 
 install: default installdirs
 	$(INSTALL_PROGRAM) libxplc.so $(DESTDIR)$(libdir)/libxplc.so.$(PACKAGE_VERSION)
-	$(INSTALL_DATA) libxplc.a $(DESTDIR)$(libdir)$(libdir_version)
-	$(INSTALL_DATA) libxplc-cxx.a $(DESTDIR)$(libdir)$(libdir_version)
+	$(INSTALL_DATA) libxplc.a $(DESTDIR)$(libdir)$(xplcdir_version)
+	$(INSTALL_DATA) libxplc-cxx.a $(DESTDIR)$(libdir)$(xplcdir_version)
 	$(INSTALL_DATA) dist/xplc.pc $(DESTDIR)$(libdir)/pkgconfig/xplc$(pc_version).pc
-	$(INSTALL_DATA) $(wildcard include/xplc/*.h) $(DESTDIR)$(includedir)$(libdir_version)/xplc
-	$(LN_S) $(lib_prefix_version)libxplc.so.$(PACKAGE_VERSION) $(DESTDIR)$(libdir)$(libdir_version)/libxplc.so
-	$(LN_S) libxplc.a $(DESTDIR)$(libdir)$(libdir_version)/libxplc_s.a
+	$(INSTALL_DATA) $(wildcard include/xplc/*.h) $(DESTDIR)$(includedir)$(xplcdir_version)/xplc
+	$(LN_S) $(lib_prefix_version)libxplc.so.$(PACKAGE_VERSION) $(DESTDIR)$(libdir)$(xplcdir_version)/libxplc.so
+	$(LN_S) libxplc.a $(DESTDIR)$(libdir)$(xplcdir_version)/libxplc_s.a
 
 uninstall:
-	rm -f $(DESTDIR)$(libdir)/libxplc.so.$(PACKAGE_VERSION) $(DESTDIR)$(libdir)$(libdir_version)/libxplc.so
-	rm -f $(DESTDIR)$(libdir)$(libdir_version)/libxplc.a $(DESTDIR)$(libdir)$(libdir_version)/libxplc_s.a
-	rm -f $(DESTDIR)$(libdir)$(libdir_version)/libxplc-cxx.a
+	rm -f $(DESTDIR)$(libdir)/libxplc.so.$(PACKAGE_VERSION) $(DESTDIR)$(libdir)$(xplcdir_version)/libxplc.so
+	rm -f $(DESTDIR)$(libdir)$(xplcdir_version)/libxplc.a $(DESTDIR)$(libdir)$(xplcdir_version)/libxplc_s.a
+	rm -f $(DESTDIR)$(libdir)$(xplcdir_version)/libxplc-cxx.a
 	rm -f $(DESTDIR)$(libdir)/pkgconfig/xplc$(pc_version).pc
-	rm -rf $(DESTDIR)$(includedir)/xplc
+	rm -rf $(DESTDIR)$(includedir)$(xplcdir_version)/xplc
+ifneq ($(xplcdir_version),)
+	rm -rf $(DESTDIR)$(libdir)$(xplcdir_version)
+	rm -rf $(DESTDIR)$(includedir)$(xplcdir_version)
+endif
 
 ifeq ($(filter-out $(SIMPLETARGETS),$(MAKECMDGOALS)),$(MAKECMDGOALS))
 
