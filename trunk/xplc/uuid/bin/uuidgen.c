@@ -74,35 +74,35 @@ void print_help(const char* program) {
   printf("Usage: %s [OPTION]\n", program);
   printf("Generate a new universally unique identifier (UUID)\n");
   printf("\n"
-	 "  -c, --cdef\toutput C structure for XPLC\n"
-	 "  -r, --random\tgenerate random-based UUID\n"
-	 "  -t, --time\tgenerate time-based UUID\n"
-	 "  -u, --uuid\thuman-readable output\n"
-	 "      --help\tdisplay this help and exit\n"
-	 "      --version\toutput version information and exit\n"
-	 "\n");
+         "  -c, --cdef\toutput C structure for XPLC\n"
+         "  -r, --random\tgenerate random-based UUID\n"
+         "  -t, --time\tgenerate time-based UUID\n"
+         "  -u, --uuid\thuman-readable output\n"
+         "      --help\tdisplay this help and exit\n"
+         "      --version\toutput version information and exit\n"
+         "\n");
   printf("When called without options, this programme will generate a "
-	 "universally\n"
-	 "unique identifier (UUID), and output it as requested.\n");
+         "universally\n"
+         "unique identifier (UUID), and output it as requested.\n");
 }
 
 
 void print_version(const char* program) {
   printf("XPLC uuidgen version " PACKAGE_VERSION "\n"
-	 "Written by Simon Law.\n"
-	 "\n"
-	 "Copyright (C) 2005, Net Integration Technologies, Inc.\n"
-	 "This is free software; see the source for copying conditions.  "
-	 "There is NO\n"
-	 "warranty; not even for MERCHANTABILITY or FITNESS FOR A "
-	 "PARTICULAR PURPOSE.\n");
+         "Written by Simon Law.\n"
+         "\n"
+         "Copyright (C) 2005, Net Integration Technologies, Inc.\n"
+         "This is free software; see the source for copying conditions.  "
+         "There is NO\n"
+         "warranty; not even for MERCHANTABILITY or FITNESS FOR A "
+         "PARTICULAR PURPOSE.\n");
 }
 
 
 int parse_short_option(const int flag, struct config_t* cfg) {
   if(!cfg) {
     fprintf(stderr,
-	    "%s: Programmer error at %s:%d\n", program, __FILE__, __LINE__);
+            "%s: Programmer error at %s:%d\n", program, __FILE__, __LINE__);
     abort();
   }
 
@@ -131,9 +131,9 @@ int parse_short_option(const int flag, struct config_t* cfg) {
     return -1;
   default:
     fprintf(stderr,
-	    "%s: invalid option -- %c\n"
-	    "Try `%s --help' for more information.\n",
-	    program, flag, program);
+            "%s: invalid option -- %c\n"
+            "Try `%s --help' for more information.\n",
+            program, flag, program);
     return 1;
   }
   return 0;
@@ -156,9 +156,9 @@ int parse_long_option(const char* option, struct config_t* cfg) {
     ret = parse_short_option('u', cfg);
   else {
     fprintf(stderr,
-	    "%s: unrecognised option `%s'\n"
-	    "Try `%s --help' for more information.\n",
-	    program, option, program);
+            "%s: unrecognised option `%s'\n"
+            "Try `%s --help' for more information.\n",
+            program, option, program);
     ret = 1;
   }
   return ret;
@@ -170,7 +170,7 @@ int parse_conf(int argc, char** argv, struct config_t* cfg) {
 
   if(!cfg) {
     fprintf(stderr,
-	    "%s: Programmer error at %s:%d\n", program, __FILE__, __LINE__);
+            "%s: Programmer error at %s:%d\n", program, __FILE__, __LINE__);
     abort();
   }
 
@@ -187,48 +187,48 @@ int parse_conf(int argc, char** argv, struct config_t* cfg) {
     for(c = argv[i]; c; c && ++c) {
       switch(state) {
       case PARSE_INVALID:
-	fprintf(stderr,
-		"%s: unrecognised option `%s'\n"
-		"Try `%s --help' for more information.\n",
-		program, argv[i], program);
-	return 1;
+        fprintf(stderr,
+                "%s: unrecognised option `%s'\n"
+                "Try `%s --help' for more information.\n",
+                program, argv[i], program);
+        return 1;
       case PARSE_FLAGS:
-	switch(*c) {
-	case '-':
-	  state = PARSE_LONG_OPTION;
-	  break;
-	default:
-	  state = PARSE_SHORT_OPTIONS;
-	  --c;
-	}
-	break;
+        switch(*c) {
+        case '-':
+          state = PARSE_LONG_OPTION;
+          break;
+        default:
+          state = PARSE_SHORT_OPTIONS;
+          --c;
+        }
+        break;
       case PARSE_SHORT_OPTIONS:
-	if(*c) {
-	  int ret = parse_short_option(*c, cfg);
-	  if(ret > 0)
-	    return ret;
-	  else if(ret < 0)
-	    return 0;
-	} else
-	  c = NULL;
-	break;
+        if(*c) {
+          int ret = parse_short_option(*c, cfg);
+          if(ret > 0)
+            return ret;
+          else if(ret < 0)
+            return 0;
+        } else
+          c = NULL;
+        break;
       case PARSE_LONG_OPTION: {
-	int ret = parse_long_option(argv[i], cfg);
-	if(ret > 0)
-	  return ret;
-	else if(ret < 0)
-	  return 0;
-	c = NULL;
-	break;
+        int ret = parse_long_option(argv[i], cfg);
+        if(ret > 0)
+          return ret;
+        else if(ret < 0)
+          return 0;
+        c = NULL;
+        break;
       }
       default:
-	switch(*c) {
-	case '-':
-	  state = PARSE_FLAGS;
-	  break;
-	default:
-	  state = PARSE_INVALID;
-	}
+        switch(*c) {
+        case '-':
+          state = PARSE_FLAGS;
+          break;
+        default:
+          state = PARSE_INVALID;
+        }
       }
     }
   }
@@ -245,23 +245,23 @@ const char* uuid_unparse_x_(const uuid_t uuid) {
   int ret;
   uuid_unparse(uuid, uuid_unparse_buf);
   ret = sscanf(uuid_unparse_buf,
-	       "%08x-%04x-%04x-%02x%02x-%02x%02x%02x%02x%02x%02x",
-	       &a, &b, &c, &d, &e, &f, &g, &h, &i, &j, &k);
+               "%08x-%04x-%04x-%02x%02x-%02x%02x%02x%02x%02x%02x",
+               &a, &b, &c, &d, &e, &f, &g, &h, &i, &j, &k);
   if(ret != 11) {
     uuid_unparse_buf[59] = '\0';
     fprintf(stderr,
-	    "%s: libuuid error at %s:%d\n", program, __FILE__, __LINE__);
+            "%s: libuuid error at %s:%d\n", program, __FILE__, __LINE__);
     fprintf(stderr,
-	    "uuid_unparse() returned `%s'.\n", uuid_unparse_buf);
+            "uuid_unparse() returned `%s'.\n", uuid_unparse_buf);
     abort();
   }
   sprintf(uuid_unparse_buf,
-	  "{0x%08x, "
-	  "0x%04x, "
-	  "0x%04x, "
-	  "{0x%02x, 0x%02x, "
-	  "0x%02x, 0x%02x, 0x%02x, 0x%02x, 0x%02x, 0x%02x}}",
-	  a, b, c, d, e, f, g, h, i, j, k);
+          "{0x%08x, "
+          "0x%04x, "
+          "0x%04x, "
+          "{0x%02x, 0x%02x, "
+          "0x%02x, 0x%02x, 0x%02x, 0x%02x, 0x%02x, 0x%02x}}",
+          a, b, c, d, e, f, g, h, i, j, k);
   return uuid_unparse_buf;
 }
 const char* uuid_unparse_(const uuid_t uuid) {
