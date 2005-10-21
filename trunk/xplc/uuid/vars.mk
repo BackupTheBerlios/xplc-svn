@@ -1,8 +1,5 @@
-# @configure_input@
-#
 # XPLC - Cross-Platform Lightweight Components
-# Copyright (C) 2000-2002, Pierre Phaneuf
-# Copyright (C) 2002, Net Integration Technologies, Inc.
+# Copyright (C) 2005, Net Integration Technologies, Inc.
 #
 # This library is free software; you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as
@@ -21,30 +18,11 @@
 #
 # $Id$
 
-# set variables from the configure script
-CC=@CC@
-CFLAGS+=@CFLAGS@
-CXX=@CXX@
-CXXFLAGS+=@CXXFLAGS@
-pc_version:=@pc_version@
-xplcdir_version:=@xplcdir_version@
-lib_prefix_version:=@lib_prefix_version@
-enable_loader:=@enable_loader@
-with_dlopen:=@with_dlopen@
-so_style:=@so_style@
-with_uuid:=@with_uuid@
-with_uuid_static:=@with_uuid_static@
-prefix:=@prefix@
-exec_prefix:=@exec_prefix@
-includedir:=@includedir@
-libdir:=@libdir@
-bindir:=@bindir@
-INSTALL:=@INSTALL@
-INSTALL_PROGRAM:=@INSTALL_PROGRAM@
-INSTALL_DATA:=@INSTALL_DATA@
-PACKAGE_TARNAME:=@PACKAGE_TARNAME@
-PACKAGE_VERSION:=@PACKAGE_VERSION@
-LN_S:=@LN_S@
-LIBS:=@LIBS@
-CVS2CL:=@CVS2CL@
+UUID_BINS=uuid/bin/uuidgen uuid/bin/tst_uuid
+UUID_OBJS=$(addsuffix .o,$(UUID_BINS))
+
+CLEAN+=$(UUID_BINS) $(UUID_OBJS) uuid/bin/uuidcdef uuid/libuuid.a
+DISTCLEAN+=uuid/uuid_types.h
+
+uuid/%.o: CFLAGS+=-I. -include include/autoconf.h
 

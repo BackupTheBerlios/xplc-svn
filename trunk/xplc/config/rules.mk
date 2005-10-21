@@ -21,6 +21,10 @@
 
 .PHONY: ChangeLog dist dustclean clean distclean realclean installdirs install uninstall doxygen clean-doxygen examples
 
+%.o: %.c
+	@$(COMPILE.c) -M -E $< | sed -e 's|^.*:|$@:|' > $(dir $@).$(notdir $(@:.o=.d))
+	$(COMPILE.c) $(OUTPUT_OPTION) $<
+
 %.o: %.cpp
 	@$(COMPILE.cpp) -M -E $< | sed -e 's|^.*:|$@:|' > $(dir $@).$(notdir $(@:.o=.d))
 	$(COMPILE.cpp) $(OUTPUT_OPTION) $<
@@ -100,24 +104,30 @@ realclean: distclean
 	-rm -rf $(wildcard $(REALCLEAN))
 
 installdirs:
+	mkdir -p $(DESTDIR)$(bindir)
 	mkdir -p $(DESTDIR)$(libdir)/pkgconfig
 	mkdir -p $(DESTDIR)$(libdir)$(xplcdir_version)
 	mkdir -p $(DESTDIR)$(includedir)$(xplcdir_version)/xplc
 
 install: default installdirs
 	$(INSTALL_PROGRAM) libxplc.so $(DESTDIR)$(libdir)/libxplc.so.$(PACKAGE_VERSION)
+	$(INSTALL_DATA) libxplc.a $(DESTDIR)$(libdir)$(libdir_version)
+	$(INSTALL_DATA) libxplc-cxx.a $(DESTDIR)$(libdir)$(libdir_version)
+	$(INSTALL_PROGRAM) uuid/bin/uuidgen $(DESTDIR)$(bindir)
 	$(INSTALL_DATA) libxplc.a $(DESTDIR)$(libdir)$(xplcdir_version)
 	$(INSTALL_DATA) libxplc-cxx.a $(DESTDIR)$(libdir)$(xplcdir_version)
 	$(INSTALL_DATA) dist/xplc.pc $(DESTDIR)$(libdir)/pkgconfig/xplc$(pc_version).pc
 	$(INSTALL_DATA) $(wildcard include/xplc/*.h) $(DESTDIR)$(includedir)$(xplcdir_version)/xplc
 	$(LN_S) $(lib_prefix_version)libxplc.so.$(PACKAGE_VERSION) $(DESTDIR)$(libdir)$(xplcdir_version)/libxplc.so
 	$(LN_S) libxplc.a $(DESTDIR)$(libdir)$(xplcdir_version)/libxplc_s.a
+	$(LN_S) uuidgen $(DESTDIR)$(bindir)/uuidcdef
 
 uninstall:
 	rm -f $(DESTDIR)$(libdir)/libxplc.so.$(PACKAGE_VERSION) $(DESTDIR)$(libdir)$(xplcdir_version)/libxplc.so
 	rm -f $(DESTDIR)$(libdir)$(xplcdir_version)/libxplc.a $(DESTDIR)$(libdir)$(xplcdir_version)/libxplc_s.a
 	rm -f $(DESTDIR)$(libdir)$(xplcdir_version)/libxplc-cxx.a
 	rm -f $(DESTDIR)$(libdir)/pkgconfig/xplc$(pc_version).pc
+	rm -f $(DESTDIR)$(bindir)/uuidgen $(DESTDIR)$(bindir)/uuidcdef
 	rm -rf $(DESTDIR)$(includedir)$(xplcdir_version)/xplc
 ifneq ($(xplcdir_version),)
 	rm -rf $(DESTDIR)$(libdir)$(xplcdir_version)
