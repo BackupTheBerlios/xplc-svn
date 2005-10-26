@@ -26,6 +26,7 @@ CC=@CC@
 CFLAGS+=@CFLAGS@
 CXX=@CXX@
 CXXFLAGS+=@CXXFLAGS@
+LDFLAGS+=@LDFLAGS@
 pc_version:=@pc_version@
 xplcdir_version:=@xplcdir_version@
 lib_prefix_version:=@lib_prefix_version@

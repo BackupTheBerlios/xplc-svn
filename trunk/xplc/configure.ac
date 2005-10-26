@@ -96,6 +96,9 @@ darwin*|rhapsody*)
     ;;
 esac
 
+# Make sure we link in libc.
+LDFLAGS="$LDFLAGS -lc"
+
 if test "$with_dlopen" != "no"; then
     AC_CHECK_HEADERS(dlfcn.h)
     AC_SEARCH_LIBS(dlopen, dl, with_dlopen=$ac_cv_search_dlopen, with_dlopen=no)
