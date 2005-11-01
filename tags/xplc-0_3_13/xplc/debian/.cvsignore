@@ -1,0 +1,10 @@
+*.debhelper
+control
+compat
+files
+libxplc
+libxplc-dev
+uuidcdef.substvars
+stamp-autotools-files
+stamp-makefile-build
+tmp
