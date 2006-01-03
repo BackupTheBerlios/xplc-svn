@@ -194,7 +194,7 @@ if test "$enable_exceptions" != "yes"; then
 fi
 
 if test "$enable_pic" != "no"; then
-    CFLAGS="$CFLAGS -fpic"
+    CFLAGS="$CFLAGS -fPIC"
 fi
 
 pc_version=
