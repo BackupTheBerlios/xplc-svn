@@ -62,19 +62,3 @@ IObject* XPLC::create(const UUID& cid) {
   return factory->createObject();
 }
 
-IObject* XPLC::create(const char* aMoniker) {
-  if(!servmgr)
-    return 0;
-
-  xplc_ptr<IMoniker> moniker(mutate<IMoniker>(servmgr->getObject(XPLC_monikers)));
-  if(!moniker)
-    return 0;
-
-  xplc_ptr<IFactory> factory(mutate<IFactory>(moniker->resolve(aMoniker)));
-  if(!factory)
-    return 0;
-
-  return factory->createObject();
-}
-
-

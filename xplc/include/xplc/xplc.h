@@ -98,21 +98,6 @@ public:
   Interface* create(const UUID& cid) {
     return mutate<Interface>(create(cid));
   }
-
-  /**
-   * Object creation helper that operates from a moniker. Works like
-   * XPLC::create(const UUID&), but finds the object using a moniker
-   * instead.
-   */
-  IObject* create(const char*);
-  /**
-   * Templated variant of XPLC::create(const char*) that will do a
-   * getInterface() for you.
-   */
-  template<class Interface>
-  Interface* create(const char* aMoniker) {
-    return mutate<Interface>(create(aMoniker));
-  }
 };
 
 #endif /* __XPLC_XPLC_H__ */

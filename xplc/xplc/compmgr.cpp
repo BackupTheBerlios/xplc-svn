@@ -28,8 +28,6 @@
 #include "catmgr.h"
 #include "staticprovider.h"
 #include "moduleloader.h"
-#include "monikers.h"
-#include "new.h"
 #include "modulemgr.h"
 
 UUID_MAP_BEGIN(ComponentManager)
@@ -45,7 +43,6 @@ IComponentManager* XPLC_getComponentManager() {
   else {
     IStaticComponentProvider* provider;
     IStaticComponentProvider* provider2;
-    IMonikerService* monikers;
     IObject* obj;
 
     singleton = new ComponentManager;
@@ -73,12 +70,6 @@ IComponentManager* XPLC_getComponentManager() {
       return 0;
     }
 
-    obj = new NewMoniker;
-    if(obj) {
-      provider->addObject(XPLC_newMoniker, obj);
-      obj->release();
-    }
-
     obj = new CategoryManager;
     if(obj) {
       provider->addObject(XPLC_categoryManager, obj);
@@ -95,13 +86,6 @@ IComponentManager* XPLC_getComponentManager() {
     if(obj) {
       provider->addObject(XPLC_moduleManagerFactory, obj);
       obj->release();
-    }
-
-    monikers = new MonikerService;
-    if(monikers) {
-      monikers->registerObject("new", XPLC_newMoniker);
-      provider->addObject(XPLC_monikers, monikers);
-      monikers->release();
     }
 
     singleton->addProvider(provider);

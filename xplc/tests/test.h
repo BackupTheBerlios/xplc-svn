@@ -1,7 +1,7 @@
 /* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*-
  *
  * XPLC - Cross-Platform Lightweight Components
- * Copyright (C) 2000-2003, Pierre Phaneuf
+ * Copyright (C) 2000-2006, Pierre Phaneuf
  * Copyright (C) 2001, Stéphane Lajoie
  * Copyright (C) 2002-2004, Net Integration Technologies, Inc.
  *
@@ -35,9 +35,7 @@ void test002();
 void test003();
 void test004();
 void test005();
-void test006();
 void test007();
-void test008();
 void test009();
 void test010();
 void test011();

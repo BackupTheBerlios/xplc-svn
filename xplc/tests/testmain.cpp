@@ -1,7 +1,7 @@
 /* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*-
  *
  * XPLC - Cross-Platform Lightweight Components
- * Copyright (C) 2000-2002, Pierre Phaneuf
+ * Copyright (C) 2000-2006, Pierre Phaneuf
  * Copyright (C) 2001, Stéphane Lajoie
  *
  * This library is free software; you can redistribute it and/or
@@ -45,9 +45,7 @@ static Test tests[] = {
   ADD_TEST(test003),
   ADD_TEST(test004),
   ADD_TEST(test005),
-  ADD_TEST(test006),
   ADD_TEST(test007),
-  ADD_TEST(test008),
   ADD_TEST(test009),
   ADD_TEST(test010),
   ADD_TEST(test011),
