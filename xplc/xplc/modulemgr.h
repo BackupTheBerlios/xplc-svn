@@ -2,7 +2,7 @@
  *
  * XPLC - Cross-Platform Lightweight Components
  * Copyright (C) 2002-2004, Net Integration Technologies, Inc.
- * Copyright (C) 2002-2004, Pierre Phaneuf
+ * Copyright (C) 2002-2006, Pierre Phaneuf
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public License
@@ -33,12 +33,12 @@ public:
   static ModuleManagerFactory* create() {
     return new ModuleManagerFactory;
   }
-  virtual IServiceHandler* createModuleManager(const char* directory);
+  virtual IComponentProvider* createModuleManager(const char* directory);
 };
 
 struct ModuleNode;
 
-class ModuleManager: public IServiceHandler {
+class ModuleManager: public IComponentProvider {
   IMPLEMENT_IOBJECT(ModuleManager);
 private:
   ModuleNode* modules;

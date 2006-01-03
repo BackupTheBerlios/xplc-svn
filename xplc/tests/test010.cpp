@@ -1,7 +1,7 @@
 /* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*-
  *
  * XPLC - Cross-Platform Lightweight Components
- * Copyright (C) 2003, Pierre Phaneuf
+ * Copyright (C) 2003-2006, Pierre Phaneuf
  * Copyright (C) 2003, Net Integration Technologies, Inc.
  *
  * This library is free software; you can redistribute it and/or
@@ -62,7 +62,7 @@ void test010() {
   bool seen[NUM_CATITEM];
 #ifdef ENABLE_LOADER
   IModuleManagerFactory* mgrfactory;
-  IServiceHandler* modulemgr;
+  IComponentProvider* modulemgr;
 #endif
 
   servmgr = XPLC_getServiceManager();

@@ -1,7 +1,7 @@
 /* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*-
  *
  * XPLC - Cross-Platform Lightweight Components
- * Copyright (C) 2000-2002, Pierre Phaneuf
+ * Copyright (C) 2000-2006, Pierre Phaneuf
  * Copyright (C) 2001, Stéphane Lajoie
  * Copyright (C) 2002-2004, Net Integration Technologies, Inc.
  *
@@ -25,22 +25,22 @@
 #define __XPLC_SERVMGR_H__
 
 #include <xplc/IServiceManager.h>
-#include "handlernode.h"
+#include "providernode.h"
 
 class ServiceManager: public IServiceManager {
   IMPLEMENT_IOBJECT(ServiceManager);
 private:
-  HandlerNode* handlers;
+  ProviderNode* providers;
 public:
   ServiceManager():
-    handlers(0) {
+    providers(0) {
   }
   virtual ~ServiceManager();
   /* IServiceManager */
-  virtual void addHandler(IServiceHandler*);
-  virtual void addFirstHandler(IServiceHandler*);
-  virtual void addLastHandler(IServiceHandler*);
-  virtual void removeHandler(IServiceHandler*);
+  virtual void addProvider(IComponentProvider*);
+  virtual void addFirstProvider(IComponentProvider*);
+  virtual void addLastProvider(IComponentProvider*);
+  virtual void removeProvider(IComponentProvider*);
   virtual IObject* getObject(const UUID&);
 };
 

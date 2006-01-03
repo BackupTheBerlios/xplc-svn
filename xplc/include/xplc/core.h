@@ -2,7 +2,7 @@
  *
  * XPLC - Cross-Platform Lightweight Components
  * Copyright (C) 2002, Net Integration Technologies, Inc.
- * Copyright (C) 2004, Pierre Phaneuf
+ * Copyright (C) 2004-2006, Pierre Phaneuf
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public License
@@ -27,9 +27,9 @@
 
 extern "C" IServiceManager* XPLC_getServiceManager();
 
-static const UUID XPLC_staticServiceHandler = {0xf8c76062, 0xf241, 0x4f38,
-                                               {0x80, 0x8d, 0x73, 0x88,
-                                                0x31, 0x22, 0x89, 0xd8}};
+static const UUID XPLC_staticComponentProvider = {0xf8c76062, 0xf241, 0x4f38,
+												  {0x80, 0x8d, 0x73, 0x88,
+												   0x31, 0x22, 0x89, 0xd8}};
 
 static const UUID XPLC_moduleLoader = {0x59e3fa68, 0x807c, 0x4ecb,
                                        {0xbc, 0x26, 0xb8, 0x08,

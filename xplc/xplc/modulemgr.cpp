@@ -2,7 +2,7 @@
  *
  * XPLC - Cross-Platform Lightweight Components
  * Copyright (C) 2002-2004, Net Integration Technologies, Inc.
- * Copyright (C) 2002-2004, Pierre Phaneuf
+ * Copyright (C) 2002-2006, Pierre Phaneuf
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public License
@@ -63,7 +63,7 @@ UUID_MAP_BEGIN(ModuleManagerFactory)
 
 UUID_MAP_BEGIN(ModuleManager)
   UUID_MAP_ENTRY(IObject)
-  UUID_MAP_ENTRY(IServiceHandler)
+  UUID_MAP_ENTRY(IComponentProvider)
   UUID_MAP_END
 
 struct ModuleNode {
@@ -79,7 +79,7 @@ struct ModuleNode {
   }
 };
 
-IServiceHandler* ModuleManagerFactory::createModuleManager(const char* directory) {
+IComponentProvider* ModuleManagerFactory::createModuleManager(const char* directory) {
 #if !defined(WIN32)
   DIR* dir;
   struct dirent* ent;

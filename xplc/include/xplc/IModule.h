@@ -2,7 +2,7 @@
  *
  * XPLC - Cross-Platform Lightweight Components
  * Copyright (C) 2002-2004, Net Integration Technologies, Inc.
- * Copyright (C) 2002-2004, Pierre Phaneuf
+ * Copyright (C) 2002-2006, Pierre Phaneuf
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public License
@@ -27,14 +27,14 @@
 # pragma GCC system_header
 #endif
 
-#include <xplc/IServiceHandler.h>
+#include <xplc/IComponentProvider.h>
 
 /** \interface IModule IModule.h xplc/IModule.h
  *
  * The interface that a module should provide.
  */
 
-class IModule: public IServiceHandler {
+class IModule: public IComponentProvider {
   UNSTABLE_INTERFACE
 public:
   /*

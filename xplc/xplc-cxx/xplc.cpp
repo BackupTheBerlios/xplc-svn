@@ -2,7 +2,7 @@
  *
  * XPLC - Cross-Platform Lightweight Components
  * Copyright (C) 2002-2004, Net Integration Technologies, Inc.
- * Copyright (C) 2003-2004, Pierre Phaneuf
+ * Copyright (C) 2003-2006, Pierre Phaneuf
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public License
@@ -42,12 +42,12 @@ void XPLC::addModuleDirectory(const char* directory) {
   if(!factory)
     return;
 
-  xplc_ptr<IServiceHandler> modulemgr(factory->createModuleManager(directory));
+  xplc_ptr<IComponentProvider> modulemgr(factory->createModuleManager(directory));
 
   if(!modulemgr)
     return;
 
-  servmgr->addHandler(modulemgr);
+  servmgr->addProvider(modulemgr);
 }
 
 IObject* XPLC::create(const UUID& cid) {

@@ -1,7 +1,7 @@
 /* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*-
  *
  * XPLC - Cross-Platform Lightweight Components
- * Copyright (C) 2000-2002, Pierre Phaneuf
+ * Copyright (C) 2000-2006, Pierre Phaneuf
  * Copyright (C) 2001, Stéphane Lajoie
  * Copyright (C) 2002, Net Integration Technologies, Inc.
  *
@@ -27,7 +27,7 @@
 /*
  * test001
  *
- * Verifies that the service manager queries handlers properly.
+ * Verifies that the component manager queries providers properly.
  */
 
 const UUID obj1 = {0xd60530d8, 0x9a3d, 0x4c8e, {0xaa, 0x0b, 0x48, 0x32, 0xc6, 0x9c, 0xf0, 0x1a}};
@@ -36,11 +36,11 @@ const UUID obj2 = {0x862adfe4, 0x0821, 0x4f88, {0x85, 0x4a, 0xb9, 0xbf, 0xb9, 0x
 
 const UUID obj3 = {0xe1eabacb, 0x0795, 0x4c6d, {0x81, 0x8e, 0x7a, 0xab, 0x2c, 0x5a, 0x82, 0x25}};
 
-class Handler1: public IServiceHandler {
-  IMPLEMENT_IOBJECT(Handler1);
+class Provider1: public IComponentProvider {
+  IMPLEMENT_IOBJECT(Provider1);
 public:
-  static Handler1* create() {
-    return new Handler1;
+  static Provider1* create() {
+    return new Provider1;
   }
   virtual IObject* getObject(const UUID& uuid) {
     if(uuid == obj1) {
@@ -51,14 +51,14 @@ public:
   }
 };
 
-class Handler2: public IServiceHandler {
-  IMPLEMENT_IOBJECT(Handler2);
+class Provider2: public IComponentProvider {
+  IMPLEMENT_IOBJECT(Provider2);
 public:
-  static Handler2* create() {
-    return new Handler2;
+  static Provider2* create() {
+    return new Provider2;
   }
   virtual IObject* getObject(const UUID& uuid) {
-    VERIFY(uuid != obj1, "request for the first object reached second handler");
+    VERIFY(uuid != obj1, "request for the first object reached second provider");
 
     if(uuid == obj2) {
       return reinterpret_cast<IObject*>(2);
@@ -68,15 +68,15 @@ public:
   }
 };
 
-class Handler3: public IServiceHandler {
-  IMPLEMENT_IOBJECT(Handler3);
+class Provider3: public IComponentProvider {
+  IMPLEMENT_IOBJECT(Provider3);
 public:
-  static Handler3* create() {
-    return new Handler3;
+  static Provider3* create() {
+    return new Provider3;
   }
   virtual IObject* getObject(const UUID& uuid) {
-    VERIFY(uuid != obj1, "request for the first object reached third handler");
-    VERIFY(uuid != obj2, "request for the second object reached third handler");
+    VERIFY(uuid != obj1, "request for the first object reached third provider");
+    VERIFY(uuid != obj2, "request for the second object reached third provider");
     if(uuid == obj3) {
       return reinterpret_cast<IObject*>(3);
     }
@@ -85,43 +85,43 @@ public:
   }
 };
 
-UUID_MAP_BEGIN(Handler1)
+UUID_MAP_BEGIN(Provider1)
   UUID_MAP_ENTRY(IObject)
-  UUID_MAP_ENTRY(IServiceHandler)
+  UUID_MAP_ENTRY(IComponentProvider)
   UUID_MAP_END
 
-UUID_MAP_BEGIN(Handler2)
+UUID_MAP_BEGIN(Provider2)
   UUID_MAP_ENTRY(IObject)
-  UUID_MAP_ENTRY(IServiceHandler)
+  UUID_MAP_ENTRY(IComponentProvider)
   UUID_MAP_END
 
-UUID_MAP_BEGIN(Handler3)
+UUID_MAP_BEGIN(Provider3)
   UUID_MAP_ENTRY(IObject)
-  UUID_MAP_ENTRY(IServiceHandler)
+  UUID_MAP_ENTRY(IComponentProvider)
   UUID_MAP_END
 
 void test001() {
   IServiceManager* serv;
-  IServiceHandler* handler1;
-  IServiceHandler* handler2;
-  IServiceHandler* handler3;
+  IComponentProvider* provider1;
+  IComponentProvider* provider2;
+  IComponentProvider* provider3;
   IObject* obj;
 
   serv = XPLC_getServiceManager();
 
-  ASSERT(serv != 0, "could not obtain service manager");
+  ASSERT(serv != 0, "could not obtain component manager");
 
-  handler1 = Handler1::create();
-  ASSERT(handler1 != 0, "could not instantiate test handler 1");
-  serv->addFirstHandler(handler1);
+  provider1 = Provider1::create();
+  ASSERT(provider1 != 0, "could not instantiate test provider 1");
+  serv->addFirstProvider(provider1);
 
-  handler2 = Handler2::create();
-  ASSERT(handler2 != 0, "could not instantiate test handler 2");
-  serv->addHandler(handler2);
+  provider2 = Provider2::create();
+  ASSERT(provider2 != 0, "could not instantiate test provider 2");
+  serv->addProvider(provider2);
 
-  handler3 = Handler3::create();
-  ASSERT(handler3 != 0, "could not instantiate test handler 2");
-  serv->addLastHandler(handler3);
+  provider3 = Provider3::create();
+  ASSERT(provider3 != 0, "could not instantiate test provider 2");
+  serv->addLastProvider(provider3);
 
   obj = serv->getObject(obj1);
   VERIFY(obj != 0, "object 1 was not found");
@@ -135,22 +135,22 @@ void test001() {
   VERIFY(obj != 0, "object 3 was not found");
   VERIFY(obj == reinterpret_cast<IObject*>(3), "asked for object 3 and got another one");
 
-  serv->removeHandler(handler1);
-  serv->removeHandler(handler2);
-  serv->removeHandler(handler3);
+  serv->removeProvider(provider1);
+  serv->removeProvider(provider2);
+  serv->removeProvider(provider3);
 
   obj = serv->getObject(obj1);
-  VERIFY(!obj, "object 1 still returned after removing handler 1");
+  VERIFY(!obj, "object 1 still returned after removing provider 1");
 
   obj = serv->getObject(obj2);
-  VERIFY(!obj, "object 2 still returned after removing handler 2");
+  VERIFY(!obj, "object 2 still returned after removing provider 2");
 
   obj = serv->getObject(obj3);
-  VERIFY(!obj, "object 3 still returned after removing handler 3");
+  VERIFY(!obj, "object 3 still returned after removing provider 3");
 
-  VERIFY(handler1->release() == 0, "incorrect refcount on handler 1");
-  VERIFY(handler2->release() == 0, "incorrect refcount on handler 2");
-  VERIFY(handler3->release() == 0, "incorrect refcount on handler 3");
+  VERIFY(provider1->release() == 0, "incorrect refcount on provider 1");
+  VERIFY(provider2->release() == 0, "incorrect refcount on provider 2");
+  VERIFY(provider3->release() == 0, "incorrect refcount on provider 3");
 
-  VERIFY(serv->release() == 0, "service manager has non-zero refcount after release");
+  VERIFY(serv->release() == 0, "component manager has non-zero refcount after release");
 }

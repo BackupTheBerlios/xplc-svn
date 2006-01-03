@@ -1,7 +1,7 @@
 /* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*-
  *
  * XPLC - Cross-Platform Lightweight Components
- * Copyright (C) 2000-2004, Pierre Phaneuf
+ * Copyright (C) 2000-2006, Pierre Phaneuf
  * Copyright (C) 2000, Stéphane Lajoie
  * Copyright (C) 2002-2004, Net Integration Technologies, Inc.
  *
@@ -26,7 +26,7 @@
 #include <xplc/factory.h>
 #include "servmgr.h"
 #include "catmgr.h"
-#include "statichandler.h"
+#include "staticprovider.h"
 #include "moduleloader.h"
 #include "monikers.h"
 #include "new.h"
@@ -43,8 +43,8 @@ IServiceManager* XPLC_getServiceManager() {
   if(singleton)
     singleton->addRef();
   else {
-    IStaticServiceHandler* handler;
-    IStaticServiceHandler* handler2;
+    IStaticComponentProvider* provider;
+    IStaticComponentProvider* provider2;
     IMonikerService* monikers;
     IObject* obj;
 
@@ -53,21 +53,21 @@ IServiceManager* XPLC_getServiceManager() {
     if(!singleton)
       return 0;
 
-    handler = new StaticServiceHandler;
-    if(!handler) {
+    provider = new StaticComponentProvider;
+    if(!provider) {
       singleton->release();
       return 0;
     }
 
     /*
-     * Populate the static service handler.
+     * Populate the static component provider.
      */
 
-    handler2 = new StaticServiceHandler;
-    if(handler2) {
-      handler->addObject(XPLC_staticServiceHandler, handler2);
-      singleton->addHandler(handler2);
-      handler2->release();
+    provider2 = new StaticComponentProvider;
+    if(provider2) {
+      provider->addObject(XPLC_staticComponentProvider, provider2);
+      singleton->addProvider(provider2);
+      provider2->release();
     } else {
       singleton->release();
       return 0;
@@ -75,64 +75,64 @@ IServiceManager* XPLC_getServiceManager() {
 
     obj = new NewMoniker;
     if(obj) {
-      handler->addObject(XPLC_newMoniker, obj);
+      provider->addObject(XPLC_newMoniker, obj);
       obj->release();
     }
 
     obj = new CategoryManager;
     if(obj) {
-      handler->addObject(XPLC_categoryManager, obj);
+      provider->addObject(XPLC_categoryManager, obj);
       obj->release();
     }
 
     obj = new ModuleLoader;
     if(obj) {
-      handler->addObject(XPLC_moduleLoader, obj);
+      provider->addObject(XPLC_moduleLoader, obj);
       obj->release();
     }
 
     obj = new ModuleManagerFactory;
     if(obj) {
-      handler->addObject(XPLC_moduleManagerFactory, obj);
+      provider->addObject(XPLC_moduleManagerFactory, obj);
       obj->release();
     }
 
     monikers = new MonikerService;
     if(monikers) {
       monikers->registerObject("new", XPLC_newMoniker);
-      handler->addObject(XPLC_monikers, monikers);
+      provider->addObject(XPLC_monikers, monikers);
       monikers->release();
     }
 
-    singleton->addHandler(handler);
+    singleton->addProvider(provider);
 
-    handler->release();
+    provider->release();
   }
 
   return singleton;
 }
 
 ServiceManager::~ServiceManager() {
-  HandlerNode* next;
+  ProviderNode* next;
 
-  while(handlers) {
-    next = handlers->next;
-    delete handlers;
-    handlers = next;
+  while(providers) {
+    next = providers->next;
+    delete providers;
+    providers = next;
   }
 
   if(singleton == this)
     singleton = 0;
 }
 
-void ServiceManager::addHandler(IServiceHandler* aHandler) {
-  HandlerNode* node;
-  HandlerNode** ptr;
+void ServiceManager::addProvider(IComponentProvider* aProvider) {
+  ProviderNode* node;
+  ProviderNode** ptr;
 
-  ptr = &handlers;
+  ptr = &providers;
   node = *ptr;
   while(node) {
-    if(node->handler == aHandler)
+    if(node->provider == aProvider)
       break;
 
     if(node->intercept) {
@@ -142,44 +142,44 @@ void ServiceManager::addHandler(IServiceHandler* aHandler) {
   }
 
   /*
-   * The handler is already there.
+   * The provider is already there.
    */
   if(node)
     return;
 
-  node = new HandlerNode(aHandler, *ptr, false);
+  node = new ProviderNode(aProvider, *ptr, false);
   *ptr = node;
 }
 
-void ServiceManager::addFirstHandler(IServiceHandler* aHandler) {
-  HandlerNode* node;
+void ServiceManager::addFirstProvider(IComponentProvider* aProvider) {
+  ProviderNode* node;
 
-  node = handlers;
+  node = providers;
   while(node) {
-    if(node->handler == aHandler)
+    if(node->provider == aProvider)
       break;
 
     node = node->next;
   }
 
   /*
-   * The handler is already there.
+   * The provider is already there.
    */
   if(node)
     return;
 
-  node = new HandlerNode(aHandler, handlers, true);
-  handlers = node;
+  node = new ProviderNode(aProvider, providers, true);
+  providers = node;
 }
 
-void ServiceManager::addLastHandler(IServiceHandler* aHandler) {
-  HandlerNode* node;
-  HandlerNode** ptr;
+void ServiceManager::addLastProvider(IComponentProvider* aProvider) {
+  ProviderNode* node;
+  ProviderNode** ptr;
 
-  ptr = &handlers;
+  ptr = &providers;
   node = *ptr;
   while(node) {
-    if(node->handler == aHandler)
+    if(node->provider == aProvider)
       break;
 
     ptr = &node->next;
@@ -187,23 +187,23 @@ void ServiceManager::addLastHandler(IServiceHandler* aHandler) {
   }
 
   /*
-   * The handler is already there.
+   * The provider is already there.
    */
   if(node)
     return;
 
-  node = new HandlerNode(aHandler, *ptr, false);
+  node = new ProviderNode(aProvider, *ptr, false);
   *ptr = node;
 }
 
-void ServiceManager::removeHandler(IServiceHandler* aHandler) {
-  HandlerNode* node;
-  HandlerNode** ptr;
+void ServiceManager::removeProvider(IComponentProvider* aProvider) {
+  ProviderNode* node;
+  ProviderNode** ptr;
 
-  node = handlers;
-  ptr = &handlers;
+  node = providers;
+  ptr = &providers;
   while(node) {
-    if(node->handler == aHandler) {
+    if(node->provider == aProvider) {
       *ptr = node->next;
       delete node;
       break;
@@ -216,19 +216,19 @@ void ServiceManager::removeHandler(IServiceHandler* aHandler) {
 
 IObject* ServiceManager::getObject(const UUID& aUuid) {
   IObject* obj;
-  HandlerNode* handler;
+  ProviderNode* provider;
 
-  handler = handlers;
-  while(handler) {
-    obj = handler->handler->getObject(aUuid);
+  provider = providers;
+  while(provider) {
+    obj = provider->provider->getObject(aUuid);
 
     /*
-     * No need to addRef the object, the handler does it for us.
+     * No need to addRef the object, the provider did it for us.
      */
     if(obj)
       return obj;
 
-    handler = handler->next;
+    provider = provider->next;
   }
 
   return 0;

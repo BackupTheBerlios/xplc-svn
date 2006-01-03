@@ -2,7 +2,7 @@
  *
  * XPLC - Cross-Platform Lightweight Components
  * Copyright (C) 2002-2004, Net Integration Technologies, Inc.
- * Copyright (C) 2002-2004, Pierre Phaneuf
+ * Copyright (C) 2002-2006, Pierre Phaneuf
  * Copyright (C) 2002-2004, Stéphane Lajoie
  *
  * This library is free software; you can redistribute it and/or
@@ -34,7 +34,7 @@ UUID_MAP_BEGIN(ModuleLoader)
 
 UUID_MAP_BEGIN(Module)
   UUID_MAP_ENTRY(IObject)
-  UUID_MAP_ENTRY(IServiceHandler)
+  UUID_MAP_ENTRY(IComponentProvider)
   UUID_MAP_ENTRY(IModule)
   UUID_MAP_END
 

@@ -1,7 +1,7 @@
 /* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*-
  *
  * XPLC - Cross-Platform Lightweight Components
- * Copyright (C) 2000-2002, Pierre Phaneuf
+ * Copyright (C) 2000-2006, Pierre Phaneuf
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public License
@@ -19,27 +19,27 @@
  * USA
  */
 
-#ifndef __XPLC_HANDLERNODE_H__
-#define __XPLC_HANDLERNODE_H__
+#ifndef __XPLC_PROVIDERNODE_H__
+#define __XPLC_PROVIDERNODE_H__
 
-#include <xplc/IServiceHandler.h>
+#include <xplc/IComponentProvider.h>
 
-class HandlerNode {
+class ProviderNode {
 public:
-  HandlerNode* next;
-  IServiceHandler* handler;
+  ProviderNode* next;
+  IComponentProvider* provider;
   bool intercept;
-  HandlerNode(IServiceHandler* aHandler,
-              HandlerNode* aNext,
+  ProviderNode(IComponentProvider* aProvider,
+              ProviderNode* aNext,
               bool aIntercept): next(aNext),
-                                handler(aHandler),
+                                provider(aProvider),
                                 intercept(aIntercept) {
-    handler->addRef();
+    provider->addRef();
   }
 
-  ~HandlerNode() {
-    handler->release();
+  ~ProviderNode() {
+    provider->release();
   }
 };
 
-#endif /* __XPLC_HANDLERNODE_H__ */
+#endif /* __XPLC_PROVIDERNODE_H__ */

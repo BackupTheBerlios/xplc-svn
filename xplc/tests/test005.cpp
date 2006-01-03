@@ -1,7 +1,7 @@
 /* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*-
  *
  * XPLC - Cross-Platform Lightweight Components
- * Copyright (C) 2001-2003, Pierre Phaneuf
+ * Copyright (C) 2001-2006, Pierre Phaneuf
  * Copyright (C) 2002-2004, Net Integration Technologies, Inc.
  *
  * This library is free software; you can redistribute it and/or
@@ -22,7 +22,7 @@
 
 #include "test.h"
 #include <xplc/utils.h>
-#include "../xplc/statichandler.h"
+#include "../xplc/staticprovider.h"
 
 /*
  * test005

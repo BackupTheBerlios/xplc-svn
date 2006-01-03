@@ -1,7 +1,7 @@
 /* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*-
  *
  * XPLC - Cross-Platform Lightweight Components
- * Copyright (C) 2000-2003, Pierre Phaneuf
+ * Copyright (C) 2000-2006, Pierre Phaneuf
  * Copyright (C) 2002, Net Integration Technologies, Inc.
  *
  * This library is free software; you can redistribute it and/or
@@ -23,15 +23,15 @@
 #include <stdlib.h>
 #include <xplc/utils.h>
 #include <xplc/uuidops.h>
-#include "statichandler.h"
+#include "staticprovider.h"
 
-UUID_MAP_BEGIN(StaticServiceHandler)
+UUID_MAP_BEGIN(StaticComponentProvider)
   UUID_MAP_ENTRY(IObject)
-  UUID_MAP_ENTRY(IServiceHandler)
-  UUID_MAP_ENTRY(IStaticServiceHandler)
+  UUID_MAP_ENTRY(IComponentProvider)
+  UUID_MAP_ENTRY(IStaticComponentProvider)
   UUID_MAP_END
 
-StaticServiceHandler::~StaticServiceHandler() {
+StaticComponentProvider::~StaticComponentProvider() {
   ObjectNode* node;
   ObjectNode* ptr;
 
@@ -46,7 +46,7 @@ StaticServiceHandler::~StaticServiceHandler() {
   objects = 0;
 }
 
-IObject* StaticServiceHandler::getObject(const UUID& aUuid) {
+IObject* StaticComponentProvider::getObject(const UUID& aUuid) {
   ObjectNode* node;
 
   node = objects;
@@ -66,7 +66,7 @@ IObject* StaticServiceHandler::getObject(const UUID& aUuid) {
   return 0;
 }
 
-void StaticServiceHandler::addObject(const UUID& aUuid, IObject* aObj) {
+void StaticComponentProvider::addObject(const UUID& aUuid, IObject* aObj) {
   ObjectNode* node;
 
   /* No object given? */
@@ -93,7 +93,7 @@ void StaticServiceHandler::addObject(const UUID& aUuid, IObject* aObj) {
   objects = node;
 }
 
-void StaticServiceHandler::removeObject(const UUID& aUuid) {
+void StaticComponentProvider::removeObject(const UUID& aUuid) {
   ObjectNode* node;
   ObjectNode** ptr;
 

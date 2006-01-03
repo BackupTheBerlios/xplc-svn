@@ -1,7 +1,7 @@
 /* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*-
  *
  * XPLC - Cross-Platform Lightweight Components
- * Copyright (C) 2000-2003, Pierre Phaneuf
+ * Copyright (C) 2000-2006, Pierre Phaneuf
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public License
@@ -19,26 +19,26 @@
  * USA
  */
 
-#ifndef __XPLC_STATICHANDLER_H__
-#define __XPLC_STATICHANDLER_H__
+#ifndef __XPLC_STATICPROVIDER_H__
+#define __XPLC_STATICPROVIDER_H__
 
-#include <xplc/IStaticServiceHandler.h>
+#include <xplc/IStaticComponentProvider.h>
 #include "objectnode.h"
 
-class StaticServiceHandler: public IStaticServiceHandler {
-  IMPLEMENT_IOBJECT(StaticServiceHandler);
+class StaticComponentProvider: public IStaticComponentProvider {
+  IMPLEMENT_IOBJECT(StaticComponentProvider);
 private:
   ObjectNode* objects;
 public:
-  StaticServiceHandler():
+  StaticComponentProvider():
     objects(0) {
   }
-  virtual ~StaticServiceHandler();
-  /* IServiceHandler */
+  virtual ~StaticComponentProvider();
+  /* IComponentProvider */
   virtual IObject* getObject(const UUID&);
-  /* IStaticServiceHandler */
+  /* IStaticComponentProvider */
   virtual void addObject(const UUID&, IObject*);
   virtual void removeObject(const UUID&);
 };
 
-#endif /* __XPLC_STATICHANDLER_H__ */
+#endif /* __XPLC_STATICPROVIDER_H__ */

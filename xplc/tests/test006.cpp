@@ -1,7 +1,7 @@
 /* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*-
  *
  * XPLC - Cross-Platform Lightweight Components
- * Copyright (C) 2001-2002, Pierre Phaneuf
+ * Copyright (C) 2001-2006, Pierre Phaneuf
  * Copyright (C) 2002-2004, Net Integration Technologies, Inc.
  *
  * This library is free software; you can redistribute it and/or
@@ -22,7 +22,7 @@
 
 #include "test.h"
 #include <xplc/utils.h>
-#include <xplc/IStaticServiceHandler.h>
+#include <xplc/IStaticComponentProvider.h>
 #include <xplc/IMonikerService.h>
 
 /*
@@ -33,7 +33,7 @@
 
 void test006() {
   IServiceManager* servmgr;
-  IStaticServiceHandler* handler;
+  IStaticComponentProvider* provider;
   IMonikerService* monikers;
   IObject* testobj;
   IObject* obj;
@@ -41,16 +41,16 @@ void test006() {
   servmgr = XPLC_getServiceManager();
   ASSERT(servmgr != 0, "could not obtain service manager");
 
-  obj = servmgr->getObject(XPLC_staticServiceHandler);
-  ASSERT(obj != 0, "could not obtain static service handler");
+  obj = servmgr->getObject(XPLC_staticComponentProvider);
+  ASSERT(obj != 0, "could not obtain static component provider");
 
-  handler = mutate<IStaticServiceHandler>(obj);
-  ASSERT(handler != 0, "static service handler does not have the IStaticServiceHandler interface");
+  provider = mutate<IStaticComponentProvider>(obj);
+  ASSERT(provider != 0, "static component provider does not have the IStaticComponentProvider interface");
 
   testobj = new TestObject;
   ASSERT(testobj != 0, "could not create TestObject");
 
-  handler->addObject(TestObject_CID, testobj);
+  provider->addObject(TestObject_CID, testobj);
   VERIFY(servmgr->getObject(TestObject_CID) == testobj, "adding the test object did not work");
   VERIFY(testobj->release() == 2, "incorrect refcount on test object");
 
@@ -77,7 +77,7 @@ void test006() {
 
   VERIFY(monikers->release() == 1, "incorrect refcount on moniker service");
 
-  VERIFY(handler->release() == 2, "incorrect refcount on static service handler");
+  VERIFY(provider->release() == 2, "incorrect refcount on static component provider");
 
   VERIFY(servmgr->release() == 0, "service manager has non-zero refcount after release");
 

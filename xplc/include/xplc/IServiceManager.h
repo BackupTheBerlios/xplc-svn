@@ -1,7 +1,7 @@
 /* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*-
  *
  * XPLC - Cross-Platform Lightweight Components
- * Copyright (C) 2000-2002, Pierre Phaneuf
+ * Copyright (C) 2000-2006, Pierre Phaneuf
  * Copyright (C) 2002, Net Integration Technologies, Inc.
  *
  * This library is free software; you can redistribute it and/or
@@ -33,7 +33,7 @@
  */
 
 #include <xplc/IObject.h>
-#include <xplc/IServiceHandler.h>
+#include <xplc/IComponentProvider.h>
 
 /** \interface IServiceManager IServiceManager.h xplc/IServiceManager.h
  *
@@ -43,39 +43,39 @@
  * can obtain it by calling XPLC_getServiceManager().
  *
  * The service manager knows how to find objects from their UUID. It
- * does so by searching a list of service handlers (objects that
- * implement the IServiceHandler interface), querying them in turn
+ * does so by searching a list of service providers (objects that
+ * implement the IComponentProvider interface), querying them in turn
  * until the object is found.
  *
- * The service handlers are those who know how to find objects through
+ * The component providers are those who know how to find objects through
  * various means. For example, one might get objects from a statically
  * defined list of objects, another might search a directory for
  * plugins, etc...
  *
- * If you want to provide an IServiceHandler, you should register with
+ * If you want to provide an IComponentProvider, you should register with
  * the service manager.
  */
-class IServiceManager: public IServiceHandler {
+class IServiceManager: public IComponentProvider {
   UNSTABLE_INTERFACE
 public:
   /**
-   * Register a handler to be handled by this manager.
+   * Register a provider to be handled by this manager.
    */
-  virtual void addHandler(IServiceHandler*) = 0;
+  virtual void addProvider(IComponentProvider*) = 0;
     
-  /** Register a handler to be handled by this manager, explicitly
+  /** Register a provider to be handled by this manager, explicitly
    * adding it to the beginning of the list (highest priority).
    */
-  virtual void addFirstHandler(IServiceHandler*) = 0;
+  virtual void addFirstProvider(IComponentProvider*) = 0;
     
-  /** Register a handler to be handled by this manager, explicitly
+  /** Register a provider to be handled by this manager, explicitly
    * adding it to the end of the list (lowest priority).
    */
-  virtual void addLastHandler(IServiceHandler*) = 0;
+  virtual void addLastProvider(IComponentProvider*) = 0;
     
-  /** Remove a handler from the list.
+  /** Remove a provider from the list.
    */
-  virtual void removeHandler(IServiceHandler*) = 0;
+  virtual void removeProvider(IComponentProvider*) = 0;
 };
 
 /// IServiceManager's IID

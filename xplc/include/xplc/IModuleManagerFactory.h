@@ -1,7 +1,7 @@
 /* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*-
  *
  * XPLC - Cross-Platform Lightweight Components
- * Copyright (C) 2004, Pierre Phaneuf
+ * Copyright (C) 2004-2006, Pierre Phaneuf
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public License
@@ -26,12 +26,12 @@
 # pragma GCC system_header
 #endif
 
-#include <xplc/IServiceHandler.h>
+#include <xplc/IComponentProvider.h>
 
 class IModuleManagerFactory: public IObject {
   UNSTABLE_INTERFACE
 public:
-  virtual IServiceHandler* createModuleManager(const char* directory) = 0;
+  virtual IComponentProvider* createModuleManager(const char* directory) = 0;
 };
 
 DEFINE_IID(IModuleManagerFactory,{0x9c88d2d0, 0xc61f, 0x41b7,
