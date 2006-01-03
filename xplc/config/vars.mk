@@ -45,9 +45,9 @@ RANLIB=ranlib
 
 CXXFLAGS+=-pipe -Iinclude
 
-# Ensure CVS2CL is there
-ifeq ("$(CVS2CL)", "no")
-CVS2CL=$(error Please install cvs2cl)
+# Ensure SVN is there
+ifeq ("$(SVN)", "no")
+SVN=$(error Please install Subversion)
 endif
 
 ifeq ("$(so_style)", "darwin")

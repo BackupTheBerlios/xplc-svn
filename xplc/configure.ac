@@ -85,7 +85,7 @@ AC_PROG_LN_S
 AC_HEADER_DIRENT
 AC_CHECK_HEADERS([limits.h])
 
-AC_CHECK_PROGS([CVS2CL], [cvs2cl.pl cvs2cl], [no])
+AC_CHECK_PROGS([SVN], [svn], [no])
 
 case "$host_os" in
 darwin*|rhapsody*)
@@ -221,7 +221,7 @@ AC_SUBST(with_dlopen)
 AC_SUBST(so_style)
 AC_SUBST(with_uuid)
 AC_SUBST(with_uuid_static)
-AC_SUBST(CVS2CL)
+AC_SUBST(SVN)
 
 AC_CONFIG_FILES([config/config.mk])
 AC_CONFIG_FILES([dist/xplc.pc dist/xplc-uninstalled.pc])

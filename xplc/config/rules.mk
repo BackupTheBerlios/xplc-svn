@@ -76,7 +76,7 @@ dist: default examples tests $(DIST).tar.gz
 
 ChangeLog:
 	rm -f ChangeLog ChangeLog.bak
-	$(CVS2CL) --utc -U config/cvs-users
+	$(SVN) log -v --incremental > $@
 
 doxygen: clean-doxygen
 	doxygen
