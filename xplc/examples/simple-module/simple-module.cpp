@@ -5,7 +5,7 @@
  */
 
 #include <xplc/module.h>
-#include "module.h"
+#include "simple-module.h"
 
 /* This is the list of UUIDs that this module can provide objects for,
  * along with a pointer to the function that will provide it. This *
