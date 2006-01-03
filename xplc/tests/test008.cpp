@@ -32,17 +32,17 @@
  */
 
 void test008() {
-  IServiceManager* servmgr;
+  IComponentManager* compmgr;
   IStaticComponentProvider* provider;
   IMonikerService* monikers;
   ITestInterface* test;
   TestObjectFactory* factory;
   IObject* obj;
 
-  servmgr = XPLC_getServiceManager();
-  ASSERT(servmgr != 0, "could not obtain service manager");
+  compmgr = XPLC_getComponentManager();
+  ASSERT(compmgr != 0, "could not obtain component manager");
 
-  obj = servmgr->getObject(XPLC_staticComponentProvider);
+  obj = compmgr->getObject(XPLC_staticComponentProvider);
   ASSERT(obj != 0, "could not obtain static component provider");
 
   provider = mutate<IStaticComponentProvider>(obj);
@@ -52,11 +52,11 @@ void test008() {
   ASSERT(factory != 0, "could not instantiate test object factory");
 
   provider->addObject(TestObjectFactory_CID, factory);
-  VERIFY(servmgr->getObject(TestObjectFactory_CID) == factory, "adding the test object factory did not work");
+  VERIFY(compmgr->getObject(TestObjectFactory_CID) == factory, "adding the test object factory did not work");
   VERIFY(factory->release() == 2, "incorrect refcount on test object factory");
   VERIFY(provider->release() == 2, "incorrect refcount on static component provider");
 
-  monikers = mutate<IMonikerService>(servmgr->getObject(XPLC_monikers));
+  monikers = mutate<IMonikerService>(compmgr->getObject(XPLC_monikers));
   ASSERT(monikers != 0, "could not obtain correct moniker service");
 
   monikers->registerObject("testobject", TestObjectFactory_CID);
@@ -72,7 +72,7 @@ void test008() {
 
   VERIFY(obj->release() == 0, "incorrect refcount on test object");
 
-  VERIFY(servmgr->release() == 0, "service manager has non-zero refcount after release");
+  VERIFY(compmgr->release() == 0, "component manager has non-zero refcount after release");
 
   VERIFY(factory->release() == 0, "incorrect refcount on test object factory");
 }

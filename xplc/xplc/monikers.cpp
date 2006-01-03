@@ -2,7 +2,7 @@
  *
  * XPLC - Cross-Platform Lightweight Components
  * Copyright (C) 2002, Net Integration Technologies, Inc.
- * Copyright (C) 2002-2003, Pierre Phaneuf
+ * Copyright (C) 2002-2006, Pierre Phaneuf
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public License
@@ -49,7 +49,7 @@ MonikerService::~MonikerService() {
 
 IObject* MonikerService::resolve(const char* aName) {
   MonikerNode* node;
-  IServiceManager* servmgr;
+  IComponentManager* compmgr;
   IObject* obj = 0;
   IMoniker* moniker;
   char* name = strdup(aName);
@@ -64,12 +64,12 @@ IObject* MonikerService::resolve(const char* aName) {
 
   while(node) {
     if(strcmp(name, node->name) == 0) {
-      servmgr = XPLC_getServiceManager();
-      if(!servmgr)
+      compmgr = XPLC_getComponentManager();
+      if(!compmgr)
         break;
 
-      obj = servmgr->getObject(node->uuid);
-      servmgr->release();
+      obj = compmgr->getObject(node->uuid);
+      compmgr->release();
 
       if(rest) {
         moniker = mutate<IMoniker>(obj);

@@ -20,8 +20,8 @@
  * USA
  */
 
-#ifndef __XPLC_ISERVICEMANAGER_H__
-#define __XPLC_ISERVICEMANAGER_H__
+#ifndef __XPLC_ICOMPONENTMANAGER_H__
+#define __XPLC_ICOMPONENTMANAGER_H__
 
 #if defined(__GNUC__) && __GNUC__ > 3
 # pragma GCC system_header
@@ -29,21 +29,21 @@
 
 /** \file
  *
- * The service manager interface.
+ * The component manager interface.
  */
 
 #include <xplc/IObject.h>
 #include <xplc/IComponentProvider.h>
 
-/** \interface IServiceManager IServiceManager.h xplc/IServiceManager.h
+/** \interface IComponentManager IComponentManager.h xplc/IComponentManager.h
  *
- * The %XPLC service manager interface.
+ * The %XPLC component manager interface.
  *
- * To do anything with %XPLC, you need to use the service manager. You
- * can obtain it by calling XPLC_getServiceManager().
+ * To do anything with %XPLC, you need to use the component manager. You
+ * can obtain it by calling XPLC_getComponentManager().
  *
- * The service manager knows how to find objects from their UUID. It
- * does so by searching a list of service providers (objects that
+ * The component manager knows how to find objects from their UUID. It
+ * does so by searching a list of component providers (objects that
  * implement the IComponentProvider interface), querying them in turn
  * until the object is found.
  *
@@ -53,9 +53,9 @@
  * plugins, etc...
  *
  * If you want to provide an IComponentProvider, you should register with
- * the service manager.
+ * the component manager.
  */
-class IServiceManager: public IComponentProvider {
+class IComponentManager: public IComponentProvider {
   UNSTABLE_INTERFACE
 public:
   /**
@@ -78,8 +78,8 @@ public:
   virtual void removeProvider(IComponentProvider*) = 0;
 };
 
-/// IServiceManager's IID
-DEFINE_IID(IServiceManager, {0x22bdabd9, 0xa63a, 0x4b5e,
+/// IComponentManager's IID
+DEFINE_IID(IComponentManager, {0x22bdabd9, 0xa63a, 0x4b5e,
   {0xb1, 0x61, 0xb6, 0x36, 0x52, 0x27, 0xd7, 0x8e}});
 
-#endif /* __XPLC_ISERVICEMANAGER_H__ */
+#endif /* __XPLC_ICOMPONENTMANAGER_H__ */

@@ -24,7 +24,7 @@
 #include <xplc/core.h>
 #include <xplc/utils.h>
 #include <xplc/factory.h>
-#include "servmgr.h"
+#include "compmgr.h"
 #include "catmgr.h"
 #include "staticprovider.h"
 #include "moduleloader.h"
@@ -32,14 +32,14 @@
 #include "new.h"
 #include "modulemgr.h"
 
-UUID_MAP_BEGIN(ServiceManager)
+UUID_MAP_BEGIN(ComponentManager)
   UUID_MAP_ENTRY(IObject)
-  UUID_MAP_ENTRY(IServiceManager)
+  UUID_MAP_ENTRY(IComponentManager)
   UUID_MAP_END
 
-static ServiceManager* singleton;
+static ComponentManager* singleton;
 
-IServiceManager* XPLC_getServiceManager() {
+IComponentManager* XPLC_getComponentManager() {
   if(singleton)
     singleton->addRef();
   else {
@@ -48,7 +48,7 @@ IServiceManager* XPLC_getServiceManager() {
     IMonikerService* monikers;
     IObject* obj;
 
-    singleton = new ServiceManager;
+    singleton = new ComponentManager;
 
     if(!singleton)
       return 0;
@@ -112,7 +112,7 @@ IServiceManager* XPLC_getServiceManager() {
   return singleton;
 }
 
-ServiceManager::~ServiceManager() {
+ComponentManager::~ComponentManager() {
   ProviderNode* next;
 
   while(providers) {
@@ -125,7 +125,7 @@ ServiceManager::~ServiceManager() {
     singleton = 0;
 }
 
-void ServiceManager::addProvider(IComponentProvider* aProvider) {
+void ComponentManager::addProvider(IComponentProvider* aProvider) {
   ProviderNode* node;
   ProviderNode** ptr;
 
@@ -151,7 +151,7 @@ void ServiceManager::addProvider(IComponentProvider* aProvider) {
   *ptr = node;
 }
 
-void ServiceManager::addFirstProvider(IComponentProvider* aProvider) {
+void ComponentManager::addFirstProvider(IComponentProvider* aProvider) {
   ProviderNode* node;
 
   node = providers;
@@ -172,7 +172,7 @@ void ServiceManager::addFirstProvider(IComponentProvider* aProvider) {
   providers = node;
 }
 
-void ServiceManager::addLastProvider(IComponentProvider* aProvider) {
+void ComponentManager::addLastProvider(IComponentProvider* aProvider) {
   ProviderNode* node;
   ProviderNode** ptr;
 
@@ -196,7 +196,7 @@ void ServiceManager::addLastProvider(IComponentProvider* aProvider) {
   *ptr = node;
 }
 
-void ServiceManager::removeProvider(IComponentProvider* aProvider) {
+void ComponentManager::removeProvider(IComponentProvider* aProvider) {
   ProviderNode* node;
   ProviderNode** ptr;
 
@@ -214,7 +214,7 @@ void ServiceManager::removeProvider(IComponentProvider* aProvider) {
   }
 }
 
-IObject* ServiceManager::getObject(const UUID& aUuid) {
+IObject* ComponentManager::getObject(const UUID& aUuid) {
   IObject* obj;
   ProviderNode* provider;
 

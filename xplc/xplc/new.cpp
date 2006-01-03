@@ -1,7 +1,7 @@
 /* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*-
  *
  * XPLC - Cross-Platform Lightweight Components
- * Copyright (C) 2002-2003, Pierre Phaneuf
+ * Copyright (C) 2002-2006, Pierre Phaneuf
  * Copyright (C) 2002, Net Integration Technologies, Inc.
  *
  * This library is free software; you can redistribute it and/or
@@ -34,12 +34,12 @@ NewMoniker::~NewMoniker() {
 }
 
 IObject* NewMoniker::resolve(const char* aName) {
-  IServiceManager* servmgr;
+  IComponentManager* servmgr;
   IMoniker* monikers;
   IFactory* factory;
   IObject* obj = 0;
 
-  servmgr = XPLC_getServiceManager();
+  servmgr = XPLC_getComponentManager();
   if(servmgr) {
     monikers = mutate<IMoniker>(servmgr->getObject(XPLC_monikers));
 

@@ -81,12 +81,12 @@ Module::Module(void* aHandle, const XPLC_ModuleInfo* aModuleInfo):
   assert(moduleinfo);
 
   if(moduleinfo->categories) {
-    IServiceManager* servmgr;
+    IComponentManager* servmgr;
     IObject* obj;
     ICategoryManager* catmgr;
     const XPLC_CategoryEntry* entry;
 
-    servmgr = XPLC_getServiceManager();
+    servmgr = XPLC_getComponentManager();
     assert(servmgr);
 
     obj = servmgr->getObject(XPLC_categoryManager);

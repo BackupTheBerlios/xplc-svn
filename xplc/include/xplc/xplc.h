@@ -1,7 +1,7 @@
 /* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*-
  *
  * XPLC - Cross-Platform Lightweight Components
- * Copyright (C) 2000-2003, Pierre Phaneuf
+ * Copyright (C) 2000-2006, Pierre Phaneuf
  * Copyright (C) 2002, Net Integration Technologies, Inc.
  *
  * This library is free software; you can redistribute it and/or
@@ -54,14 +54,14 @@
 
 class XPLC {
 private:
-  xplc_ptr<IServiceManager> servmgr;
+  xplc_ptr<IComponentManager> servmgr;
 public:
-  XPLC(): servmgr(XPLC_getServiceManager()) {}
+  XPLC(): servmgr(XPLC_getComponentManager()) {}
   /**
-   * Create an XPLC object using an existing service manager
+   * Create an XPLC object using an existing component manager
    * reference.
    */
-  XPLC(IServiceManager* _servmgr): servmgr(do_addRef(_servmgr)) {}
+  XPLC(IComponentManager* _servmgr): servmgr(do_addRef(_servmgr)) {}
 
   /**
    * Adds a directory to the module loader path.
@@ -70,7 +70,7 @@ public:
 
   /**
    * Obtain an XPLC object. Obtains an object with the provided UUID
-   * from the service manager.
+   * from the component manager.
    */
   IObject* get(const UUID& uuid) {
     return servmgr->getObject(uuid);
@@ -86,7 +86,7 @@ public:
 
   /**
    * Object creation helper.  Obtains an object with the provided UUID
-   * from the service manager, tries to get the IFactory interface
+   * from the component manager, tries to get the IFactory interface
    * from the object and calls its createObject() method.
    */
   IObject* create(const UUID& cid);

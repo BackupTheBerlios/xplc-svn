@@ -1,7 +1,7 @@
 /* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*-
  *
  * XPLC - Cross-Platform Lightweight Components
- * Copyright (C) 2000-2002, Pierre Phaneuf
+ * Copyright (C) 2000-2006, Pierre Phaneuf
  * Copyright (C) 2001, Stéphane Lajoie
  * Copyright (C) 2002, Net Integration Technologies, Inc.
  *
@@ -30,11 +30,11 @@
  */
 
 void test000() {
-  IServiceManager* serv;
+  IComponentManager* serv;
 
-  serv = XPLC_getServiceManager();
+  serv = XPLC_getComponentManager();
 
-  ASSERT(serv != 0, "could not obtain service manager");
+  ASSERT(serv != 0, "could not obtain component manager");
 
-  VERIFY(serv->release() == 0, "service manager has non-zero refcount after release");
+  VERIFY(serv->release() == 0, "component manager has non-zero refcount after release");
 }

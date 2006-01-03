@@ -84,7 +84,7 @@ IComponentProvider* ModuleManagerFactory::createModuleManager(const char* direct
   DIR* dir;
   struct dirent* ent;
   char fname[PATH_MAX];
-  IServiceManager* servmgr = XPLC_getServiceManager();
+  IComponentManager* servmgr = XPLC_getComponentManager();
   IModuleLoader* loader;
   ModuleNode* modules = 0;
 
@@ -129,7 +129,7 @@ IComponentProvider* ModuleManagerFactory::createModuleManager(const char* direct
   _finddata_t ent;
   char fname[4096];
   char pattern[4096];
-  IServiceManager* servmgr = XPLC_getServiceManager();
+  IComponentManager* servmgr = XPLC_getComponentManager();
   IModuleLoader* loader;
   ModuleNode* modules = 0;
 

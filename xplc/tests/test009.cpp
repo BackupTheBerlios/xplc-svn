@@ -35,16 +35,16 @@
 
 void test009() {
 #ifdef ENABLE_LOADER
-  IServiceManager* servmgr;
+  IComponentManager* compmgr;
   IObject* obj;
   IModuleManagerFactory* mgrfactory;
   IComponentProvider* modulemgr;
   ITestComponent* test;
 
-  servmgr = XPLC_getServiceManager();
-  ASSERT(servmgr != 0, "could not obtain service manager");
+  compmgr = XPLC_getComponentManager();
+  ASSERT(compmgr != 0, "could not obtain component manager");
 
-  obj = servmgr->getObject(XPLC_moduleManagerFactory);
+  obj = compmgr->getObject(XPLC_moduleManagerFactory);
   ASSERT(obj != 0, "could not obtain module manager factory");
 
   mgrfactory = mutate<IModuleManagerFactory>(obj);
@@ -67,7 +67,7 @@ void test009() {
 
   VERIFY(modulemgr->release() == 0, "incorrect refcount on module loader");
 
-  VERIFY(servmgr->release() == 0, "service manager has non-zero refcount after release");
+  VERIFY(compmgr->release() == 0, "component manager has non-zero refcount after release");
 #endif
 }
 

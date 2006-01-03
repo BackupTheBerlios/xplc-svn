@@ -101,13 +101,13 @@ UUID_MAP_BEGIN(Provider3)
   UUID_MAP_END
 
 void test001() {
-  IServiceManager* serv;
+  IComponentManager* serv;
   IComponentProvider* provider1;
   IComponentProvider* provider2;
   IComponentProvider* provider3;
   IObject* obj;
 
-  serv = XPLC_getServiceManager();
+  serv = XPLC_getComponentManager();
 
   ASSERT(serv != 0, "could not obtain component manager");
 

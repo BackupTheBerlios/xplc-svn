@@ -24,19 +24,19 @@
 #ifndef __XPLC_SERVMGR_H__
 #define __XPLC_SERVMGR_H__
 
-#include <xplc/IServiceManager.h>
+#include <xplc/IComponentManager.h>
 #include "providernode.h"
 
-class ServiceManager: public IServiceManager {
-  IMPLEMENT_IOBJECT(ServiceManager);
+class ComponentManager: public IComponentManager {
+  IMPLEMENT_IOBJECT(ComponentManager);
 private:
   ProviderNode* providers;
 public:
-  ServiceManager():
+  ComponentManager():
     providers(0) {
   }
-  virtual ~ServiceManager();
-  /* IServiceManager */
+  virtual ~ComponentManager();
+  /* IComponentManager */
   virtual void addProvider(IComponentProvider*);
   virtual void addFirstProvider(IComponentProvider*);
   virtual void addLastProvider(IComponentProvider*);

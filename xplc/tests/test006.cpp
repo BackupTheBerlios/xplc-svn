@@ -32,16 +32,16 @@
  */
 
 void test006() {
-  IServiceManager* servmgr;
+  IComponentManager* compmgr;
   IStaticComponentProvider* provider;
   IMonikerService* monikers;
   IObject* testobj;
   IObject* obj;
 
-  servmgr = XPLC_getServiceManager();
-  ASSERT(servmgr != 0, "could not obtain service manager");
+  compmgr = XPLC_getComponentManager();
+  ASSERT(compmgr != 0, "could not obtain component manager");
 
-  obj = servmgr->getObject(XPLC_staticComponentProvider);
+  obj = compmgr->getObject(XPLC_staticComponentProvider);
   ASSERT(obj != 0, "could not obtain static component provider");
 
   provider = mutate<IStaticComponentProvider>(obj);
@@ -51,10 +51,10 @@ void test006() {
   ASSERT(testobj != 0, "could not create TestObject");
 
   provider->addObject(TestObject_CID, testobj);
-  VERIFY(servmgr->getObject(TestObject_CID) == testobj, "adding the test object did not work");
+  VERIFY(compmgr->getObject(TestObject_CID) == testobj, "adding the test object did not work");
   VERIFY(testobj->release() == 2, "incorrect refcount on test object");
 
-  obj = servmgr->getObject(XPLC_monikers);
+  obj = compmgr->getObject(XPLC_monikers);
   ASSERT(obj != 0, "could not obtain moniker component");
   
   monikers = mutate<IMonikerService>(obj);
@@ -79,7 +79,7 @@ void test006() {
 
   VERIFY(provider->release() == 2, "incorrect refcount on static component provider");
 
-  VERIFY(servmgr->release() == 0, "service manager has non-zero refcount after release");
+  VERIFY(compmgr->release() == 0, "component manager has non-zero refcount after release");
 
   VERIFY(testobj->release() == 0, "refcount is wrong on the test object");
 

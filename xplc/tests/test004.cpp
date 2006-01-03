@@ -1,7 +1,7 @@
 /* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*-
  *
  * XPLC - Cross-Platform Lightweight Components
- * Copyright (C) 2000-2004, Pierre Phaneuf
+ * Copyright (C) 2000-2006, Pierre Phaneuf
  * Copyright (C) 2001, Stéphane Lajoie
  * Copyright (C) 2002-2004, Net Integration Technologies, Inc.
  *
@@ -35,16 +35,16 @@
 
 void test004() {
 #ifdef ENABLE_LOADER
-  IServiceManager* servmgr;
+  IComponentManager* compmgr;
   IModuleLoader* loader;
   IModule* module;
   IObject* obj;
   ITestComponent* test;
 
-  servmgr = XPLC_getServiceManager();
-  ASSERT(servmgr != 0, "could not obtain service manager");
+  compmgr = XPLC_getComponentManager();
+  ASSERT(compmgr != 0, "could not obtain component manager");
 
-  obj = servmgr->getObject(XPLC_moduleLoader);
+  obj = compmgr->getObject(XPLC_moduleLoader);
   ASSERT(obj != 0, "could not obtain the module loader component");
 
   loader = mutate<IModuleLoader>(obj);
@@ -67,7 +67,7 @@ void test004() {
 
   VERIFY(module->release() == 0, "module has wrong refcount");
 
-  VERIFY(servmgr->release() == 0, "service manager has non-zero refcount after release");
+  VERIFY(compmgr->release() == 0, "component manager has non-zero refcount after release");
 #endif
 }
 

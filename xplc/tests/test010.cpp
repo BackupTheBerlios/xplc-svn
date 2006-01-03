@@ -53,7 +53,7 @@ static const UUID myComponent3 = {0xea511e95, 0x5be4, 0x4b08,
 #endif
 
 void test010() {
-  IServiceManager* servmgr;
+  IComponentManager* compmgr;
   IObject* obj;
   ICategoryManager* catmgr;
   ICategory* cat;
@@ -65,17 +65,17 @@ void test010() {
   IComponentProvider* modulemgr;
 #endif
 
-  servmgr = XPLC_getServiceManager();
-  ASSERT(servmgr != 0, "could not obtain service manager");
+  compmgr = XPLC_getComponentManager();
+  ASSERT(compmgr != 0, "could not obtain component manager");
 
-  obj = servmgr->getObject(XPLC_categoryManager);
+  obj = compmgr->getObject(XPLC_categoryManager);
   ASSERT(obj != 0, "could not obtain category manager");
 
   catmgr = mutate<ICategoryManager>(obj);
   ASSERT(catmgr != 0, "category manager does not have expected interface");
 
 #ifdef ENABLE_LOADER
-  obj = servmgr->getObject(XPLC_moduleManagerFactory);
+  obj = compmgr->getObject(XPLC_moduleManagerFactory);
   ASSERT(obj != 0, "could not obtain module manager factory");
 
   mgrfactory = mutate<IModuleManagerFactory>(obj);
@@ -146,6 +146,6 @@ void test010() {
 
   VERIFY(catmgr->release() == 1, "category manager has wrong refcount");
 
-  VERIFY(servmgr->release() == 0, "service manager has non-zero refcount after release");
+  VERIFY(compmgr->release() == 0, "component manager has non-zero refcount after release");
 }
 

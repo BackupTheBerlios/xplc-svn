@@ -23,9 +23,9 @@
 #ifndef __XPLC_CORE_H__
 #define __XPLC_CORE_H__
 
-#include <xplc/IServiceManager.h>
+#include <xplc/IComponentManager.h>
 
-extern "C" IServiceManager* XPLC_getServiceManager();
+extern "C" IComponentManager* XPLC_getComponentManager();
 
 static const UUID XPLC_staticComponentProvider = {0xf8c76062, 0xf241, 0x4f38,
 												  {0x80, 0x8d, 0x73, 0x88,
