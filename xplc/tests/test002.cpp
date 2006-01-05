@@ -31,14 +31,22 @@
  * Verifies the static component provider.
  */
 
+#include <stdio.h>
 void test002() {
+  IComponentManager* compmgr;
   IStaticComponentProvider* provider;
   TestObject* test;
   IObject* obj;
   ITestInterface *itest;
 
-  provider = new StaticComponentProvider;
-  ASSERT(provider != 0, "could not instantiate static component provider");
+  compmgr = XPLC_getComponentManager();
+  ASSERT(compmgr != 0, "could not obtain component manager");
+
+  obj = compmgr->getObject(XPLC_staticComponentProvider);
+  ASSERT(obj != 0, "could not obtain the static component provider");
+
+  provider = mutate<IStaticComponentProvider>(obj);
+  ASSERT(provider != 0, "static component provider does not have expected interface");
 
   test = new TestObject;
   ASSERT(test != 0, "could not instantiate test object");
@@ -48,8 +56,8 @@ void test002() {
   provider->addObject(TestObject_CID, test);
   VERIFY(test->getRefCount() == 2, "static component provider did not addRef the test component");
 
-  obj = provider->getObject(TestObject_CID);
-  ASSERT(obj != 0, "could not get test component from static component provider");
+  obj = compmgr->getObject(TestObject_CID);
+  ASSERT(obj != 0, "could not get test component from component manager");
 
   itest = mutate<ITestInterface>(obj);
   ASSERT(itest != 0, "test component does not have the expected interface");
@@ -70,10 +78,12 @@ void test002() {
   if(obj)
     obj->release();
 
-  VERIFY(provider->release() == 0, "static component provider has non-zero refcount after release");
+  VERIFY(provider->release() == 2, "static component provider has unexpected refcount after release");
 
   VERIFY(test->release() == 0, "test object has non-zero refcount after release");
 
   xplcdelete test;
+
+  VERIFY(compmgr->release() == 0, "component manager has non-zero refcount after release");
 }
 
