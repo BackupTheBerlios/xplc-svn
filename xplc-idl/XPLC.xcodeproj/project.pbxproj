@@ -1,0 +1,359 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 42;
+	objects = {
+
+/* Begin PBXBuildStyle section */
+		014CEA520018CE5811CA2923 /* Debug */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		014CEA530018CE5811CA2923 /* Release */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End PBXBuildStyle section */
+
+/* Begin PBXFileReference section */
+		070913E4096A0EDF003A557A /* test001.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = test001.cpp; path = tests/test001.cpp; sourceTree = "<group>"; };
+		07091453096A13AF003A557A /* test009.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = test009.cpp; path = tests/test009.cpp; sourceTree = "<group>"; };
+		07091454096A13AF003A557A /* test010.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = test010.cpp; path = tests/test010.cpp; sourceTree = "<group>"; };
+		070914C2096A1644003A557A /* moduleloader.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = moduleloader.h; path = xplc/moduleloader.h; sourceTree = "<group>"; };
+		070914D3096A2F5B003A557A /* IComponentManager.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = IComponentManager.h; path = include/xplc/IComponentManager.h; sourceTree = "<group>"; };
+		0709157B096A4013003A557A /* compmgr.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = compmgr.h; path = xplc/compmgr.h; sourceTree = "<group>"; };
+		070915AA096A41BD003A557A /* compmgr.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = compmgr.cpp; path = xplc/compmgr.cpp; sourceTree = "<group>"; };
+		0709164E096A46EB003A557A /* xplc.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = xplc.cpp; path = "xplc-cxx/xplc.cpp"; sourceTree = "<group>"; };
+		07677C280969CF8F0074B125 /* core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = core.h; path = include/xplc/core.h; sourceTree = "<group>"; };
+		07677C290969CF8F0074B125 /* delete.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = delete.h; path = include/xplc/delete.h; sourceTree = "<group>"; };
+		07677C2A0969CF8F0074B125 /* factory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = factory.h; path = include/xplc/factory.h; sourceTree = "<group>"; };
+		07677C2B0969CF8F0074B125 /* ICategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ICategory.h; path = include/xplc/ICategory.h; sourceTree = "<group>"; };
+		07677C2C0969CF8F0074B125 /* ICategoryIterator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ICategoryIterator.h; path = include/xplc/ICategoryIterator.h; sourceTree = "<group>"; };
+		07677C2D0969CF8F0074B125 /* ICategoryManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ICategoryManager.h; path = include/xplc/ICategoryManager.h; sourceTree = "<group>"; };
+		07677C2E0969CF8F0074B125 /* IFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IFactory.h; path = include/xplc/IFactory.h; sourceTree = "<group>"; };
+		07677C2F0969CF8F0074B125 /* IModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IModule.h; path = include/xplc/IModule.h; sourceTree = "<group>"; };
+		07677C300969CF8F0074B125 /* IModuleLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IModuleLoader.h; path = include/xplc/IModuleLoader.h; sourceTree = "<group>"; };
+		07677C310969CF8F0074B125 /* IModuleManagerFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IModuleManagerFactory.h; path = include/xplc/IModuleManagerFactory.h; sourceTree = "<group>"; };
+		07677C320969CF8F0074B125 /* IMoniker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IMoniker.h; path = include/xplc/IMoniker.h; sourceTree = "<group>"; };
+		07677C340969CF8F0074B125 /* IObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IObject.h; path = include/xplc/IObject.h; sourceTree = "<group>"; };
+		07677C380969CF8F0074B125 /* IWeakRef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IWeakRef.h; path = include/xplc/IWeakRef.h; sourceTree = "<group>"; };
+		07677C390969CF8F0074B125 /* module.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = module.h; path = include/xplc/module.h; sourceTree = "<group>"; };
+		07677C3A0969CF8F0074B125 /* ptr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ptr.h; path = include/xplc/ptr.h; sourceTree = "<group>"; };
+		07677C3B0969CF8F0074B125 /* trace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = trace.h; path = include/xplc/trace.h; sourceTree = "<group>"; };
+		07677C3C0969CF8F0074B125 /* utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = utils.h; path = include/xplc/utils.h; sourceTree = "<group>"; };
+		07677C3D0969CF8F0074B125 /* uuid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = uuid.h; path = include/xplc/uuid.h; sourceTree = "<group>"; };
+		07677C3E0969CF8F0074B125 /* uuidops.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = uuidops.h; path = include/xplc/uuidops.h; sourceTree = "<group>"; };
+		07677C3F0969CF8F0074B125 /* xplc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = xplc.h; path = include/xplc/xplc.h; sourceTree = "<group>"; };
+		07677C720969D0070074B125 /* category.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = category.cpp; path = xplc/category.cpp; sourceTree = "<group>"; };
+		07677C730969D0070074B125 /* category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = category.h; path = xplc/category.h; sourceTree = "<group>"; };
+		07677C740969D0070074B125 /* categorynode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = categorynode.h; path = xplc/categorynode.h; sourceTree = "<group>"; };
+		07677C750969D0070074B125 /* catiter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = catiter.cpp; path = xplc/catiter.cpp; sourceTree = "<group>"; };
+		07677C760969D0070074B125 /* catiter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = catiter.h; path = xplc/catiter.h; sourceTree = "<group>"; };
+		07677C770969D0070074B125 /* catmgr.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = catmgr.cpp; path = xplc/catmgr.cpp; sourceTree = "<group>"; };
+		07677C780969D0070074B125 /* catmgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = catmgr.h; path = xplc/catmgr.h; sourceTree = "<group>"; };
+		07677C7A0969D0070074B125 /* loader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = loader.cpp; path = xplc/loader.cpp; sourceTree = "<group>"; };
+		07677C7B0969D0070074B125 /* loader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = loader.h; path = xplc/loader.h; sourceTree = "<group>"; };
+		07677C7C0969D0070074B125 /* moduleloader.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = moduleloader.cpp; path = xplc/moduleloader.cpp; sourceTree = "<group>"; };
+		07677C7D0969D0070074B125 /* modulemgr.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = modulemgr.cpp; path = xplc/modulemgr.cpp; sourceTree = "<group>"; };
+		07677C7E0969D0070074B125 /* modulemgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = modulemgr.h; path = xplc/modulemgr.h; sourceTree = "<group>"; };
+		07677C7F0969D0070074B125 /* monikernode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = monikernode.h; path = xplc/monikernode.h; sourceTree = "<group>"; };
+		07677C840969D0070074B125 /* objectnode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = objectnode.h; path = xplc/objectnode.h; sourceTree = "<group>"; };
+		07677C920969D13E0074B125 /* IComponentProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IComponentProvider.h; path = include/xplc/IComponentProvider.h; sourceTree = "<group>"; };
+		07677CF70969D3F90074B125 /* factory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = factory.cpp; path = "xplc-cxx/factory.cpp"; sourceTree = "<group>"; };
+		07677CF80969D3F90074B125 /* getiface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = getiface.cpp; path = "xplc-cxx/getiface.cpp"; sourceTree = "<group>"; };
+		07677CF90969D3F90074B125 /* strtouuid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = strtouuid.cpp; path = "xplc-cxx/strtouuid.cpp"; sourceTree = "<group>"; };
+		07677CFA0969D3F90074B125 /* uuidtostr.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = uuidtostr.cpp; path = "xplc-cxx/uuidtostr.cpp"; sourceTree = "<group>"; };
+		07677CFE0969D52E0074B125 /* test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = test.h; path = tests/test.h; sourceTree = "<group>"; };
+		07677CFF0969D52E0074B125 /* test000.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = test000.cpp; path = tests/test000.cpp; sourceTree = "<group>"; };
+		07677D000969D52E0074B125 /* test002.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 5; name = test002.cpp; path = tests/test002.cpp; sourceTree = "<group>"; };
+		07677D010969D52E0074B125 /* test003.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = test003.cpp; path = tests/test003.cpp; sourceTree = "<group>"; };
+		07677D020969D52E0074B125 /* test004.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = test004.cpp; path = tests/test004.cpp; sourceTree = "<group>"; };
+		07677D030969D52E0074B125 /* test005.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = test005.cpp; path = tests/test005.cpp; sourceTree = "<group>"; };
+		07677D050969D52E0074B125 /* test007.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = test007.cpp; path = tests/test007.cpp; sourceTree = "<group>"; };
+		07677D070969D52E0074B125 /* test011.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = test011.cpp; path = tests/test011.cpp; sourceTree = "<group>"; };
+		07677D080969D52E0074B125 /* testmain.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = testmain.cpp; path = tests/testmain.cpp; sourceTree = "<group>"; };
+		07677D090969D52E0074B125 /* testobj.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testobj.cpp; path = tests/testobj.cpp; sourceTree = "<group>"; };
+		07677D0A0969D52E0074B125 /* testobj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = testobj.h; path = tests/testobj.h; sourceTree = "<group>"; };
+		07677D3F0969D81C0074B125 /* IStaticComponentProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IStaticComponentProvider.h; path = include/xplc/IStaticComponentProvider.h; sourceTree = "<group>"; };
+		07677D850969DB900074B125 /* providernode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = providernode.h; path = xplc/providernode.h; sourceTree = "<group>"; };
+		07677D8D0969DBF10074B125 /* staticprovider.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = staticprovider.cpp; path = xplc/staticprovider.cpp; sourceTree = "<group>"; };
+		07677D8E0969DBF10074B125 /* staticprovider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = staticprovider.h; path = xplc/staticprovider.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		070913E2096A0E95003A557A /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				07677CFE0969D52E0074B125 /* test.h */,
+				07677CFF0969D52E0074B125 /* test000.cpp */,
+				070913E4096A0EDF003A557A /* test001.cpp */,
+				07677D000969D52E0074B125 /* test002.cpp */,
+				07677D010969D52E0074B125 /* test003.cpp */,
+				07677D020969D52E0074B125 /* test004.cpp */,
+				07677D030969D52E0074B125 /* test005.cpp */,
+				07677D050969D52E0074B125 /* test007.cpp */,
+				07091453096A13AF003A557A /* test009.cpp */,
+				07091454096A13AF003A557A /* test010.cpp */,
+				07677D070969D52E0074B125 /* test011.cpp */,
+				07677D080969D52E0074B125 /* testmain.cpp */,
+				07677D090969D52E0074B125 /* testobj.cpp */,
+				07677D0A0969D52E0074B125 /* testobj.h */,
+			);
+			name = Tests;
+			sourceTree = "<group>";
+		};
+		070913E3096A0EB4003A557A /* xplc */ = {
+			isa = PBXGroup;
+			children = (
+				07677C720969D0070074B125 /* category.cpp */,
+				07677C730969D0070074B125 /* category.h */,
+				07677C740969D0070074B125 /* categorynode.h */,
+				07677C750969D0070074B125 /* catiter.cpp */,
+				07677C760969D0070074B125 /* catiter.h */,
+				07677C770969D0070074B125 /* catmgr.cpp */,
+				07677C780969D0070074B125 /* catmgr.h */,
+				070915AA096A41BD003A557A /* compmgr.cpp */,
+				0709157B096A4013003A557A /* compmgr.h */,
+				07677C7A0969D0070074B125 /* loader.cpp */,
+				07677C7B0969D0070074B125 /* loader.h */,
+				07677C7C0969D0070074B125 /* moduleloader.cpp */,
+				070914C2096A1644003A557A /* moduleloader.h */,
+				07677C7D0969D0070074B125 /* modulemgr.cpp */,
+				07677C7E0969D0070074B125 /* modulemgr.h */,
+				07677C7F0969D0070074B125 /* monikernode.h */,
+				07677C840969D0070074B125 /* objectnode.h */,
+				07677D850969DB900074B125 /* providernode.h */,
+				07677D8D0969DBF10074B125 /* staticprovider.cpp */,
+				07677D8E0969DBF10074B125 /* staticprovider.h */,
+			);
+			name = xplc;
+			sourceTree = "<group>";
+		};
+		07677CFC0969D4000074B125 /* xplc-cxx */ = {
+			isa = PBXGroup;
+			children = (
+				07677CF70969D3F90074B125 /* factory.cpp */,
+				07677CF80969D3F90074B125 /* getiface.cpp */,
+				0709164E096A46EB003A557A /* xplc.cpp */,
+				07677CF90969D3F90074B125 /* strtouuid.cpp */,
+				07677CFA0969D3F90074B125 /* uuidtostr.cpp */,
+			);
+			name = "xplc-cxx";
+			sourceTree = "<group>";
+		};
+		07677CFD0969D44E0074B125 /* Public headers */ = {
+			isa = PBXGroup;
+			children = (
+				07677C280969CF8F0074B125 /* core.h */,
+				07677C290969CF8F0074B125 /* delete.h */,
+				07677C2A0969CF8F0074B125 /* factory.h */,
+				07677C2B0969CF8F0074B125 /* ICategory.h */,
+				07677C2C0969CF8F0074B125 /* ICategoryIterator.h */,
+				07677C2D0969CF8F0074B125 /* ICategoryManager.h */,
+				070914D3096A2F5B003A557A /* IComponentManager.h */,
+				07677C920969D13E0074B125 /* IComponentProvider.h */,
+				07677C2E0969CF8F0074B125 /* IFactory.h */,
+				07677C2F0969CF8F0074B125 /* IModule.h */,
+				07677C300969CF8F0074B125 /* IModuleLoader.h */,
+				07677C310969CF8F0074B125 /* IModuleManagerFactory.h */,
+				07677C320969CF8F0074B125 /* IMoniker.h */,
+				07677C340969CF8F0074B125 /* IObject.h */,
+				07677D3F0969D81C0074B125 /* IStaticComponentProvider.h */,
+				07677C380969CF8F0074B125 /* IWeakRef.h */,
+				07677C390969CF8F0074B125 /* module.h */,
+				07677C3A0969CF8F0074B125 /* ptr.h */,
+				07677C3B0969CF8F0074B125 /* trace.h */,
+				07677C3C0969CF8F0074B125 /* utils.h */,
+				07677C3D0969CF8F0074B125 /* uuid.h */,
+				07677C3E0969CF8F0074B125 /* uuidops.h */,
+				07677C3F0969CF8F0074B125 /* xplc.h */,
+			);
+			name = "Public headers";
+			sourceTree = "<group>";
+		};
+		08FB7794FE84155DC02AAC07 /* XPLC */ = {
+			isa = PBXGroup;
+			children = (
+				070913E3096A0EB4003A557A /* xplc */,
+				07677CFC0969D4000074B125 /* xplc-cxx */,
+				07677CFD0969D44E0074B125 /* Public headers */,
+				070913E2096A0E95003A557A /* Tests */,
+			);
+			name = XPLC;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXLegacyTarget section */
+		07677BCB0969CCA20074B125 /* Unit tests */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = tests;
+			buildConfigurationList = 07677BCD0969CCC00074B125 /* Build configuration list for PBXLegacyTarget "Unit tests" */;
+			buildPhases = (
+			);
+			buildSettings = {
+				PRODUCT_NAME = "Unit tests";
+			};
+			buildToolPath = /usr/bin/make;
+			dependencies = (
+			);
+			name = "Unit tests";
+			passBuildSettingsInEnvironment = 1;
+			productName = "Unit tests";
+		};
+		D28A88AD04BDD90700651E21 /* XPLC */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(ACTION)";
+			buildConfigurationList = 1DEB918F08733D9F0010E9CD /* Build configuration list for PBXLegacyTarget "XPLC" */;
+			buildPhases = (
+			);
+			buildSettings = {
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = XPLC;
+			};
+			buildToolPath = /usr/bin/make;
+			dependencies = (
+			);
+			name = XPLC;
+			passBuildSettingsInEnvironment = 1;
+			productName = XPLC;
+		};
+/* End PBXLegacyTarget section */
+
+/* Begin PBXProject section */
+		08FB7793FE84155DC02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 1DEB919308733D9F0010E9CD /* Build configuration list for PBXProject "XPLC" */;
+			buildSettings = {
+			};
+			buildStyles = (
+				014CEA520018CE5811CA2923 /* Debug */,
+				014CEA530018CE5811CA2923 /* Release */,
+			);
+			hasScannedForEncodings = 1;
+			mainGroup = 08FB7794FE84155DC02AAC07 /* XPLC */;
+			projectDirPath = "";
+			targets = (
+				D28A88AD04BDD90700651E21 /* XPLC */,
+				07677BCB0969CCA20074B125 /* Unit tests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		07677BCE0969CCC00074B125 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = "Unit tests";
+			};
+			name = Debug;
+		};
+		07677BCF0969CCC00074B125 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				PRODUCT_NAME = "Unit tests";
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		1DEB919008733D9F0010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEBUGGING_SYMBOLS = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				OPTIMIZATION_CFLAGS = "-O0";
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = XPLC;
+				ZERO_LINK = YES;
+			};
+			name = Debug;
+		};
+		1DEB919108733D9F0010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					ppc,
+					i386,
+				);
+				COPY_PHASE_STRIP = YES;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = XPLC;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		1DEB919408733D9F0010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+			};
+			name = Debug;
+		};
+		1DEB919508733D9F0010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		07677BCD0969CCC00074B125 /* Build configuration list for PBXLegacyTarget "Unit tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				07677BCE0969CCC00074B125 /* Debug */,
+				07677BCF0969CCC00074B125 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DEB918F08733D9F0010E9CD /* Build configuration list for PBXLegacyTarget "XPLC" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB919008733D9F0010E9CD /* Debug */,
+				1DEB919108733D9F0010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DEB919308733D9F0010E9CD /* Build configuration list for PBXProject "XPLC" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB919408733D9F0010E9CD /* Debug */,
+				1DEB919508733D9F0010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 08FB7793FE84155DC02AAC07 /* Project object */;
+}
